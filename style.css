@@ -17,3 +17,6 @@ ul {
 .playlists {
     font-size: larger;
 }
+.selected {
+    border: 5px solid red;
+}

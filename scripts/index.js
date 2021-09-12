@@ -5,7 +5,15 @@
  * @param {String} songId - the ID of the song to play
  */
 function playSong(songId) {
-    
+    const selectedSong = document.getElementById(songId);
+    const classes = []
+    classes.push(["selected"])
+
+    const songs = document.getElementsByClassName("song");
+    for (let song of songs) {
+        song.classList.remove(classes)
+    }
+    selectedSong.classList.add(classes);
 }
 
 /**
@@ -29,9 +37,9 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     ul.appendChild(currentImg);
     children.push(ul)
     const classes = []
-    classes.push(["songs"]) // CSS later
-    const attrs = { onclick: `playSong(${id})`,}
-    return createElement("div", children, classes, attrs)
+    classes.push(["song"]) // CSS later
+    const attrs = { onclick: `playSong(${arguments[0]})`,}
+    return createElement("div", children, classes, attrs, arguments[0])
 }
 
 /**
@@ -49,9 +57,9 @@ function createPlaylistElement({ id, name, songs }) {
     }
     children.push(ul);
     const classes = []
-    classes.push(["playlists"]) // CSS later
+    classes.push(["playlist"]) // CSS later
     const attrs = {}
-    return createElement("div", children, classes, attrs)
+    return createElement("div", children, classes, attrs, id)
 }
 
 /**
@@ -66,14 +74,20 @@ function createPlaylistElement({ id, name, songs }) {
  * @param {Array} classes - the class list of the new element
  * @param {Object} attributes - the attributes for the new element
  */
-function createElement(tagName, children = [], classes = [], attributes = {}) {
+function createElement(tagName, children = [], classes = [], attributes = {}, id) {
     const element = document.createElement(tagName);
     for (let child of children)
     {
         element.appendChild(child);
     }
     element.classList.add(classes);
-    
+    Object.entries(attributes).forEach(([key,value]) => {
+        if (key !== undefined) {
+            element.setAttribute(key, value);
+        }
+    })
+
+    element.id = id;
     return element;
 }
 
