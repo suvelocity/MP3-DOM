@@ -8,12 +8,29 @@
     <link rel="stylesheet" href="./style.css">
     <script src="./scripts/player.js"></script>
     <script src="./scripts/index.js" defer></script>
+    <!-- google fonts import -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&family=Rubik&display=swap" rel="stylesheet">
+    <!-- font awesome icons import -->
+    <script src="https://kit.fontawesome.com/6f16679a9e.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
+
+
+    <aside class="sidebar">
+        <section class="sidebar-item">
+            <p>songs</p>
+        </section>
+        <section class="sidebar-item">
+            <p>playlists</p>
+        </section>
+        <section class="sidebar-album-cover">
+            <img class="sidebar-pic" src="./images/cover_art/acdc_thunderstruck.jpg" alt="">
+        </section>
+    </aside>
+
     <div id="songs">
         <!-- Generated songs go here -->
     </div>
@@ -34,9 +51,18 @@
         </div>
         <div class="bar-middle">
             <div class="bar-buttons">
-                <button class="control-button backwards-button"></button>
-                <button class="control-button play-pause"></button>
-                <button class="control-button forward-button"></button>
+                <button class="control-button backwards-button">
+                    <i class="fa-2x fas fa-step-backward"></i>
+                </button>
+                <button class="control-button pause-button hide-button">
+                    <i class="fa-2x fas fa-pause"></i>
+                </button>
+                <button class="control-button play-button">
+                    <i class="fa-2x fas fa-play"></i>
+                </button>
+                <button class="control-button forward-button">
+                    <i class="fa-2x fas fa-step-forward"></i>
+                </button>
             </div>
             <div class="bar-timebar">
                 <span class="time-start"></span>

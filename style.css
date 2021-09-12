@@ -2,6 +2,28 @@
 *{
     box-sizing: border-box;
 }
+
+html {
+    min-height: 100%;
+}
+
+body {
+    background: linear-gradient(180deg, #423184 0%, #231A38 100%) fixed;
+}
+
+button {
+    background: none;
+    border: none;
+}
+
+.fas {
+    color: white
+}
+
+.hide-button {
+    display:none;
+}
+
 .bar {
     position: fixed;
     left: 0;
@@ -77,14 +99,55 @@ height: 100%;
 .control-button {
     height: 2rem;
     width: 2rem;
+    margin: 0 1rem
 }
 
 
 .bar-timebar {
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: yellow;
     height: 5rem;
     width: 100%;
 }
 
+.progressbar {
+    background-color: brown;
+    height: 5px;
+    width: 60%;
+}
 
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: violet;
+    width: 23%;
+    min-width: 9rem;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+
+.sidebar-item  {
+    flex-basis: 7rem;
+    font-family: 'Rubik';
+    font-size: 2.5rem;
+    margin-left: 2rem;
+    color: white;
+}
+
+.sidebar-album-cover {
+    width: 100%;
+    bottom: 9rem;
+    position: absolute;
+    bottom: 9rem
+}
+
+.sidebar-pic {
+    width: 100%;
+}
