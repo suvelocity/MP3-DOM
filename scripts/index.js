@@ -95,14 +95,23 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
 const songs = document.getElementById("songs")
 const playlists = document.getElementById("playlists")
 
-function appendToDiv() {
+function appendToSongsDiv() {
     player.songs.forEach((song) => {
         const { id, title, album, artist, duration, coverArt } = song
         const newSong = createSongElement(id, title, album, artist, duration, coverArt)
         songs.append(newSong)
     })
 }
-appendToDiv()
+appendToSongsDiv()
+
+function appendToPlaylistsDiv() {
+    player.playlists.forEach((playlist) => {
+        const { id, name, songs } = playlist
+        const newPlaylist = createPlaylistElement(id, name, songs)
+        playlists.append(newPlaylist)
+    })
+}
+appendToPlaylistsDiv()
 // const songsUl = document.createElement("ul")
 // songs.appendChild(songsUl)
 // player.songs.forEach((song) => {
