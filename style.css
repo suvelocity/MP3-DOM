@@ -1,1 +1,15 @@
 /* Your code here */
+body{
+    background-color: chartreuse;
+}
+.songs{
+    background-color: blueviolet;
+    border: 5px, solid, coral;
+    display: inline-block;
+    
+}
+.playlist{
+    background-color: crimson;
+    border: 5px, solid,  blue;
+    display: block;
+}
