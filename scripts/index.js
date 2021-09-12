@@ -32,17 +32,17 @@ function durationConverter(time) {
  *
  * @param {String} songId - the ID of the song to play
  */
+
 function playSong(songId) {
     // make sure it can only be playing 1 at a time:
     const resetSongs = document.querySelectorAll(".song-element")
     resetSongs.forEach((song) => {
-        song.setAttribute("style", "background-color: white")
+        song.setAttribute("style", "background-color: rgb(118, 201, 204)")
     })
-    const allSongs = document.querySelector
     player.songs.forEach((song) => {
         if (song.id === songId) {
             const soughtSong = document.querySelector(".song" + songId)
-            soughtSong.setAttribute("style", "background-color: blue")
+            soughtSong.setAttribute("style", "background-color: rgb(0, 126, 119)")
         }
     })
 }

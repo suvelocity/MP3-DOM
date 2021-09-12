@@ -65,3 +65,6 @@ const player = {
 // sort songs and playlists using chained ternary
 player.songs.sort((a, b) => (a.title > b.title ? 1 : a.title === b.title ? 0 : -1))
 player.playlists.sort((a, b) => (a.name > b.name ? 1 : a.name === b.name ? 0 : -1))
+
+const idArray = player.songs.map((song) => song.id)
+console.log()

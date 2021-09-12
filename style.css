@@ -1,15 +1,9 @@
 /* Your code here  */
-* {
+body {
     text-align: center;
 }
 
-ul {
+li {
     list-style-type: none;
-}
-
-asddiv {
-    width: 300px;
-    border: 15px solid green;
-    padding: 50px;
-    margin: 20px;
+    color: black;
 }
