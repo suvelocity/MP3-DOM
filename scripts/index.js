@@ -4,6 +4,26 @@ const obj = {
     album: "gabbys album",
     artist: "gabby",
 }
+function playlistDuration(id) {
+    let answer = 0
+    const playlists = player.playlists
+    // this was not specified but though it should be here:
+    // checkForId(id, playlists)
+    // finds desired playlist
+    playlists.forEach((playlist) => {
+        if (playlist.id === id) {
+            playlist.songs.forEach((songNumber) => {
+                player.songs.forEach((song) => {
+                    // finds songs that match the numbers in the array 'songs' of playlist object
+                    if (song.id === songNumber) {
+                        answer += song.duration
+                    }
+                })
+            })
+        }
+    })
+    return answer
+}
 // import player from "./player.js"
 function durationConverter(time) {
     if (typeof time === "string") {
@@ -109,6 +129,9 @@ function appendToPlaylistsDiv() {
         const { id, name, songs } = playlist
         const newPlaylist = createPlaylistElement(id, name, songs)
         playlists.append(newPlaylist)
+        const playListTime = document.createElement("li")
+        playListTime.innerText = durationConverter(playlistDuration(id))
+        newPlaylist.append(playListTime)
     })
 }
 appendToPlaylistsDiv()
