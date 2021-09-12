@@ -51,7 +51,7 @@ function createPlaylistElement({ id, name, songs }) {
     return createElement("div", children, classes, attrs)
 }
 
-/** 
+/**
  * Creates a new DOM element.
  *
  * Example usage:
@@ -64,7 +64,14 @@ function createPlaylistElement({ id, name, songs }) {
  * @param {Object} attributes - the attributes for the new element
  */
 function createElement(tagName, children = [], classes = [], attributes = {}) {
- 
+    const element = document.createElement(tagName);
+    for (let child of children)
+    {
+        element.appendChild(child);
+    }
+    element.classList.add(classes);
+    
+    return element;
 }
 
 
