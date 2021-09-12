@@ -5,7 +5,7 @@
  * @param {String} songId - the ID of the song to play
  */
 function playSong(songId) {
-    // Your code here
+    
 }
 
 /**
@@ -16,14 +16,17 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const ul = document.createElement("ul");
     for (let i = 0; i < 5; i++)
     {
-        if (arguments[i] === duration)
+        if (arguments[i] === arguments[4])
         {
-            duration = durationConvertor(duration);
+            arguments[i] = durationConvertor(arguments[4]);
         }
         let list = document.createElement("li"); 
         list.innerText = arguments[i]
         ul.append(list);
     }
+    let currentImg= document.createElement("img");
+    currentImg.src= arguments[5];
+    ul.appendChild(currentImg);
     children.push(ul)
     const classes = []
     classes.push(["songs"]) // CSS later
