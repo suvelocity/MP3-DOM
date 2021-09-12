@@ -1,11 +1,10 @@
 const obj = {
-    id: 6,
-    title: "Sons of Winter and Stars",
-    album: "Time I",
-    artist: "Wintersun",
-    duration: 811,
-    coverArt: "./images/cover_art/wintersun_sons_of_winter_and_stars.jpg",
+    id: 1,
+    title: "gabby",
+    album: "gabbys album",
+    artist: "gabby",
 }
+// import player from "./player.js"
 function durationConverter(time) {
     if (typeof time === "string") {
         const arr = time.split(":")
@@ -32,8 +31,8 @@ function playSong(songId) {
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const children = []
-    const classes = ["song"]
-    const attrs = { onclick: `playSong(${id})` }
+    const classes = ["song-element"]
+    const attrs = { onclick: `playSong(${id})`, id }
     const ul = document.createElement("ul")
     for (let i = 0; i < arguments.length; i++) {
         if (i === 4) {
@@ -43,20 +42,27 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
         li.innerText = arguments[i]
         ul.append(li)
     }
+    ul.id = "ulOfSongs"
     const image = document.createElement("img")
-    image.innerText = arguments[5]
+    image.src = arguments[5]
     ul.appendChild(image)
     children.push(ul)
     return createElement("div", children, classes, attrs)
 }
-console.log(1)
 /**
  * Creates a playlist DOM element based on a playlist object.
  */
 function createPlaylistElement({ id, name, songs }) {
     const children = []
-    const classes = []
-    const attrs = {}
+    const classes = ["playlist-element"]
+    const attrs = { id }
+    const ul = document.createElement("ul")
+    for (let i = 1; i < arguments.length; i++) {
+        const li = document.createElement("li")
+        li.innerText = arguments[i]
+        ul.append(li)
+    }
+    children.push(ul)
     return createElement("div", children, classes, attrs)
 }
 
