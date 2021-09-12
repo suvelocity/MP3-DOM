@@ -62,3 +62,30 @@ const player = {
         { id: 5, name: "Israeli", songs: [4, 5] },
     ],
 }
+function durationConvertor (duration) // convert duration format from seconds to MM:SS format
+{
+  let min="";
+  let sec="";
+  if (typeof(duration) !== "number")
+  {
+    throw "Please Enter a number"
+  }
+  min = Math.floor(duration/60);
+  sec = duration%60;
+  
+  if (min < 10 && sec < 10)  //making sure the time format get out correctly
+  {
+  return("0"+min+":"+"0"+sec)
+  }
+  else if (min < 10 && sec > 10)
+  {
+    return("0"+min+":"+sec)
+  }
+  else if (min > 10 && sec < 10)
+  {
+    return(min+":"+"0"+sec)
+  }
+  else {
+    return(min+":"+sec) 
+  }
+}

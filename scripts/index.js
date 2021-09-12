@@ -13,8 +13,21 @@ function playSong(songId) {
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const children = []
+    const ul = document.createElement("ul");
+    for (let i = 0; i < 5; i++)
+    {
+        // if (arguments[i] === duration)
+        // {
+        //     duration = durationConvertor(duration);
+        // }
+        let list = document.createElement("li");
+        list.innerText = arguments[i]
+        ul.append(list);
+    }
+    children.push(ul)
     const classes = []
-    const attrs = { onclick: `playSong(${id})` }
+    classes.push(["songs"])
+    const attrs = { onclick: `playSong(${id})`,}
     return createElement("div", children, classes, attrs)
 }
 
@@ -41,7 +54,12 @@ function createPlaylistElement({ id, name, songs }) {
  * @param {Object} attributes - the attributes for the new element
  */
 function createElement(tagName, children = [], classes = [], attributes = {}) {
-    // Your code here
+    
 }
-
 // You can write more code below this line
+
+
+// const check = document.createElement("h2")
+// check.textContent = "Hello World";
+// const songsElement = document.getElementById("songs");
+// songsElement.appendChild(check)
