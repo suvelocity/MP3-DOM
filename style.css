@@ -1,1 +1,81 @@
-/* Your code here */
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing: border-box;
+    list-style:none;
+    text-decoration: none;
+    font-family: 'Josefin Sans', sans-serif ;
+}
+
+body{
+    background: #f3f5f9;
+}
+
+.wrapper{
+    display:flex;
+    position:relative;
+}
+
+.wrapper .navbardiv{
+    position:fixed;
+    width:200px;
+    height: 100%;
+    background: #4b4276;
+}
+
+nav ul li{
+    padding:15px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    border-top: 1px solid rgba(225,225,225,0.05);
+}
+
+.nav-link{
+    color:#bdb8d7;
+    display: block;
+}
+
+nav ul li:hover{
+    background: #594f8d;
+}
+
+/*the navigator's text turns white if we 'touch' it*/
+nav ul li:hover button{
+    color: #fff;
+}
+
+.wrapper .main-content{
+    width:100%;
+    margin-left: 230px;
+}
+
+header{
+    font-size: 28;
+    padding: 20px;
+    background: #fff;
+    color:#717171;
+    border-bottom: 1px solid #e0e4e8;
+    border-top: 1px solid #e0e4e8;
+}
+
+li ul li{
+    size:70%;
+}
+
+img{
+    width:150px;
+    /* margin-left: 20px;
+    margin-bottom:-25px; */
+}
+p{
+    white-space: pre-line;
+}
+
+.playlist>p{
+    font-size: 25px;
+}
+
+.playlist h1{
+    font-size: 20px;
+}

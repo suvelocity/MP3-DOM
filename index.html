@@ -9,11 +9,23 @@
         <script src="./scripts/index.js" defer></script>
     </head>
     <body>
-        <div id="songs">
-            <!-- Generated songs go here -->
-        </div>
-        <div id="playlists">
-            <!-- Generated playlists go here -->
+        <div class="wrapper">
+            <div class="navbardiv">
+                <nav id= "navbar">
+                    <ul>
+                        <li><a class="nav-link" onclick="songsHandler()">songs</a></li>
+                        <li><a class="nav-link" onclick="playlistsHandler()">playlists</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div id = "main-content">
+                <div id="songs" class = "main-content">
+
+                </div>
+                <div id="playlists" class = "main-content">
+                    <!-- Generated playlists go here -->
+                </div>
+            </div>
         </div>
     </body>
 </html>
