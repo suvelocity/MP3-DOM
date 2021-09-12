@@ -63,7 +63,23 @@ function playlistsHandler(){
  * @param {String} songId - the ID of the song to play
  */
 function playSong(songId) {
-    // Your code here
+    const song = getEl(player.songs, songId);
+    let currDir = document.getElementById("playNow")
+    while(currDir.firstChild){
+        currDir.removeChild(currDir.firstChild);
+    }
+    if(song.duration <= 120){
+        currDir.style.background = "rgb(0,255,0)"
+    }
+    else if(song.duration >= 420){
+        currDir.style.background = "rgb(255,0,0)"
+    }
+    else{
+        const green = (300 - song.duration)*256/300
+        const red = 256-green;
+        currDir.style.background = "rgb(" + red +"," + green + ",0)"
+    }
+    currDir.appendChild(createSongElement(song))
 }
 
 /**
@@ -74,21 +90,23 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const classes = ["song"]
     const attrs = { onclick: `playSong(${id})` }
 
-    const topic = document.createElement("h1");
+    const topic = createElement("h1");
     topic.textContent = "song #" + id + "\n";
     children.push(topic)
 
-    const info = document.createElement("p");
+    const info = createElement("p");
     info.textContent = "name: " + title + "\nalbum: " + album + "\nartist: " + artist + "\nduration: " + convertDuration(duration);
     children.push(info)
 
-    const img = document.createElement("img");
+    const img = createElement("img");
     img.src = coverArt;
     children.push(img)
 
     //createElement('div',children,classes,attrs)
     //document.getElementById("songs").appendChild(createElement("div", children, classes, attrs));
-    return createElement("div", children, classes, attrs)
+    const el = createElement("div", children, classes, attrs)
+    //console.log(el.attributes)
+    return el
 }
 
 /**
@@ -106,13 +124,11 @@ function createPlaylistElement({ id, name, songs }) {
     const info = createElement("p");
     info.textContent = "songs -";
     children.push(info)
-    for(let i = 1; i <= songs.length; i++){
-
+    for(let i = 1; i <= songs.length; i++){//pushes every song as an element
         children.push(createSongElement(getEl(player.songs,songs[i-1])));
     }
 
-    console.log(children);
-    
+    //console.log(children);
     return createElement("div", children, classes, attrs)
 }
 
@@ -136,12 +152,15 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
     for(const cls of classes){
         newEl.classList.add(cls);
     }
-    newEl.attributes = attributes;
-    //document.getElementById("songs").appendChild(newEl);
+    for(const atr in attributes){
+        newEl.setAttribute(atr,attributes[atr])
+    }
     return newEl
 }
 
 // You can write more code below this line
 for(const song of player.songs){
-    document.getElementById("songs").appendChild(createSongElement(song));
+    let el = createSongElement(song)
+    document.getElementById("songs").appendChild(el);
+    //console.log(el.attributes);
 }
