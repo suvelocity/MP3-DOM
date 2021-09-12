@@ -1,3 +1,13 @@
+function durationConverter(time) {
+    if (typeof time === "string") {
+        const arr = time.split(":")
+        const seconds = +arr[0] * 60 + +(+arr[1])
+        return seconds
+    } else {
+        let newFormat = new Date(time * 1000).toISOString().substr(14, 5)
+        return newFormat
+    }
+}
 /**
  * Plays a song from the player.
  * Playing a song means changing the visual indication of the currently playing song.
@@ -6,6 +16,7 @@
  */
 function playSong(songId) {
     // Your code here
+    // here will be something like changing the background color.
 }
 
 /**
@@ -42,20 +53,34 @@ function createPlaylistElement({ id, name, songs }) {
  */
 function createElement(tagName, children = [], classes = [], attributes = {}) {
     // Your code here
+    const element = document.createElement(tagName)
+    children.forEach((child) => element.append(child))
+    element.classList = classes.join(" ")
+    for (const attr in attributes) {
+        element.setAttribute(attr, attributes[attr])
+    }
+    return element
 }
+createElement("div", ["li", "p", "a"], "myClass", { gabby: "valueOfGabby" })
 
 // You can write more code below this line
-// sort songs and playlists using chained ternary
-player.songs.sort((a, b) => (a.title > b.title ? 1 : a.title === b.title ? 0 : -1))
-player.playlists.sort((a, b) => (a.name > b.name ? 1 : a.name === b.name ? 0 : -1))
 
 // creating a ul with nested li for songs:
-const songs = document.getElementById("songs")
-const playlists = document.getElementById("playlists")
-const songsUl = document.createElement("ul")
-songs.appendChild(songsUl)
-player.songs.forEach((song) => {
-    const li = document.createElement("li")
-    li.innerHTML = `${song.title} ${song.album} ${song.artist} ${song.duration}`
-    songsUl.appendChild(li)
-})
+// const songs = document.getElementById("songs")
+// const playlists = document.getElementById("playlists")
+// const songsUl = document.createElement("ul")
+// songs.appendChild(songsUl)
+// player.songs.forEach((song) => {
+//     const li = document.createElement("li")
+//     const img = document.createElement("img")
+//     const div = document.createElement("div")
+//     img.src = "C:/dev/cyber4s/MP3-DOM/images/cover_art/acdc_thunderstruck.jpg"
+//     div.innerHTML = `${song.title} ${song.album} ${song.artist} ${durationConverter(song.duration)}`
+//     li.appendChild(div)
+//     li.appendChild(img)
+//     songsUl.appendChild(li)
+// })
+
+// let x = `acdc_thunderstruck.jpg`
+// const test = `C:/dev/cyber4s/MP3-DOM/images/cover_art/${x}`
+// console.log(test)

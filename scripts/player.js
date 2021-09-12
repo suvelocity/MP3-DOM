@@ -62,3 +62,5 @@ const player = {
         { id: 5, name: "Israeli", songs: [4, 5] },
     ],
 }
+player.songs.sort((a, b) => (a.title > b.title ? 1 : a.title === b.title ? 0 : -1))
+player.playlists.sort((a, b) => (a.name > b.name ? 1 : a.name === b.name ? 0 : -1))
