@@ -5,7 +5,12 @@
  * @param {String} songId - the ID of the song to play
  */
 function playSong(songId) {
-
+ for (let song of player.songs){
+     document.getElementById(song.id).style.background="white"
+     if(song.id===songId){
+        document.getElementById(song.id).style.background="lightblue"
+     }
+ }
 }
 
 /**
@@ -106,7 +111,7 @@ function playPlaylist(playlist){
 
 
 
-
+    player.songs.sort(sortArray);
 const x=document.getElementById("songs")
 for(let i=0;i<player.songs.length;i++){
 x.appendChild(createSongElement(player.songs[i]))
@@ -115,4 +120,13 @@ x.appendChild(createSongElement(player.songs[i]))
 const y=document.getElementById("playlists")
 for(let i=0;i<player.playlists.length;i++){
     y.appendChild(createPlaylistElement(player.playlists[i]))
+    }
+
+    function sortArray(a, b){
+        if(a.hasOwnProperty("title")){
+          return a.title.localeCompare(b.title);
+        }
+        if(a.hasOwnProperty("name")){
+          return a.name.localeCompare(b.name);
+        }
     }
