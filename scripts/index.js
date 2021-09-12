@@ -16,17 +16,17 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const ul = document.createElement("ul");
     for (let i = 0; i < 5; i++)
     {
-        // if (arguments[i] === duration)
-        // {
-        //     duration = durationConvertor(duration);
-        // }
-        let list = document.createElement("li");
+        if (arguments[i] === duration)
+        {
+            duration = durationConvertor(duration);
+        }
+        let list = document.createElement("li"); 
         list.innerText = arguments[i]
         ul.append(list);
     }
     children.push(ul)
     const classes = []
-    classes.push(["songs"])
+    classes.push(["songs"]) // CSS later
     const attrs = { onclick: `playSong(${id})`,}
     return createElement("div", children, classes, attrs)
 }
@@ -36,12 +36,22 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
  */
 function createPlaylistElement({ id, name, songs }) {
     const children = []
+
+    const ul= document.createElement("ul");
+    for(let i=0; i<3; i++)
+    {
+        let li= document.createElement("li");
+        li.innerHTML = arguments[i];
+        ul.appendChild(li);
+    }
+    children.push(ul);
     const classes = []
+    classes.push(["playlists"]) // CSS later
     const attrs = {}
     return createElement("div", children, classes, attrs)
 }
 
-/**
+/** 
  * Creates a new DOM element.
  *
  * Example usage:
@@ -54,9 +64,13 @@ function createPlaylistElement({ id, name, songs }) {
  * @param {Object} attributes - the attributes for the new element
  */
 function createElement(tagName, children = [], classes = [], attributes = {}) {
-    
+ 
 }
+
+
+
 // You can write more code below this line
+
 
 
 // const check = document.createElement("h2")

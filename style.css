@@ -1,8 +1,19 @@
 html,
 body {
+    text-align: center;
     margin: 0px;
     padding: 0px;
 }
 h1 {
     text-align: center;
+}
+ul {
+  list-style-type: none;  
+  margin-right: 2%;
+}
+.songs {
+  
+}
+.playlists {
+    
 }
