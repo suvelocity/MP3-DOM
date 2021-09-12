@@ -1,3 +1,5 @@
+
+
 //Duration convertor (from seconds to mm:ss)
 function durationConvertor(duration){
     let minutes = Math.floor(duration / 60);
@@ -28,32 +30,36 @@ function playSong(songId) {
  * Creates a song DOM element based on a song object.
  */
 
-            /*
+            
 
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     
     //-------Song elements-------\\
-    const songTitle = createElement("header");
+    const songTitle = document.createElement("header");
     songTitle.innerHTML = title;
-    songTitle = className = "song-title";
-    const songAlbum = createElement("li");
+    songTitle.className = "song-title";
+    
+    const songAlbum = document.createElement("li");
     songAlbum.innerHTML = album;
-    songAlbum = className = "song-item";
-    const songArtist = createElement("li");
+    songAlbum.className = "song-item";
+
+    const songArtist = document.createElement("li");
     songArtist.innerHTML = artist;
-    songArtist = className = "song-item";
-    const songDuration = createElement("li");
+    songArtist.className = "song-item"; 
+
+    const songDuration = document.createElement("li");
     songDuration.innerHTML = durationConvertor(duration);
-    songDuration = className = "song-duration";
-    const songCover = createElement("img");
+    songDuration.className = "song-duration";
+
+    const songCover = document.createElement("img");
     songCover.innerHTML = coverArt;
-    songCover = className = "song-cover"
+    songCover.className = "song-cover";
+
 
     const children = [songTitle, songAlbum, songArtist, songDuration, songCover];
     const classes = ["song-class"];
     const attrs = { onclick: `playSong(${id})` }
 
-    newSong.innerHTML = title + album + artist + duration + coverArt;
     return createElement("div", children, classes, attrs)
 };
 
@@ -61,14 +67,14 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
  * Creates a playlist DOM element based on a playlist object.
  */
 
-/*
+
 function createPlaylistElement({ id, name, songs }) {
     const children = [];
     const classes = [];
     const attrs = {};
     return createElement("div", children, classes, attrs);
 };
-*/
+
 
 /**
  * Creates a new DOM element.
@@ -83,27 +89,31 @@ function createPlaylistElement({ id, name, songs }) {
  * @param {Object} attributes - the attributes for the new element
  */
 
-          /*
 
 function createElement(tagName, children = [], classes = [], attributes = {}) {
-    let element = document.creatElement(tagName);
+    let element = document.createElement(tagName);
     for(let i = 0; i < children.length; i++){
-        element.appendChild(childen[i]);
-        element.insertBefore(children[i], element.lastChild);
+        element.appendChild(children[i]);
     }
-    for(let clas of classes){
-        element.className(clas);
+    for(let i = 0; i < classes.length; i++){
+        element.className = classes[i];
     }
-    for(let attribute of attributes){
-        element.setAttribute(attribute);
+
+    //coudln't figure this out
+    /*
+    for(let attri of attributes){
+    element.setAttribute(attri);
     }
+    */
+
+    return element;
 };
 
-let newSong = createSongElement(1, "Vortex", "Wallflowers", "Jinjer", 242, "./images/cover_art/jinjer_vortex.jpg");
-
-*/
 
 // You can write more code below this line
+
+//console.log(player);
+
 //Get existing elements in the html index and place them in variables
 let body = document.getElementById('body');
 let songsElement = document.getElementById('songs');
@@ -152,8 +162,10 @@ songsElement.className = "container";
     let listOfSongs = document.createElement('ul');
     listOfSongs.className = "list";
     listOfSongs.id = "songs-list";
+    
 
         //Item for each song
+        
 
 //-------PLAYLISTS-------\\
 //Container element (<div>) for playlists
@@ -175,6 +187,7 @@ playlistsElement.className = "container";
     listOfPlaylists.id = "playlists-list";
 
         //Item for each playlist
+        
 
 //-----------Appendment and placement of elements------\\
 //---------MAIN--------\\
@@ -192,8 +205,12 @@ songsElement.appendChild(songsHeader);
     songsHeader.appendChild(songsH2);
 
 songsElement.appendChild(listOfSongs);
-    listOfSongs.appendChild(newSong);
-    listOfSongs.insertBefore(newSong, listOfSongs.lastChild);
+console.log(songsElement);
+for(let song of player.songs){
+    listOfSongs.appendChild(createSongElement(song));
+}
+    //listOfSongs.appendChild(newSong);
+    //listOfSongs.insertBefore(newSong, listOfSongs.lastChild);
 
 //-------PLAYLISTS-------\\
 
@@ -216,8 +233,9 @@ intro.innerHTML = "This MP3 player was created to light up your mood, do not hes
 songsH2.innerHTML = "Songs";
 
 
+
+
 //-------PLAYLISTS-------\\
 //playlists headline
 playlistsH3.innerHTML = "Playlists";
 
-console.log(listOfSongs);
