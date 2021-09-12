@@ -174,14 +174,17 @@ button {
     width: 100%;
 }
 
-/* START MY SONGS SECTION */
-.my-songs {
+.page-section {
     background-color: darkslategray;
     height: 100vh;
     width: 77%;
     position: absolute;
     right: 0;
     top: 0;
+}
+
+/* START MY SONGS SECTION */
+.my-songs {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -245,4 +248,52 @@ button {
 
 .data-cell {
     padding: 0 0.9rem;
+}
+
+/* END MY SONG SECTION */
+
+.hide-section {
+    display: none;
+}
+
+/* START MY PLAYLISTS SECTION */
+#playlists {
+    padding: 1rem 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: flex-start;
+    margin-top: -5rem;
+}
+
+.playlist-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    color: white;
+    font-family: "Rubik";
+    font-size: 2vw;
+    height: 43vh;
+    width: 24vw;
+    margin: 5vw;
+    min-width: 15rem;
+}
+
+.card-album-img-container {
+    height: 70%;
+}
+
+.card-album-img {
+    width: 100%;
+}
+
+.card-playlist-info {
+    height: 15%;
+}
+
+.card-playlist-duration {
+    height: 15%;
 }
