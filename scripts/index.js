@@ -16,15 +16,22 @@ function playSong(songId) {
 playSong(5)
 /**
  * Creates a song DOM element based on a song object.
+ * coverArt gets file path as argument
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
-    let songElement = document.createElement("div")
-    songElement.className("song-data-container")
+    console.log(id, title, album, artist, duration, coverArt)
+    let imgTemplate = createElement("img", [], ["album-img"], { src: coverArt })
+    let spanWithImg = createElement("span", [imgTemplate], ["data-cell", "album-img-container"], [])
+    let spanTitle = createElement("span", [title], ["data-cell", "song-title"])
+    let spanAlbum = createElement("span", [album], ["data-cell", "song-album"])
+    let spanArtist = createElement("span", [artist], ["data-cell", "song-artist"])
+    let spanDuration = createElement("span", [duration], ["data-cell", "song-duration"])
 
-    const children = []
+    const children = [spanWithImg, spanTitle, spanAlbum, spanArtist, spanDuration]
 
-    songElement.append(children)
-    const classes = []
+    console.log(`children are: ${children}`)
+
+    const classes = ["song-data-container"]
     const attrs = { onclick: `playSong(${id})` }
     return createElement("div", children, classes, attrs)
 }
@@ -56,7 +63,11 @@ function createPlaylistElement({ id, name, songs }) {
 function createElement(tagName, children = [], classes = [], attributes = {}) {
     newElement = document.createElement(tagName)
     newElement.append(...children)
-    newElement.classList = classes
+
+    for (className of classes) {
+        newElement.classList.add(className)
+    }
+
     //go through the added attributes object. for each id value pair, use the setAttribute method to add the attribute to the element.
     for (i = 0; i < Object.keys(attributes).length; i++) {
         newElement.setAttribute(Object.keys(attributes)[i], Object.values(attributes)[i])
