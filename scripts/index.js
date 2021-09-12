@@ -78,7 +78,13 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
 
 // You can write more code below this line
 
+sortedSongs();
 
+sortedPlaylists(); 
+
+printAllSongs();
+
+printAllPlaylists();
 
 // const check = document.createElement("h2")
 // check.textContent = "Hello World";

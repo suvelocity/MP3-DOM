@@ -126,3 +126,4 @@ function printAllPlaylists()
         playlistPrint.appendChild(playlistElem);
     }
 }
+ 
