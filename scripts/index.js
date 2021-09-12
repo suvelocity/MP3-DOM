@@ -92,8 +92,17 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
 // You can write more code below this line
 
 // creating a ul with nested li for songs:
-// const songs = document.getElementById("songs")
-// const playlists = document.getElementById("playlists")
+const songs = document.getElementById("songs")
+const playlists = document.getElementById("playlists")
+
+function appendToDiv() {
+    player.songs.forEach((song) => {
+        const { id, title, album, artist, duration, coverArt } = song
+        const newSong = createSongElement(id, title, album, artist, duration, coverArt)
+        songs.append(newSong)
+    })
+}
+appendToDiv()
 // const songsUl = document.createElement("ul")
 // songs.appendChild(songsUl)
 // player.songs.forEach((song) => {
