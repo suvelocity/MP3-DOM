@@ -55,15 +55,12 @@ function createPlaylistElement({ id, name, songs }) {
  */
 function createElement(tagName, children = [], classes = [], attributes = {}) {
     newElement = document.createElement(tagName)
-
-    newElement.append([...children])
-
+    newElement.append(...children)
     newElement.classList = classes
-
+    //go through the added attributes object. for each id value pair, use the setAttribute method to add the attribute to the element.
     for (i = 0; i < Object.keys(attributes).length; i++) {
         newElement.setAttribute(Object.keys(attributes)[i], Object.values(attributes)[i])
     }
-
     return newElement
 }
 
