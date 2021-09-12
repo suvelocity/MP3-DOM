@@ -101,10 +101,10 @@ function convertDuriation(duration){
    
         function playlistDuration(playlist) {
             let sumDuration=0
-            for (let key in player.playlists){
-                if(player.playlists[key]===playlist.name){
-                    for(let i=0;i<player.playlists[key].songs.length;i++){
-                        sumDuration+=songFromArray(player.playlists[key].songs[i])
+            for (let j=0;j<player.playlists.length;j++){
+                if(player.playlists[j].name===playlist.name){
+                    for(let i=0;i<player.playlists[j].songs.length;i++){
+                        sumDuration+=songFromArray(player.playlists[j].songs[i])
                       }
                       return sumDuration;
                 }

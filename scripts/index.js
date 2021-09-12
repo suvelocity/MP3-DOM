@@ -82,7 +82,7 @@ return list
 
 function playPlaylist(playlist){
     const list=[]
-    const sumDuration =playlistDuration(playlist)
+    let sumDuration =playlistDuration(playlist)
     for(let key in playlist){
         if(key.toString()!=="songs"){
            const li=document.createElement('li')
@@ -98,7 +98,8 @@ function playPlaylist(playlist){
     }
     // let sumDuration=playlistDuration(playlist[key]);
     const li=document.createElement("li")
-    li.innerText=`duration: ${sumDuration}`;
+    li.innerText=`duration: ${(sumDuration)}`;
+    sumDuration=convertDuriation(sumDuration)
     list.push(sumDuration)
     return list 
     }
