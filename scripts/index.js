@@ -1,9 +1,6 @@
 function playlistDuration(id) {
     let answer = 0
     const playlists = player.playlists
-    // this was not specified but though it should be here:
-    // checkForId(id, playlists)
-    // finds desired playlist
     playlists.forEach((playlist) => {
         if (playlist.id === id) {
             playlist.songs.forEach((songNumber) => {
@@ -18,7 +15,7 @@ function playlistDuration(id) {
     })
     return answer
 }
-// import player from "./player.js"
+
 function durationConverter(time) {
     if (typeof time === "string") {
         const arr = time.split(":")
@@ -68,7 +65,6 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
         li.innerText = arguments[i]
         ul.append(li)
     }
-    // ul.id = id
     ul.appendChild(image)
     children.push(ul)
     return createElement("div", children, classes, attrs)
@@ -103,7 +99,6 @@ function createPlaylistElement({ id, name, songs }) {
  * @param {Object} attributes - the attributes for the new element
  */
 function createElement(tagName, children = [], classes = [], attributes = {}) {
-    // Your code here
     const element = document.createElement(tagName)
     children.forEach((child) => element.append(child))
     element.classList = classes.join(" ")
@@ -118,6 +113,16 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
 // creating a ul with nested li for songs:
 const songs = document.getElementById("songs")
 const playlists = document.getElementById("playlists")
+const siteHeader = document.createElement("header")
+const headerContent = document.createElement("h1")
+headerContent.innerText = `Gabby's MP3 Player`
+const songHeader = document.createElement("h2")
+songHeader.innerText = `Songs`
+siteHeader.append(headerContent, songHeader)
+document.body.insertBefore(siteHeader, songs)
+const playlistHeader = document.createElement("h2")
+playlistHeader.innerText = `Playlists:`
+document.body.insertBefore(playlistHeader, playlists)
 
 function appendToSongsDiv() {
     player.songs.forEach((song) => {
@@ -140,19 +145,3 @@ function appendToPlaylistsDiv() {
     })
 }
 appendToPlaylistsDiv()
-// const songsUl = document.createElement("ul")
-// songs.appendChild(songsUl)
-// player.songs.forEach((song) => {
-//     const li = document.createElement("li")
-//     const img = document.createElement("img")
-//     const div = document.createElement("div")
-//     img.src = "C:/dev/cyber4s/MP3-DOM/images/cover_art/acdc_thunderstruck.jpg"
-//     div.innerHTML = `${song.title} ${song.album} ${song.artist} ${durationConverter(song.duration)}`
-//     li.appendChild(div)
-//     li.appendChild(img)
-//     songsUl.appendChild(li)
-// })
-
-// let x = `acdc_thunderstruck.jpg`
-// const test = `C:/dev/cyber4s/MP3-DOM/images/cover_art/${x}`
-// console.log(test)

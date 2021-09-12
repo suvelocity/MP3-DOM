@@ -1,11 +1,13 @@
 /* Your code here  */
-div {
-    display: flex;
-    flex-direction: column;
-    flex-flow: column;
+* {
+    text-align: center;
 }
 
-li > div {
+ul {
+    list-style-type: none;
+}
+
+asddiv {
     width: 300px;
     border: 15px solid green;
     padding: 50px;
