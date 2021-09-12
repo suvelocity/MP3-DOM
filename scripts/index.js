@@ -45,3 +45,17 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
 }
 
 // You can write more code below this line
+// sort songs and playlists using chained ternary
+player.songs.sort((a, b) => (a.title > b.title ? 1 : a.title === b.title ? 0 : -1))
+player.playlists.sort((a, b) => (a.name > b.name ? 1 : a.name === b.name ? 0 : -1))
+
+// creating a ul with nested li for songs:
+const songs = document.getElementById("songs")
+const playlists = document.getElementById("playlists")
+const songsUl = document.createElement("ul")
+songs.appendChild(songsUl)
+player.songs.forEach((song) => {
+    const li = document.createElement("li")
+    li.innerHTML = `${song.title} ${song.album} ${song.artist} ${song.duration}`
+    songsUl.appendChild(li)
+})
