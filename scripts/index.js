@@ -67,6 +67,20 @@ function newWindow(){
     el.appendChild(createElement("div",[],[],{'id':'playlists', 'class':'main-content'}))
 }
 
+function removeSongHandler(){
+    newWindow();
+
+    let rad
+    let songEl
+    let form = createElement("form",[],['main-content'],{})
+    for(let song of player.songs){
+        songEl = createSongElement(song);
+        rad = createElement("input",[songEl],[],{'type':'checkbox'})
+        form.appendChild(rad);
+    }
+    document.getElementById("main-content").appendChild(form);
+}
+
 function addSongHandler(){
     newWindow();
     let children = []
