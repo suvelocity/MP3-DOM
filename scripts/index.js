@@ -45,6 +45,8 @@ function createPlaylistElement({ id, name, songs }) {
  * Example usage:
  * createElement("div", ["just text", createElement(...)], ["nana", "banana"], {id: "bla"})
  *
+ * createElement("div", ["just text"], ["nana", "banana"], {id: "bla"})
+ *
  * @param {String} tagName - the type of the element
  * @param {Array} children - the child elements for the new element.
  *                           Each child can be a DOM element, or a string (if you just want a text element).
@@ -52,7 +54,15 @@ function createPlaylistElement({ id, name, songs }) {
  * @param {Object} attributes - the attributes for the new element
  */
 function createElement(tagName, children = [], classes = [], attributes = {}) {
-    newElement = document.createElement(tagName, children, classes, attributes)
+    newElement = document.createElement(tagName)
+
+    newElement.append([...children])
+
+    newElement.classList = classes
+
+    for (i = 0; i < Object.keys(attributes).length; i++) {
+        newElement.setAttribute(Object.keys(attributes)[i], Object.values(attributes)[i])
+    }
 
     return newElement
 }
