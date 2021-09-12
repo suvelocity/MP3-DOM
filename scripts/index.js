@@ -4,9 +4,13 @@
  *
  * @param {String} songId - the ID of the song to play
  */
+
+
 function playSong(songId) {
-    // Your code here
+
+
 }
+
 
 /**
  * Creates a song DOM element based on a song object.
@@ -40,8 +44,27 @@ function createPlaylistElement({ id, name, songs }) {
  * @param {Array} classes - the class list of the new element
  * @param {Object} attributes - the attributes for the new element
  */
-function createElement(tagName, children = [], classes = [], attributes = {}) {
-    // Your code here
+
+
+
+ function createElement(tagName, children = [], classes = [], attributes = {}) {
+    let elementName = document.createElement(tagName);
+    for (value of children) {
+        elementName.append(value)
+    }
+    elementName.classList.add(classes)
+
+    for (let [att, value] of Object.entries(attributes)) {
+        elementName.setAttribute(`${att}`, `${value}`)
+    }
+    return elementName
 }
 
+
 // You can write more code below this line
+
+
+
+
+
+console.log(createElement("hi", ["hello"],  ["a", "b"], {id: "bla"}) )
