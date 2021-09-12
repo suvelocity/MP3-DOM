@@ -1,1 +1,21 @@
-/* Your code here */
+
+
+#songs{
+    display: flex;
+   flex-direction: column;
+   max-width: 20rem;
+   font-size: large;
+   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+   width: 50%;
+   align-items: center;
+   padding-bottom: 10px;
+}
+
+.coverArt{
+    align-items: center;
+    box-sizing: (10px 10px 10px 10px);
+}
+.title{
+    font-style: italic;
+}
+
