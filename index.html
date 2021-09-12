@@ -1,19 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <title>Awesome MP3 Player</title>
-        <link rel="shortcut icon" type="image/x-icon" href="./images/icon.png" />
-        <link rel="stylesheet" href="./style.css">
-        <script src="./scripts/player.js"></script>
-        <script src="./scripts/index.js" defer></script>
-    </head>
-    <body>
-        <div id="songs">
-            <!-- Generated songs go here -->
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Purp Player</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./images/icon.png" />
+    <link rel="stylesheet" href="./style.css">
+    <script src="./scripts/player.js"></script>
+    <script src="./scripts/index.js" defer></script>
+</head>
+
+<body>
+    <div id="songs">
+        <!-- Generated songs go here -->
+    </div>
+    <div id="playlists">
+        <!-- Generated playlists go here -->
+    </div>
+    <div class="bar">
+        <div class="bar-left">
+            <div class="bar-title">
+
+            </div>
+            <div class="bar-artist">
+
+            </div>
+            <div class="bar-album">
+
+            </div>
         </div>
-        <div id="playlists">
-            <!-- Generated playlists go here -->
+        <div class="bar-middle">
+            <div class="bar-buttons">
+                <button class="backwards-button"></button>
+                <button class="play-pause"></button>
+                <button class="forward-button"></button>
+            </div>
+            <div class="bar-timebar">
+                <span class="time-start"></span>
+                <span class="timebar"></span>
+                <span class="time-end"></span>
+            </div>
         </div>
-    </body>
+        <div class="bar-right">
+            <span class="volume-slider"></span>
+        </div>
+    </div>
+
+</body>
+
 </html>
