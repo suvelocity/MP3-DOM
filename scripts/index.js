@@ -19,7 +19,11 @@ playSong(5)
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     let songElement = document.createElement("div")
+    songElement.className("song-data-container")
+
     const children = []
+
+    songElement.append(children)
     const classes = []
     const attrs = { onclick: `playSong(${id})` }
     return createElement("div", children, classes, attrs)
@@ -48,7 +52,9 @@ function createPlaylistElement({ id, name, songs }) {
  * @param {Object} attributes - the attributes for the new element
  */
 function createElement(tagName, children = [], classes = [], attributes = {}) {
-    // Your code here
+    newElement = document.createElement(tagName, children, classes, attributes)
+
+    return newElement
 }
 
 // You can write more code below this line
