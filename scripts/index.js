@@ -1,9 +1,3 @@
-const obj = {
-    id: 1,
-    title: "gabby",
-    album: "gabbys album",
-    artist: "gabby",
-}
 function playlistDuration(id) {
     let answer = 0
     const playlists = player.playlists
@@ -42,8 +36,18 @@ function durationConverter(time) {
  * @param {String} songId - the ID of the song to play
  */
 function playSong(songId) {
-    // Your code here
-    // here will be something like changing the background color.
+    // make sure it can only be playing 1 at a time:
+    const resetSongs = document.querySelectorAll(".song-element")
+    resetSongs.forEach((song) => {
+        song.setAttribute("style", "background-color: white")
+    })
+    const allSongs = document.querySelector
+    player.songs.forEach((song) => {
+        if (song.id === songId) {
+            const soughtSong = document.querySelector(".song" + songId)
+            soughtSong.setAttribute("style", "background-color: blue")
+        }
+    })
 }
 
 /**
@@ -52,9 +56,11 @@ function playSong(songId) {
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const children = []
     const classes = ["song-element"]
-    const attrs = { onclick: `playSong(${id})`, id }
+    const attrs = { onclick: `playSong(${id})` }
     const ul = document.createElement("ul")
-    for (let i = 0; i < arguments.length; i++) {
+    const image = document.createElement("img")
+    image.src = arguments[5]
+    for (let i = 0; i < arguments.length - 1; i++) {
         if (i === 4) {
             arguments[4] = durationConverter(arguments[4])
         }
@@ -62,9 +68,7 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
         li.innerText = arguments[i]
         ul.append(li)
     }
-    ul.id = "ulOfSongs"
-    const image = document.createElement("img")
-    image.src = arguments[5]
+    // ul.id = id
     ul.appendChild(image)
     children.push(ul)
     return createElement("div", children, classes, attrs)
@@ -119,6 +123,7 @@ function appendToSongsDiv() {
     player.songs.forEach((song) => {
         const { id, title, album, artist, duration, coverArt } = song
         const newSong = createSongElement(id, title, album, artist, duration, coverArt)
+        newSong.classList.add("song" + id)
         songs.append(newSong)
     })
 }
