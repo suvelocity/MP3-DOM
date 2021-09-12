@@ -5,13 +5,20 @@
  * @param {String} songId - the ID of the song to play
  */
 function playSong(songId) {
-    // Your code here
+    // change bar-left song descriptions according to the song selected by id.
+    let song = getSongById(songId)
+    let songInfo = document.getElementsByClassName("song-details")
+    songInfo[0].innerText = song.title
+    songInfo[1].innerText = song.artist
+    songInfo[2].innerText = song.album
 }
 
+playSong(5)
 /**
  * Creates a song DOM element based on a song object.
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
+    let songElement = document.createElement("div")
     const children = []
     const classes = []
     const attrs = { onclick: `playSong(${id})` }
@@ -45,3 +52,12 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
 }
 
 // You can write more code below this line
+
+function getSongById(id) {
+    for (let song of player.songs) {
+        if (song.id === id) {
+            return song
+        }
+    }
+    throw new Error(`Whoops! we couldn't find a song that matches the ID you entered. Song ID entered: ${id}`)
+}
