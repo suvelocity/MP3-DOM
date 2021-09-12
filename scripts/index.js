@@ -1,3 +1,11 @@
+const obj = {
+    id: 6,
+    title: "Sons of Winter and Stars",
+    album: "Time I",
+    artist: "Wintersun",
+    duration: 811,
+    coverArt: "./images/cover_art/wintersun_sons_of_winter_and_stars.jpg",
+}
 function durationConverter(time) {
     if (typeof time === "string") {
         const arr = time.split(":")
@@ -24,11 +32,24 @@ function playSong(songId) {
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const children = []
-    const classes = []
+    const classes = ["song"]
     const attrs = { onclick: `playSong(${id})` }
+    const ul = document.createElement("ul")
+    for (let i = 0; i < arguments.length; i++) {
+        if (i === 4) {
+            arguments[4] = durationConverter(arguments[4])
+        }
+        const li = document.createElement("li")
+        li.innerText = arguments[i]
+        ul.append(li)
+    }
+    const image = document.createElement("img")
+    image.innerText = arguments[5]
+    ul.appendChild(image)
+    children.push(ul)
     return createElement("div", children, classes, attrs)
 }
-
+console.log(1)
 /**
  * Creates a playlist DOM element based on a playlist object.
  */
@@ -61,7 +82,6 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
     }
     return element
 }
-createElement("div", ["li", "p", "a"], "myClass", { gabby: "valueOfGabby" })
 
 // You can write more code below this line
 
