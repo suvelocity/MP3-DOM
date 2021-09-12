@@ -15,7 +15,7 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const song=arguments[0]
     const children = songList(song)
     const classes = ["song"]
-    const attrs = { onclick: `playSong(${id})`,cursor:"pointer" }
+    const attrs = { onclick: `playSong(${id})`,cursor:"pointer",id:id }
     return createElement("div", children, classes, attrs)
 }
 
@@ -96,22 +96,13 @@ function playPlaylist(playlist){
       
                 }
     }
-    // let sumDuration=playlistDuration(playlist[key]);
     const li=document.createElement("li")
-    li.innerText=`duration: ${(sumDuration)}`;
     sumDuration=convertDuriation(sumDuration)
-    list.push(sumDuration)
+    li.innerText=`duration: ${(sumDuration)}`;
+    list.push(li)
     return list 
     }
 
-// function sumPlaylist(playlist){
-//     let sumDuration=0
-//  for(let i=0;i<playlist.length;i++){
-//      const duration=player.songs[exist(playlist[i],player.songs)].duration
-//          sumDuration+=duration
-//      }
-//  return convertDuriation(sumDuration)
-// }
 
 
 
