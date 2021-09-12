@@ -22,8 +22,8 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
             src: coverArt,
         }),
         createElement("strong", [title]),
-        createElement("span", [album], "album"),
-        createElement("span", [artist], "artist"),
+        createElement("span", [" album: ", album], "album"),
+        createElement("span", [" artist: ", artist], "artist"),
         createElement("span", [mmss(duration)], "duration"),
     ]
     const classes = []
@@ -75,6 +75,10 @@ function createPlaylistElement({ id, name, songs }) {
 
 player.songs.forEach((song) => {
     document.querySelector("#songs").append(createSongElement(song));
+ });
+
+ player.playlists.forEach((playlist) => {
+    document.querySelector("#playlists").append(createPlaylistElement(playlist));
  });
 
 
