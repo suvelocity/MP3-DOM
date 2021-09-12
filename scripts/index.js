@@ -56,11 +56,11 @@ function playSong(songId) {
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const children = []
     const classes = ["song-element"]
-    const attrs = { onclick: `playSong(${id})` }
+    const attrs = { onclick: `playSong(${arguments[0]})` }
     const ul = document.createElement("ul")
     const image = document.createElement("img")
     image.src = arguments[5]
-    for (let i = 0; i < arguments.length - 1; i++) {
+    for (let i = 1; i < arguments.length - 1; i++) {
         if (i === 4) {
             arguments[4] = durationConverter(arguments[4])
         }
