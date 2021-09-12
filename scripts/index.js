@@ -35,7 +35,12 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
  * Creates a playlist DOM element based on a playlist object.
  */
 function createPlaylistElement({ id, name, songs }) {
-    const children = []
+    let numOfSongs= songs.length
+    const children = [
+        createElement("p", ["Playlist Name: ", name], "name"),
+        createElement("span", [" number of songs: ", numOfSongs], "length"),
+        createElement("span", [" sum duration: ",mmss(playlistDuration(id))], "duration" )
+    ]
     const classes = []
     const attrs = {}
     return createElement("div", children, classes, attrs)
@@ -99,6 +104,33 @@ player.songs.forEach((song) => {
     return arr;
   }
 
+  function getSongUsingId(id) {
+    let n;
+    for (let i = 0; i < player.songs.length; i++) {
+      if (player.songs[i].id === id) {
+        currentSong = player.songs[i];
+        return currentSong;
+      }
+    }
+}
+
+  function getPlaylistLocationUsingID(id) {
+    for (let n in player.playlists) {
+      if (id === player.playlists[n].id) {
+        return n;
+      }
+    }
+  }
+
+  function playlistDuration(id) {
+    let sumDurationOfSongs = 0;
+    let playlistLocation = getPlaylistLocationUsingID(id);
+    let songsInPlaylist = player.playlists[playlistLocation].songs;
+    for (let n of songsInPlaylist) {
+      sumDurationOfSongs += getSongUsingId(n).duration;
+    }
+    return sumDurationOfSongs;
+  }
 
 
 console.log(createElement("hi", ["hello"],  ["a", "b"], {id: "bla"}) )
