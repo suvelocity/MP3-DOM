@@ -62,3 +62,46 @@ const player = {
         { id: 5, name: "Israeli", songs: [4, 5] },
     ],
 }
+function mmssuration(duration){
+    let minutes = Math.floor(duration / 60);
+    let seconds = duration % 60;
+    if (minutes < 10) {
+      minutes = "0" + minutes;
+    }
+    if (seconds < 10) {
+      seconds = "0" + seconds;
+    }
+    return minutes.toString() + ':' + seconds.toString();
+   }
+
+   function playlistDuration(id){
+    let playlist = getPlaylistById(id);
+    let result = 0;
+    for(let num in playlist.songs){
+      result+= getSongById(playlist.songs[num]).duration;
+    }
+        return result;
+  
+    }
+
+   function sumPlaylist(playlist){
+       let sumDuration=0
+       for(let i in playlist.songs){
+           for(let j in player.songs){
+               if (player.songs[j]==playlist.songs[i]){
+                   sumDuration+=player.songs[j].duration
+               }
+         }
+       }
+       return sumDuration
+   }
+
+   function idExist(id){
+    for (let num in player.songs) {
+      if (player.songs[num].id === id)
+        return true;
+    }
+    return false;
+  }
+       
+  
