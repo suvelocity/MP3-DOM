@@ -24,7 +24,7 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
         createElement("strong", [title]),
         createElement("span", [album], "album"),
         createElement("span", [artist], "artist"),
-        createElement("span", [duration], "duration"),
+        createElement("span", [mmss(duration)], "duration"),
     ]
     const classes = []
     const attrs = { onclick: `playSong(${id})` }
@@ -76,6 +76,24 @@ function createPlaylistElement({ id, name, songs }) {
 player.songs.forEach((song) => {
     document.querySelector("#songs").append(createSongElement(song));
  });
+
+
+ function mmss(duration) {
+    let arr = [];
+    let minutes = Math.floor(duration / 60);
+    let seconds = duration % 60;
+    arr.push(minutes);
+    arr.push(seconds);
+    if (minutes < 10) {
+      arr[0] = "0" + arr[0];
+    }
+    if (seconds < 10) {
+      arr[1] = "0" + arr[1];
+    }
+  
+    arr = arr.join(":");
+    return arr;
+  }
 
 
 
