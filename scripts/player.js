@@ -62,8 +62,3 @@ const player = {
         { id: 5, name: "Israeli", songs: [4, 5] },
     ],
 }
-/*
-export{
-player
-}
-*/
