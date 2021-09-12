@@ -1,5 +1,5 @@
 /* Your code here */
-*{
+* {
     box-sizing: border-box;
 }
 
@@ -8,7 +8,7 @@ html {
 }
 
 body {
-    background: linear-gradient(180deg, #423184 0%, #231A38 100%) fixed;
+    background: linear-gradient(180deg, #423184 0%, #231a38 100%) fixed;
 }
 
 button {
@@ -17,11 +17,11 @@ button {
 }
 
 .fas {
-    color: white
+    color: white;
 }
 
 .hide-button {
-    display:none;
+    display: none;
 }
 
 .bar {
@@ -30,13 +30,12 @@ button {
     bottom: 0;
     height: 9rem;
     width: 100vw;
-    background-color:#100B20;
+    background-color: #100b20;
     display: inline-flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content:space-between ;
+    justify-content: space-between;
     align-items: center;
-
 }
 
 .bar-left {
@@ -70,21 +69,30 @@ button {
     margin-left: 3rem;
     color: white;
     margin-top: 1rem;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 .bar-middle {
-order: 1;
-flex-basis: 40%;
-height: 100%;
-
+    order: 1;
+    flex-basis: 40%;
+    height: 100%;
 }
 
 .bar-right {
     order: 2;
     flex-basis: 20%;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: tomato;
+}
+
+.volume-slider {
+    background-color: brown;
+    height: 5px;
+    width: 60%;
+    margin-left: 20px;
 }
 
 .bar-buttons {
@@ -99,9 +107,8 @@ height: 100%;
 .control-button {
     height: 2rem;
     width: 2rem;
-    margin: 0 1rem
+    margin: 0 1rem;
 }
-
 
 .bar-timebar {
     display: flex;
@@ -118,6 +125,11 @@ height: 100%;
     width: 60%;
 }
 
+.time-mark {
+    font-family: "Rubik";
+    margin: 0 5px;
+}
+
 .sidebar {
     position: fixed;
     top: 0;
@@ -132,10 +144,9 @@ height: 100%;
     align-items: flex-start;
 }
 
-
-.sidebar-item  {
+.sidebar-item {
     flex-basis: 7rem;
-    font-family: 'Rubik';
+    font-family: "Rubik";
     font-size: 2.5rem;
     margin-left: 2rem;
     color: white;
@@ -145,7 +156,7 @@ height: 100%;
     width: 100%;
     bottom: 9rem;
     position: absolute;
-    bottom: 9rem
+    bottom: 9rem;
 }
 
 .sidebar-pic {
