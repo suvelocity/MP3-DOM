@@ -85,15 +85,15 @@ function mmssuration(duration){
     }
 
    function sumPlaylist(playlist){
-       let sumDuration=0
+       let durationSum=0;
        for(let i in playlist.songs){
            for(let j in player.songs){
                if (player.songs[j]==playlist.songs[i]){
-                   sumDuration+=player.songs[j].duration
+                   sumDuration+=player.songs[j].duration;
                }
          }
        }
-       return sumDuration
+       return sumDuration;
    }
 
    function idExist(id){

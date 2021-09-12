@@ -1,78 +1,37 @@
+/**
+ * Plays a song from the player.
+ * Playing a song means changing the visual indication of the currently playing song.
+ *
+ * @param {String} songId - the ID of the song to play
+ */
+ function playSong(songId) {
+   let song = getElementById(songId).style.backgroundColor = "yellow";
+      }
+  
 
-
-
-function playSong(songId) {
-   let otherSongs = document.getElementsByClassName('songShell');
-   for(let otherSong of otherSongs){
-       otherSong.style.backgroundColor = "rgba(0, 0, 0, 0)";
-   }
-   document.getElementById(songId).style.backgroundColor = "red";
-
-   if(songId < 7){
-       window.setTimeout(function(){playSong(songId + 1);} ,getSongObjectById(songId).duration * 1000);
-   }
-   // Your code here
-}
 
 /**
 * Creates a song DOM element based on a song object.
 */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
-   const children = [];
-   const classes = [];
-   const songsDiv = document.getElementById("songs");
-   let uniqueSongDiv = document.createElement('div');
-   uniqueSongDiv.setAttribute('class', 'songShell');
-   uniqueSongDiv.setAttribute('id',id);
-   let songTitle = document.createElement('h1');
-   let songAlbum = document.createElement('h2');
-   let songArtist = document.createElement('h2');
-   let songDuration = document.createElement('p');
-   let songCoverArt = document.createElement('img');
-       songTitle.innerText = title;
-       songAlbum.innerText = "album: " + album;
-       songArtist.innerText = "by: " + artist;
-       songDuration.innerText = secondsToMinutesConvertor(duration);
-       songCoverArt.setAttribute('src' , coverArt);
-       songsDiv.appendChild(uniqueSongDiv);
-       uniqueSongDiv.appendChild(songTitle);
-       uniqueSongDiv.appendChild(songAlbum);
-       uniqueSongDiv.appendChild( songArtist);
-       uniqueSongDiv.appendChild( songDuration);
-       uniqueSongDiv.appendChild(songCoverArt);
-       uniqueSongDiv.setAttribute('onclick', `playSong(${id})`)
-   const attrs = { onclick: `playSong(${id})` }
-   return createElement("div", children, classes, attrs)
+   const song=arguments[0];
+   const children = songsList(song);
+   const classes = ["song"];
+   const attrs = { onclick: playSong(id),cursor:"pointer",id:id };
+   return document.createElement("div", children, classes, attrs);
 }
-for(let song of player.songs){
-   createSongElement(song);
-}
+
 /**
 * Creates a playlist DOM element based on a playlist object.
 */
 function createPlaylistElement({ id, name, songs }) {
-   const children = []
-   const classes = []
-   const attrs = {}
-   let playlistDiv = document.getElementById("playlists");
-   let uniquePlaylistDiv = document.createElement('div');
-   uniquePlaylistDiv.setAttribute('class', 'playlistShell');
-   uniquePlaylistDiv.setAttribute('name', name);
-   let playlistName = document.createElement('h1');
-   let playlistSongs = document.createElement('h2');
-   let playlistTotalDuration = document.createElement('p');
-   playlistName.innerText = name + "-playlist";
-   playlistSongs.innerText = "amount of songs: " + songs.length;
-   playlistTotalDuration.innerText = "duration - " + playlistDuration(id);
-   playlistDiv.appendChild(uniquePlaylistDiv);
-   uniquePlaylistDiv.appendChild(playlistName);
-   uniquePlaylistDiv.appendChild(playlistSongs);
-   uniquePlaylistDiv.appendChild(playlistTotalDuration);
-   return createElement("div", children, classes, attrs)
+   const playlist=arguments[0];
+   const children = playPlaylist(playlist);
+   const classes = ["playlist"];
+   const attrs = {};
+   return document.createElement("div", children, classes, attrs);
 }
-for(let playlist of player.playlists){
-   createPlaylistElement(playlist);
-}
+
 /**
 * Creates a new DOM element.
 *
@@ -86,12 +45,68 @@ for(let playlist of player.playlists){
 * @param {Object} attributes - the attributes for the new element
 */
 function createElement(tagName, children = [], classes = [], attributes = {}) {
-   // Your code here
+   const newElement= document.createElement(tagName);
+   for(let i in classes){
+      newElement.classList+=i;
+   }
+   const attr=Object.keys(attributes);
+   for(let prop in attr.length){
+       newElement.setAttribute(attr[prop],attributes[attr[prop]]); 
+   }
+   for(let child in children.length){
+    newElement.textContent+=children[i];
 }
+   return newElement
+}
+
 // You can write more code below this line
-let songDuration = document.querySelectorAll(".songShell p");
-let SongDurationArray = Array.from(songDuration);
-for(let i = 0; i < SongDurationArray.length; i++){
-   let redAmount = player.songs[i].duration;
-   SongDurationArray[i].style.color = ("rgb(" + redAmount * 0.74 + ","+(100000/redAmount)+ ",0)");
-}
+function songsList(song){
+   const listSongs=[]
+   for(let i in song){
+        if(i.toString()!=='duration' && i.toString()!=='coverArt'){
+       const liTag=document.createElement('li');
+       liTag.innerText=i+":"+ song[i]; 
+       listSongs.push(liTag)
+        }
+        else if(i.toString()==="duration"){
+         let liTag=document.createElement('li');
+         let duration=convertDuriation(song[i]);
+         liTag.innerText=i+":"+duration; 
+         list.push(liTag)
+     }
+     else{
+         const img=document.createElement('img')
+         img.src=song[i]
+         list.push(img)
+     }
+     }
+     return list
+   }
+
+
+
+   function playPlaylist(playlist){
+      const listPlaylists=[]
+      const sumDuration =playlistDuration(playlist)
+      for(let key in playlist){
+          
+          if(key.toString()!=="songs"){
+             let liTag=document.createElement('li')
+             liTag.innerText= key+" : "+playlist[key];
+             listPlaylists.push(liTag)
+                  }
+          else{
+              let liTag=document.createElement("li")
+              liTag.innerText="number of songs: "+playlist.sosgs.length; 
+             listPlaylists.push(liTag)
+                  }
+               }
+        let liTag=document.createElement("li")
+        liTag.innerText=duration+":"+sumDuration; `duration: ${sumDuration}`;
+        list.push(sumDuration)
+        return list 
+
+            }
+
+
+         
