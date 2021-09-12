@@ -18,6 +18,33 @@ function convertDuration(duration) {
     }
 }
 
+function generateID(arr, id){
+    //parameters - arr (type array(of objects))
+    //             id (type number)(optional)
+    //if id is given - checks if it aviable id (if its not already used)
+    //if id isnt given - generate new id
+    //returns the id
+  
+    let ids = [];//an array that includes all the ids of the objects in arr
+    for(let cell of arr){
+      ids.push(cell.id);
+    }
+  
+    if(!id){//if id is undifined (optional!) => creates new one
+      let i = 1;
+      while(ids.includes(i)){
+        i++;
+      }
+      id = i;
+    }
+    else{//if id has been given, checks if it already used.
+      if(ids.includes(id)){
+        throw(id + " id already exist!");
+      }
+    }
+    return id;
+  }
+
 function getEl(arr, id){
     //parameters - arr (type array(of objects))
     //             id (type number)
@@ -31,17 +58,104 @@ function getEl(arr, id){
   }
 
 function newWindow(){
-    let songEl = document.getElementById("songs")
-    while(songEl.firstChild){
-        songEl.removeChild(songEl.firstChild);
+    let el = document.getElementById('main-content');
+    while(el.firstChild){
+        el.removeChild(el.firstChild);
     }
-
-    let plEl = document.getElementById("playlists")
-    while(plEl.firstChild){
-        plEl.removeChild(plEl.firstChild);
-    }
+    
+    el.appendChild(createElement("div",[],[],{'id':'songs' , 'class':'main-content'}))
+    el.appendChild(createElement("div",[],[],{'id':'playlists', 'class':'main-content'}))
 }
 
+function addSongHandler(){
+    newWindow();
+    let children = []
+    let text;
+    let td, td1;
+
+    let head = document.createElement("h1");
+    head.textContent = "Add Song"
+    
+    text = document.createElement("text");
+    text.textContent = "Song's name"
+    td = createElement("td",[text])
+    let title = createElement("input",[],[],{"type":"text", "name":"name", "placeholder":"Name", "required":"required"});
+    td1 = createElement("td",[title])
+    children.push(createElement("tr", [td,td1],[],{}))
+
+    text = document.createElement("text");
+    text.textContent = "Song's album"
+    td = createElement("td",[text])
+    let album = createElement("input",[],[],{"type":"text", "name":"album", "placeholder":"album", "required":"required"});
+    td1 = createElement("td",[album])
+    children.push(createElement("tr", [td,td1],[],{}))
+
+    text = document.createElement("text");
+    text.textContent = "Artist"
+    td = createElement("td",[text])
+    let Artist = createElement("input",[],[],{"type":"text", "name":"Artist", "placeholder":"Artist", "required":"required"});
+    td1 = createElement("td",[Artist])
+    children.push(createElement("tr", [td,td1],[],{}))
+
+    text = document.createElement("text");
+    text.textContent = "Duration"
+    td = createElement("td",[text])
+    let Duration = createElement("input",[],[],{"type":"text", "name":"Duration", "placeholder":"Duration", "required":"required"});
+    td1 = createElement("td",[Duration])
+    children.push(createElement("tr", [td,td1],[],{}))
+
+    text = document.createElement("text");
+    text.textContent = "ID (optional)"
+    td = createElement("td",[text])
+    let id = createElement("input", [],[],{"type":"text", "name":"id", "placeholder":"ID"})
+    td1 = createElement("td",[id])
+    children.push(createElement("tr", [td,td1],[],{}))
+    
+
+     // create a submit button
+    let s = createElement("input",[],[],{"type":"submit", "value":"Add"/*, "onClick":"formSubmit()"*/})
+    td = createElement("tr",[s])
+    children.push(td);
+
+    
+    //form.setAttribute("action", "submit.php");
+    let tr = createElement("tr",children)
+    let table = createElement("table",[tr])
+    let form = createElement("form",[head, table],["main-content"],{"onsubmit":"formSubmit()"})
+    // Create a form synamically
+    form.setAttribute("method", "post");
+    // let d = createElement("div",[form],["main-content"])
+    document.getElementById("main-content").appendChild(form)
+}
+
+function formSubmit(){
+    console.log("WORK!!!!");
+}
+
+function addSong(title, album, artist, duration = "00:00", id) {
+    //parameters - title (type string)
+    //             album (type string)
+    //             artist (type string)
+    //             duration (type string)(format 'mm:ss')
+    //             id(type number)(optional)
+    //creates new song, add it to songs array.
+    //return his id
+    id = generateID(player.songs, id);
+    duration = convertDuration(duration);
+    //TODO: find a better way to generate the object
+    let newSong={
+      id: id,
+      title: title,
+      album: album,
+      artist: artist,
+      duration: duration,
+    }
+    player.songs.push(newSong);
+    return id;
+  }
+
+//song on click.
+//deletes everything and shows songs 
 function songsHandler(){
     newWindow()
     for(const song of player.songs){
@@ -68,6 +182,11 @@ function playSong(songId) {
     while(currDir.firstChild){
         currDir.removeChild(currDir.firstChild);
     }
+
+    const plyNow = createElement("header");
+    plyNow.textContent = "Playing Now";
+    currDir.appendChild(plyNow);
+
     if(song.duration <= 120){
         currDir.style.background = "rgb(0,255,0)"
     }
@@ -75,7 +194,7 @@ function playSong(songId) {
         currDir.style.background = "rgb(255,0,0)"
     }
     else{
-        const green = (300 - song.duration)*256/300
+        const green = (420 - song.duration)*256/300
         const red = 256-green;
         currDir.style.background = "rgb(" + red +"," + green + ",0)"
     }

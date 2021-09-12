@@ -13,7 +13,13 @@
             <div class="navbardiv">
                 <nav id= "navbar">
                     <ul>
-                        <li><a class="nav-link" onclick="songsHandler()">songs</a></li>
+                        <li>
+                            <a class="nav-link" onclick="songsHandler()">songs</a><br>
+                            <ul>
+                                <li><a class="nav-link" onclick ="addSongHandler()">add song</a></li>
+                                <li><a class="nav-link" >remove song</a></li>
+                            </ul>
+                        </li>
                         <li><a class="nav-link" onclick="playlistsHandler()">playlists</a></li>
                     </ul>
                 </nav>
