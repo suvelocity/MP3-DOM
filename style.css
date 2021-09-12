@@ -1,31 +1,26 @@
 /* Your code here */
-/*
-.container{
 
-}
+
 
 .paragraph{
 
 }
 
-.sub-header{
 
-}
-
-.sub-headline{
-
-}
-
-.list{
-
-}
 
 #main-container{
-
+    background-color: #39F2CC;
+    color: rgb(0, 0, 0);
+    font-size: 1em;
+    text-align: center;
+    border: 1px black;
+    border-style: solid;
+    margin: 0%;
+    padding: 0%;
 }
 
 #main-header{
-
+    font-family: 'Orbitron', sans-serif;
 }
 
 #main-headline{
@@ -35,6 +30,64 @@
 #intro{
 
 }
-*/
+
+.sub-header{
+    background: #77EDEF;
+    color: slategray(0, 0, 0);
+    font-size: 1em;
+    text-align: center;
+    border: 1px black;
+    border-style: solid;
+    margin: 0%;
+    padding: 0%;
+    justify-content: center;
+    justify-content: stretch;
+}
+
+.container{
+    background: #77EDEF;
+    box-shadow: 2px 0 4px rgba(0,0,0,0.5);
+    border-radius: 2px;
+    border: 1px black;
+    border-style: solid;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    justify-content: stretch;
+}
 
 
+.sub-headline{
+    
+}
+
+
+.list{
+  list-style-type: none;
+}
+
+.song-class{
+  margin-right: 4%;;
+  padding: 0%;
+  border:20px white;
+  font-family: 'Oswald', sans-serif; 
+  font-size: 1em;
+  font-weight: bold;
+  text-align:center !important;
+  color: white;
+}
+
+.song-item{
+    color: gray;
+    
+}
+
+.song-title{
+    color: slategray;
+    font-size: 1.5em;
+}
+
+.song-duration{
+color: #5d8680;
+font-style: italic;
+}

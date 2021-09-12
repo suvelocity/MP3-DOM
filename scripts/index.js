@@ -125,9 +125,7 @@ let playlistsElement = document.getElementById("playlists");
 //Container element (<div>) for main
 //Create element
 let mainContainer = document.createElement('div');
-//Add class
-mainContainer.className = "container";
-//Add ID 
+
 mainContainer.id = "main-container";
 
     //Header element (<header>) for main
@@ -162,7 +160,7 @@ songsElement.className = "container";
     let listOfSongs = document.createElement('ul');
     listOfSongs.className = "list";
     listOfSongs.id = "songs-list";
-    
+    console.log(listOfSongs)
 
         //Item for each song
         
@@ -205,7 +203,6 @@ songsElement.appendChild(songsHeader);
     songsHeader.appendChild(songsH2);
 
 songsElement.appendChild(listOfSongs);
-console.log(songsElement);
 for(let song of player.songs){
     listOfSongs.appendChild(createSongElement(song));
 }
