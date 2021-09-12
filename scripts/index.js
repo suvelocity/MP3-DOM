@@ -5,7 +5,7 @@
  * @param {String} songId - the ID of the song to play
  */
 function playSong(songId) {
-    // Your code here
+
 }
 
 /**
@@ -41,7 +41,16 @@ function createPlaylistElement({ id, name, songs }) {
  * @param {Object} attributes - the attributes for the new element
  */
 function createElement(tagName, children = [], classes = [], attributes = {}) {
-    // Your code here
+    const element= document.createElement(tagName)
+   classes.forEach(c =>element.classList.add(c))
+   const attribute=Object.keys(attributes)
+   for(let i=0;i<attribute.length;i++){
+       element.setAttribute(attribute[i],attributes[attribute[i]])  
+   }
+   for(let i=0;i<children.length;i++){
+    element.textContent+=children[i] 
+}
+   return element
 }
 
 // You can write more code below this line
