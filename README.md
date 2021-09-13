@@ -53,7 +53,7 @@ You are provided with a template for your project:
 -   an HTML file (`index.html`)
 -   a linked, empty CSS file (`style.css`)
 -   a linked JS script with a sample `player` object (`player.js`)
--   a linked JS script with a template for your code (`index.js`)
+-   7ya linked JS script with a template for your code (`index.js`)
 -   an `images` folder with the webpage icon and song cover art
 
 The HTML defines the basic structure of the page. There are 2 container elements - one for the songs and one for the playlists. You may add more structural elements to the HTML (headings etc.), but the songs and playlists themselves must be generated using JS, based on the `player` object.
