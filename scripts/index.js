@@ -9,8 +9,9 @@ function playSong(songId) {
     let song = getSongById(songId)
     let songInfo = document.getElementsByClassName("song-details")
     let timeMark = document.getElementsByClassName("time-mark")
-    console.log(timeMark)
+    let songImage = document.getElementsByClassName("sidebar-pic")
 
+    songImage[0].setAttribute("src", song.coverArt)
     timeMark[1].innerText = convertSecondsToMinutes(song.duration)
     songInfo[0].innerText = song.title
     songInfo[1].innerText = song.artist
@@ -23,7 +24,6 @@ playSong(4)
  * coverArt gets file path as argument
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
-    console.log(id, title, album, artist, duration, coverArt)
     let imgTemplate = createElement("img", [], ["album-img"], { src: coverArt })
     let spanWithImg = createElement("span", [imgTemplate], ["data-cell", "album-img-container"], [])
     let spanTitle = createElement("span", [title], ["data-cell", "song-title"])
@@ -89,8 +89,6 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
     }
     return newElement
 }
-
-// You can write more code below this line
 
 function getSongById(id) {
     for (let song of player.songs) {
