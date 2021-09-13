@@ -9,7 +9,7 @@ const convertDuration = (duration) => {
     return min + ':' + sec
 
   }
-  
+
 function playSong(songId) {
     const selectedSong = document.getElementById(songId);
     const classes = []
@@ -24,10 +24,30 @@ function playSong(songId) {
 
 
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
+    
     const children = []
+    const wrap = document.createElement("div");
+    const titlePlayList = document.createElement("h1");
+    titlePlayList.append("PlayLists");
+    for (let i = 0; i < 5; i++)
+    {
+        if (arguments[i] === arguments[4])
+        {
+            arguments[i] = convertDuration(arguments[4]);
+        }
+        let list = document.createElement("li"); 
+        list.innerText = arguments[i]
+        wrap.append(list);
+    }
+    let currentImg= document.createElement("img");
+    currentImg.src= arguments[5];
+    wrap.appendChild(currentImg);
+   
+    children.push(wrap)
     const classes = []
-    const attrs = { onclick: `playSong(${id})` }
-    return createElement("div", children, classes, attrs)
+    classes.push(["song"]) // CSS later
+    const attrs = { onclick: `playSong(${arguments[0]})`,}
+    return createElement("div", children, classes, attrs, arguments[0])
 }
 
 
