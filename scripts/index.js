@@ -41,7 +41,17 @@ function createPlaylistElement({ id, name, songs }) {
  * @param {Object} attributes - the attributes for the new element
  */
 function createElement(tagName, children = [], classes = [], attributes = {}) {
-    // Your code here
+    let element = document.createElement(tagName);
+    const attr = Object.keys(a => element.classList.add(a));
+    for(let i = 0; i < attr.length; i++)
+    {
+        element.setAttribute(attr[i], attributes(attr[i]));
+
+    }
+    for (let j = 0; j < children.length; j++) {
+        element.append(children[j]);
+    }
+    return element;
 }
 
 // You can write more code below this line
