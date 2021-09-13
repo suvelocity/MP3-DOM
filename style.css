@@ -213,6 +213,7 @@ button {
     justify-content: flex-start;
     align-items: stretch;
     width: 100%;
+    padding-bottom: 15rem;
 }
 
 .song-data-container {

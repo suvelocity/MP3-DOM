@@ -85,3 +85,20 @@ function getSongById(id) {
     }
     throw new Error(`Whoops! we couldn't find a song that matches the ID you entered. Song ID entered: ${id}`)
 }
+
+function renderLists(songs, playlists) {
+    for (song of songs) {
+        songElement = createSongElement({
+            id: song.id,
+            title: song.title,
+            album: song.album,
+            artist: song.artist,
+            duration: song.duration,
+            coverArt: song.coverArt,
+        })
+        let songsList = document.getElementById("songs")
+        songsList.append(songElement)
+    }
+}
+
+renderLists(player.songs)
