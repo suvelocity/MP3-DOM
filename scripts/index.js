@@ -70,7 +70,19 @@ function createPlaylistElement({ id, name, songs }) {
 }
 
 
-function createElement(tagName, children = [], classes = [], attributes = {}) {
-    // Your code here
-}
+function createElement(tagName, children = [], classes = [], attributes = {}, id) {
+    const element = document.createElement(tagName);
+    for (let child of children)
+    {
+        element.appendChild(child);
+    }
+    element.classList.add(classes);
+    Object.entries(attributes).forEach(([key,value]) => {
+        if (key !== undefined) {
+            element.setAttribute(key, value);
+        }
+    })
 
+    element.id = id;
+    return element;
+}
