@@ -102,5 +102,15 @@ const printAllSongs = () => {
         songPrint.appendChild(songElemnt);
     }
 }
+const printAllPlaylists = () => {
+    const playlistPrint = document.getElementById("playlists")
+
+    for (let playlist of player.playlists) {
+        const {id, name,songs} = playlist;
+        const playlistElem = createPlaylistElement(id, name, songs);
+        playlistPrint.appendChild(playlistElem);
+    }
+}
 sortBySong();
 printAllSongs();
+printAllPlaylists();
