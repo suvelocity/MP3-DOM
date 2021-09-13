@@ -70,7 +70,7 @@ function songsList(song){
         }
         else if(i.toString()==="duration"){
          let liTag=document.createElement('li');
-         let duration=convertDuriation(song[i]);
+         let duration=mmsstDuriation(song[i]);
          liTag.innerText=i+":"+duration; 
          list.push(liTag)
      }
@@ -105,8 +105,13 @@ function songsList(song){
         liTag.innerText=duration+":"+sumDuration; `duration: ${sumDuration}`;
         list.push(sumDuration)
         return list 
-
             }
 
-
-         
+            const song=document.getElementById("songs");
+            for(let i in player.songs){
+               song.appendChild(createSongElement(player.songs[i]));
+            }
+            const playlist=document.getElementById("playlists");
+            for(let i in player.playlists){
+               playlist.appendChild(createPlaylistElement(player.playlists[i]))
+            }
