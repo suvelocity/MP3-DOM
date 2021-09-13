@@ -8,12 +8,16 @@ function playSong(songId) {
     // change bar-left song descriptions according to the song selected by id.
     let song = getSongById(songId)
     let songInfo = document.getElementsByClassName("song-details")
+    let timeMark = document.getElementsByClassName("time-mark")
+    console.log(timeMark)
+
+    timeMark[1].innerText = convertSecondsToMinutes(song.duration)
     songInfo[0].innerText = song.title
     songInfo[1].innerText = song.artist
     songInfo[2].innerText = song.album
 }
 
-playSong(5)
+playSong(4)
 /**
  * Creates a song DOM element based on a song object.
  * coverArt gets file path as argument
@@ -25,23 +29,34 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     let spanTitle = createElement("span", [title], ["data-cell", "song-title"])
     let spanAlbum = createElement("span", [album], ["data-cell", "song-album"])
     let spanArtist = createElement("span", [artist], ["data-cell", "song-artist"])
-    let spanDuration = createElement("span", [duration], ["data-cell", "song-duration"])
+    let spanDuration = createElement("span", [convertSecondsToMinutes(duration)], ["data-cell", "song-duration"])
 
     const children = [spanWithImg, spanTitle, spanAlbum, spanArtist, spanDuration]
-
-    console.log(`children are: ${children}`)
-
     const classes = ["song-data-container"]
     const attrs = { onclick: `playSong(${id})` }
+
     return createElement("div", children, classes, attrs)
 }
 
 /**
  * Creates a playlist DOM element based on a playlist object.
  */
-function createPlaylistElement({ id, name, songs }) {
-    const children = []
-    const classes = []
+
+function createPlaylistElement({ id, name, songs, duration }) {
+    let cardImg = createElement("img", [], ["card-album-img"], { src: "./images/playlist.png" })
+
+    let cardImgContainer = createElement("div", [cardImg], ["card", "card-album-img-container"])
+
+    let infoText = createElement("p", [name], [])
+
+    let durationText = createElement("p", [duration], [])
+
+    let cardPlaylistInfo = createElement("div", [infoText], ["card", "card-playlist-info"])
+
+    let cardPlaylistDuration = createElement("div", [durationText], ["card", "card-playlist-duration"])
+
+    const children = [cardImgContainer, cardPlaylistInfo, cardPlaylistDuration]
+    const classes = ["playlist-card"]
     const attrs = {}
     return createElement("div", children, classes, attrs)
 }
@@ -86,6 +101,14 @@ function getSongById(id) {
     throw new Error(`Whoops! we couldn't find a song that matches the ID you entered. Song ID entered: ${id}`)
 }
 
+function convertSecondsToMinutes(time) {
+    let minutes = Math.floor(time / 60)
+    let seconds = time - minutes * 60
+    let paddedMinutes = minutes.toString().padStart(2, 0)
+    let paddedSeconds = seconds.toString().padStart(2, 0)
+    return `${paddedMinutes}:${paddedSeconds}`
+}
+
 function renderLists(songs, playlists) {
     for (song of songs) {
         songElement = createSongElement({
@@ -99,6 +122,30 @@ function renderLists(songs, playlists) {
         let songsList = document.getElementById("songs")
         songsList.append(songElement)
     }
+
+    for (let playlist of playlists) {
+        playlistElement = createPlaylistElement({
+            id: playlist.id,
+            name: playlist.name,
+            songs: playlist.songs,
+        })
+        let playlistList = document.getElementById("playlists")
+        playlistList.append(playlistElement)
+    }
 }
 
-renderLists(player.songs)
+function showSongs() {
+    let playlistsSection = document.getElementById("playlists-section")
+    playlistsSection.classList.toggle("hide-section")
+    let songsSection = document.getElementById("songs-section")
+    songsSection.classList.toggle("hide-section")
+}
+
+function showPlaylists() {
+    let songsSection = document.getElementById("songs-section")
+    songsSection.classList.toggle("hide-section")
+    let playlistsSection = document.getElementById("playlists-section")
+    playlistsSection.classList.toggle("hide-section")
+}
+
+renderLists(player.songs, player.playlists)

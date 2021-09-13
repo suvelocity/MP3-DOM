@@ -44,9 +44,9 @@ button {
     flex-direction: column;
     justify-content: space-evenly;
     align-items: stretch;
-    background-color: red;
     height: 100%;
     order: 0;
+    padding: 1rem;
 }
 
 .bar-song-description {
@@ -58,24 +58,21 @@ button {
 
 .bar-title {
     width: 100%;
-    height: 33%;
-    background-color: blue;
+    height: 20%;
 }
 
 .bar-artist {
     width: 100%;
-    height: 33%;
-    background-color: aqua;
+    height: 20%;
 }
 
 .bar-album {
     width: 100%;
-    height: 33%;
-    background-color: green;
+    height: 20%;
 }
 
 .song-details {
-    font-size: 2vw;
+    font-size: 1.2vw;
     display: inline;
     margin-left: 3rem;
     color: white;
@@ -96,11 +93,10 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: tomato;
 }
 
 .volume-slider {
-    background-color: brown;
+    background-color: white;
     height: 5px;
     width: 60%;
     margin-left: 20px;
@@ -108,7 +104,6 @@ button {
 
 .bar-buttons {
     display: inline-flex;
-    background-color: wheat;
     width: 100%;
     height: 50%;
     justify-content: center;
@@ -125,13 +120,13 @@ button {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: yellow;
     height: 5rem;
     width: 100%;
+    color: white;
 }
 
 .progressbar {
-    background-color: brown;
+    background-color: white;
     height: 5px;
     width: 60%;
 }
@@ -142,10 +137,10 @@ button {
 }
 
 .sidebar {
+    background-color: rgb(32, 20, 44);
     position: fixed;
     top: 0;
     left: 0;
-    background-color: violet;
     width: 23%;
     min-width: 9rem;
     height: 100vh;
@@ -156,9 +151,6 @@ button {
 }
 
 .sidebar-pic {
-    background-color: tomato;
-    width: 300px;
-    height: 300px;
 }
 
 .sidebar-item {
@@ -181,7 +173,6 @@ button {
 }
 
 .page-section {
-    background-color: darkslategray;
     height: 100vh;
     width: 77%;
     position: absolute;
