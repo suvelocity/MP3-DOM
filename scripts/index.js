@@ -102,3 +102,5 @@ const printAllSongs = () => {
         songPrint.appendChild(songElemnt);
     }
 }
+sortBySong();
+printAllSongs();
