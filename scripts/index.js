@@ -26,31 +26,42 @@ function playSong(songId) {
  * Creates a song DOM element based on a song object.
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
-    const pElement = createElement("p");
-    const img = createElement("img");
-    img.setAttribute("src", coverArt);
-    img.setAttribute("alt", "albumCover");
-    pElement.innerHTML = 
-    "Title :" + title + "<br>"
-    + "Album :" + album + "<br>"
-    + "Artist :" + artist + "<br>"
-    + "Duration :" + mmssFormat(duration);
-    const children = [pElement, img]
-    const classes = ["songs"]
+    // const pElement = createElement("p");
+    // const img = createElement("img");
+    // img.setAttribute("src", coverArt);
+    // img.setAttribute("alt", "albumCover");
+    // pElement.innerHTML = 
+    // "Title :" + title + "<br>"
+    // + "Album :" + album + "<br>"
+    // + "Artist :" + artist + "<br>"
+    // + "Duration :" + mmssFormat(duration);
+    // const children = [pElement, img]
+     const classes = ["songs"]
+    // const attrs = { onclick: `playSong(${id})` }
+    // return createElement("div", children, classes, attrs)
+    createElement("br")
+    const titleEL = createElement("span" , [title]);
+    const albumEL = createElement("span" , [ " " + album]);
+    const artistEL = createElement("span", [ " " + artist]);
+    const durationEL = createElement("span", [" " + mmssFormat(duration)]);
+    const img = createElement("img", [],["albumCover"], {src: coverArt });
     const attrs = { onclick: `playSong(${id})` }
-    return createElement("div", children, classes, attrs)
-}
+    return createElement("div", ["title :", titleEL, createElement("br"),  "album :", albumEL, createElement("br"),  "artist :", artistEL, createElement("br"), "duration :", durationEL,createElement("br"), img], classes, attrs)
+    }
 
 /**
  * Creates a playlist DOM element based on a playlist object.
  */
 function createPlaylistElement({ id, name, songs }) {
-    const bElement = createElement("b");
-    bElement.innerHTML = "name :" + name + ", " + songs.length + 'songs in the playlist, ' +  mmssFormat(playlistDuration(id)); 
-    const children = [bElement]
-    const classes = ["playlist"]
+    // const bElement = createElement("b");
+    // bElement.inn = "name :" + name + ", " + songs.length + 'songs in the playlist, ' +  mmssFormat(playlistDuration(id)); 
+    // const children = [bElement]
+     const classes = ["playlist"]
+    const nameEL = createElement("span", [name]);
+    const songLength = createElement("span", [songs.length]);
+    const durationElem = createElement("span", ["" + mmssFormat(playlistDuration(id))]);
     const attrs = {}
-    return createElement("div", children, classes, attrs)
+    return createElement("div", ["playlist name :",  nameEL,createElement("br"),  " songs in playlist : ", songLength, " playlist duration :", durationElem], classes, attrs)
 }
 
 /**
@@ -70,8 +81,8 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
     for(let child of children){
         element.append(child);
     }
-    for(let name of classes){
-        element.classList.add(name);
+    for(let cls of classes){
+        element.classList.add(cls);
     } 
     for(let attribute in attributes){
         element.setAttribute(attribute, attributes[attribute]);
