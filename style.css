@@ -18,5 +18,7 @@ ul {
     font-size: larger;
 }
 .selected {
+     width: 40%;
     background-color: lawngreen;
+    margin: auto;
 }

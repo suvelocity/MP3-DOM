@@ -45,7 +45,7 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
    
     children.push(wrap)
     const classes = []
-    classes.push(["song"]) // CSS later
+    classes.push(["song"]) 
     const attrs = { onclick: `playSong(${arguments[0]})`,}
     return createElement("div", children, classes, attrs, arguments[0])
 }
@@ -110,6 +110,9 @@ const printAllPlaylists = () => {
         const playlistElem = createPlaylistElement(id, name, songs);
         playlistPrint.appendChild(playlistElem);
     }
+}
+const durationTime = (duration) =>{
+
 }
 sortBySong();
 printAllSongs();
