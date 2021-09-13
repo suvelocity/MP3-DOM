@@ -1,4 +1,15 @@
+const convertDuration = (duration) => {
 
+    let min = String(Math.floor(duration / 60));
+    let sec = String(duration % 60);
+  
+    min < 10 ? (min = '0' + String(min)) : min
+    sec < 10 ? (sec = '0' + String(sec)) : sec
+  
+    return min + ':' + sec
+
+  }
+  
 function playSong(songId) {
     const selectedSong = document.getElementById(songId);
     const classes = []
