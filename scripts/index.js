@@ -11,10 +11,7 @@ const convertDuration = (duration) => {
   }
   
 function playSong(id) {
-    console.log(`here is my id :${id}`);
 document.getElementById(`${id}`).style.backgroundColor = "green";
-
-
 }
 
 
@@ -31,10 +28,10 @@ function playlistDuration(id) {
 function createSongElement({ id,artist,duration, coverArt }) {
     const getId = createElement('p',[id]);
     const artistEl = createElement("p", [artist]);
-    const durationEl = createElement("p", ["" + convertDuration(duration)] ,["duration", "short-duration"], {onclick: `console.log('${duration}')`});
+    const durationEl = createElement("p"S, ["" + convertDuration(duration)] ,["duration", "short-duration"], {onclick: `console.log('${duration}')`});
     const coverImageArtUrl = coverArt;
     const imgEl = createElement("img", [] ,["album-art"], {src: coverImageArtUrl});
-    const attrs = { onclick: `playSong(${id})`}
+    const attrs = { onclick: `playSong(${id})`,id}
 
     return createElement("div",[getId,"Artist: ", artistEl, "Duration: ", durationEl, imgEl],[],attrs);
   }
