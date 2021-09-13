@@ -86,3 +86,10 @@ function createElement(tagName, children = [], classes = [], attributes = {}, id
     element.id = id;
     return element;
 }
+
+const sortBySong = () => {
+    player.songs.sort((a, b) => (a.title > b.title) * 2 - 1);
+}
+const sortByPlayList = () => {
+    player.playlists.sort((a, b) => (a.title > b.title) * 2 - 1);
+}
