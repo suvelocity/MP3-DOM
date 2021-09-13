@@ -4,11 +4,12 @@
     display: flex;
    flex-direction: column;
    max-width: 20rem;
-   font-size: large;
+   font-size: 13px;
    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
    width: 50%;
-   align-items: center;
-   padding-bottom: 10px;
+   text-align: center;
+   padding-bottom: 15px;
+   text-align: center;
 }
 
 .coverArt{
@@ -18,4 +19,16 @@
 .title{
     font-style: italic;
 }
+
+.coverArt{
+    padding-bottom: 3px;
+    display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  align-content: center;
+  padding-top: 20px;
+}
+
+
 

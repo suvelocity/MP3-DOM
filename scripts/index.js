@@ -15,16 +15,19 @@ function playSong(songId) {
 /**
  * Creates a song DOM element based on a song object.
  */
+
+ 
+    
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const children = [
-        createElement("img", [], "coverArt", {
+        createElement("img", [], ["coverArt"], {
             alt: "cover art",
             src: coverArt,
         }),
         createElement("strong", [title]),
-        createElement("span", [" album: ", album], "album"),
-        createElement("span", [" artist: ", artist], "artist"),
-        createElement("span", [mmss(duration)], "duration"),
+        createElement("span", [", album: ", album], ["album"]),
+        createElement("span", [", artist: ", artist], ["artist"]),
+        createElement("span", [", " , mmss(duration)], ["duration"]),
     ]
     const classes = []
     const attrs = { onclick: `playSong(${id})` }
@@ -37,9 +40,9 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
 function createPlaylistElement({ id, name, songs }) {
     let numOfSongs= songs.length
     const children = [
-        createElement("p", ["Playlist Name: ", name], "name"),
-        createElement("span", [" number of songs: ", numOfSongs], "length"),
-        createElement("span", [" sum duration: ",mmss(playlistDuration(id))], "duration" )
+        createElement("p", ["Playlist Name: ", name], ["name"]),
+        createElement("span", [" number of songs: ", numOfSongs], ["length"]),
+        createElement("span", [", sum duration: ",mmss(playlistDuration(id))], ["duration"] )
     ]
     const classes = []
     const attrs = {}
@@ -63,12 +66,13 @@ function createPlaylistElement({ id, name, songs }) {
 
  function createElement(tagName, children = [], classes = [], attributes = {}) {
     let elementName = document.createElement(tagName);
+    //children//
     for (value of children) {
         elementName.append(value)
     }
-    
+    //classes//
     elementName.classList.add(...classes)
-
+    //attributes//
     for (let [att, value] of Object.entries(attributes)) {
         elementName.setAttribute(`${att}`, `${value}`)
     }
@@ -133,4 +137,3 @@ player.songs.forEach((song) => {
   }
 
 
-console.log(createElement("hi", ["hello"],  ["a", "b"], {id: "bla"}) )
