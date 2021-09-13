@@ -1,1 +1,22 @@
-/* Your code here */
+html,
+body {
+    text-align: center;
+    margin: 0px;
+    padding: 0px;
+}
+h1 {
+    text-align: center;
+}
+ul {
+  list-style-type: none;  
+  margin-right: 2%;
+}
+.songs {
+  font-size: larger;
+}
+.playlists {
+    font-size: larger;
+}
+.selected {
+    background-color: lawngreen;
+}
