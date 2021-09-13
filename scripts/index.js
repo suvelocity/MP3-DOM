@@ -11,24 +11,20 @@ const convertDuration = (duration) => {
   }
   
 function playSong(songId) {
-    // const selectedSong = document.getElementById(songId);
-    // const classes = []
-    // classes.push(["selected"])
+    const selectedSong = document.getElementById(songId);
+    const classes = []
+    classes.push(["selected"])
 
-    // const songs = document.getElementsByClassName("song");
-    // for (let song of songs) {
+    const songs = document.getElementsByClassName("song");
+    for (let song of songs) {
         
-    // setInterval(function(){ song.classList.remove(classes); }, 3000); 
-    // }
-    // selectedSong.classList.add(classes);
+    setInterval(function(){ song.classList.remove(classes); }, 3000); 
+    }
+    selectedSong.classList.add(classes);
 }
- const coverArtfun = (id) =>{
-     for(let coverA of player.songs){
-         if(coverA.id === id){
-             return coverA.id[coverArt];
-         }
-     }
- }
+
+
+
 //  gives platlist duration 
 function playlistDuration(id) {
     const foundPlaylist = player.playlists.find(currPlaylist => currPlaylist.id === id);
@@ -53,8 +49,8 @@ function createPlaylistElement({id,name, songs = []} ) {
     const classes = [];
     const attrs = {};
     const idEl = createElement("span", ["" + id] ,["id"]);
-    const playListName = document.createElement("h1",[name]);
-    const PLsongs = document.createElement("p",[],[songs]);
+    const playListName = createElement("h1",[name]);
+    const PLsongs = createElement("p",[songs]);
     const durationEl = createElement("span", ["" + convertDuration(playlistDuration(id))] ,["duration", "short-duration"]);
     classes.push("playlist")
     children.push(idEl,"Play list Name: ",playListName,"Songs: ", PLsongs," Duration: ", durationEl);
