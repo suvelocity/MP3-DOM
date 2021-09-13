@@ -5,12 +5,17 @@
  * @param {String} songId - the ID of the song to play
  */
 
-
+let previousSong;
 function playSong(songId) {
-    const currentSong = document.getElementById("song" + songId);
+    try{
+      previousSong.classList.remove("now-playing")  
+    } finally{
+        const currentSong = document.getElementById("song" + songId);
     currentSong.classList.add("now-playing");
     let endSong = setTimeout(() => currentSong.classList.remove("now-playing"), getSongUsingId(songId).duration * 1000);
-
+    previousSong= currentSong;
+    }
+    
 }
 
 

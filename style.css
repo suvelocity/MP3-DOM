@@ -33,5 +33,6 @@
 .now-playing{
     color: blueviolet;
     border-style: double;
+    border-image-width: 0.35rem;
 }
 
