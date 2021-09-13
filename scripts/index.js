@@ -52,10 +52,21 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
 
 
 function createPlaylistElement({ id, name, songs }) {
-    const children = []
-    const classes = []
+    const children = [];
+    const wrapper = document.createElement("div");
+    for(let arrgIndex = 0; arrgIndex < 3; arrgIndex++){
+
+       let par =  arguments[arrgIndex] === arguments[1] ? document.createElement("h1") : document.createElement("p");
+        par.innerHTML = arguments[arrgIndex];
+        wrapper.appendChild(par);
+    }
+    children.push(wrapper);
+    const classes = [];
+   
+    classes.push(["playlist"])
     const attrs = {}
-    return createElement("div", children, classes, attrs)
+    return createElement("div", children, classes, attrs, id)
+
 }
 
 
