@@ -1,0 +1,17 @@
+div{
+border: solid blue;
+margin:40%
+}
+li{
+   cursor:pointer
+   color: #000;
+
+}
+#songs{
+   background-color:green;
+
+
+}
+#playlists{
+   background: color #545454;
+}
