@@ -93,3 +93,12 @@ const sortBySong = () => {
 const sortByPlayList = () => {
     player.playlists.sort((a, b) => (a.title > b.title) * 2 - 1);
 }
+const printAllSongs = () => {
+    const songPrint = document.getElementById("songs");
+
+    for(let song of player.songs){
+        const { id,title, album, artist,duration,coverArt} = song;
+        const songElemnt = createSongElement(id, title, album, artist, duration, coverArt);
+        songPrint.appendChild(songElemnt);
+    }
+}
