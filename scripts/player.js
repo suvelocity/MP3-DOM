@@ -62,6 +62,23 @@ const player = {
         { id: 5, name: "Israeli", songs: [4, 5] },
     ],
 }
+
+
+//generate new id that doesnt exit in player.songs
+function randomID(array){
+    let newId=array[0].id
+    console.log(newId)
+    for(let i=0;i<array.length;i++){
+     console.log(exist(newId,array))
+      if(exist(newId,array)!==-1){
+        newId++
+        console.log(newId)
+      }
+    }
+    return newId
+  }
+
+//takes a durtaion as number and conver it to (mm:ss) format
 function convertDuriation(duration){
     let seconds=duration
     let minutes=Math.floor(seconds/60)

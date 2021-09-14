@@ -22,7 +22,23 @@ function removeSong(songId) {
  */
 function addSong({ title, album, artist, duration, coverArt }) {
     // Your code here
-}
+    const  id=randomID(player.songs)
+    let format=duration.split(":")
+    let minutes=parseInt(format.slice(0,1))
+    let seconds=parseInt(format.slice(1))
+    duration=(minutes*60)+seconds
+    let song={
+      "id":id,
+      "title":title,
+      "album":album,
+      "artist":artist,
+      "duration": duration,
+      "coverArt":coverArt
+    }
+    player.songs.push(song) 
+    return player.songs[player.songs.length-1].id
+  }
+
 
 /**
  * Acts on a click event on an element inside the songs list.
@@ -47,9 +63,13 @@ function handleAddSongEvent(event) {
  * Creates a song DOM element based on a song object.
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
-    const children = []
-    const classes = []
-    const attrs = {}
+    // const artistEl=createElement("span",[artist]);
+    // const titleEl=createElement("span",[title]);
+    // const durationEl=createElement("span",[title]);
+    const song=arguments[0]
+    const children = songList(song)
+    const classes = ["song"]
+    const attrs = {id:(`song_${id}`)}
     const eventListeners = {}
     return createElement("div", children, classes, attrs, eventListeners)
 }
@@ -80,13 +100,28 @@ function createPlaylistElement({ id, name, songs }) {
  */
 function createElement(tagName, children = [], classes = [], attributes = {}, eventListeners = {}) {
     // Your code here
+    let element= document.createElement(tagName)
+   classes.forEach(c =>element.classList.add(c))
+   const attribute=Object.keys(attributes)
+   for(let i=0;i<attribute.length;i++){
+       element.setAttribute(attribute[i],attributes[attribute[i]])  
+   }
+   for(let i=0;i<children.length;i++){
+    element.append(children[i])
+   }
+    return  element
 }
+
 
 /**
  * Inserts all songs in the player as DOM elements into the songs list.
  */
 function generateSongs() {
     // Your code here
+    const x=document.getElementById("songs")
+for(let i=0;i<player.songs.length;i++){
+x.appendChild(createSongElement(player.songs[i]))
+}
 }
 
 /**
@@ -102,3 +137,38 @@ generatePlaylists()
 
 // Making the add-song-button actually do something
 document.getElementById("add-button").addEventListener("click", handleAddSongEvent)
+
+
+//create the list of songs
+function songList(song){
+    const list=[]
+    for(let key in song){
+         if(key.toString()!=='coverArt' && key.toString()!=='duration'){
+        const li=document.createElement('span');
+        li.innerText=`${key}: ${song[key]}`;
+        list.push(li)
+    }
+     else if(key.toString()==="duration"){
+        const li=document.createElement('span');
+        let duration=convertDuriation(song[key])
+        duration.toString
+        li.innerText=`${key}: ${duration}`;
+        list.push(li)
+    }
+    else{
+        // const img=document.createElement('img')
+        const img= createElement('img',[],["album-art"],{src:song[key]})
+        const left=document.createElement('div')
+        // img.src=song[key]
+        left.appendChild(img)
+        list.push(left)
+    }
+    }
+    return list
+    }
+
+    // function addSong(title, album, artist, duration,coverArt) {
+    //     // if(id==undefined){
+       
+    //     //   else throw "ID is already taken"
+    //     // }
