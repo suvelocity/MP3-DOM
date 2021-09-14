@@ -130,7 +130,7 @@ function createElement(tagName, children = [], classes = [], attributes = {}, ev
 let songsExist=0
 function generateSongs() {
     // Your code here
-    const x=document.getElementById("songs")
+    const x=document.querySelector("#songs>.list")
 for(let i=songsExist;i<player.songs.length;i++){
 x.appendChild(createSongElement(player.songs[i]))
 songsExist++
@@ -158,21 +158,19 @@ function songList(song){
     for(let key in song){
          if(key.toString()!=='coverArt' && key.toString()!=='duration'){
         const span=document.createElement('span');
-        li.innerText=`${key}: ${song[key]}`;
+        span.innerText=`${key}: ${song[key]}`;
         list.push(span)
     }
      else if(key.toString()==="duration"){
         const span=document.createElement('span');
         let duration=convertDuriation(song[key])
-        duration.toString
+        duration.toStringS
         span.innerText=`${key}: ${duration}`;
         list.push(span)
     }
     else{
-        // const img=document.createElement('img')
         const img= createElement('img',[],["album-art"],{src:song[key]})
         const left=document.createElement('div')
-        // img.src=song[key]
         left.appendChild(img)
         list.push(left)
     }

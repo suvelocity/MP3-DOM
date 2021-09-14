@@ -1,19 +1,24 @@
 /* Your code here */
 span{
     cursor: pointer;
-border:solid thin black;
-/* text-align: center; */
-/* margin-right: 50%;
-border-left: 30%; */
-/* pointer-events: visible; */
+
 }
 img{
     height:70px;
-    padding-left:  30px;
+    cursor: pointer;
+    
+}
+#songs>.list{
+    align-content: space-around;
+    
 }
 .song{
-    background-color: lightgray;
+    display: flex;
+    flex-direction: column;
+    background-color: lightgray;    
     border-radius:10px;
-    padding-bottom: 20px;
-    margin-right: 40%;
+    /* padding-bottom: 20px; */
+    margin-right: 70%;  
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
