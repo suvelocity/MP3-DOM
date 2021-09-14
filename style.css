@@ -47,6 +47,14 @@ p{
     letter-spacing: 0.1em;
     margin: 5px 30px;
 }
+button{
+   color: black;
+   text-align: left;
+   font-weight: normal;
+   text-transform: uppercase;
+   letter-spacing: 0.1em;
+   margin: 5px 30px;
+}
 img{
     display: block;
     background:red;
