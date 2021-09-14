@@ -1,1 +1,52 @@
-/* Your code here */
+body {
+    font-family: system-ui;
+    font-weight: bold;
+    background: linear-gradient(to right, red, yellow, green);
+    color: rgb(209, 196, 196);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap-reverse;
+    display:flex;justify-content:center;align-items:center;
+}
+
+#list {
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1.5rem;
+}
+
+#songs,
+#playlists {
+    display: flex;
+    flex-direction: column;
+    width: 40rem;
+}
+
+.song,
+.playlist {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+span{
+     display:flex;
+     justify-content:center;
+     align-items:center;
+}
+img{
+     display:flex;
+     justify-content:center;
+     align-items:center;
+}
+div{
+     margin-left:auto;
+     margin-right:auto;
+     background-color: blue;
+}
+
