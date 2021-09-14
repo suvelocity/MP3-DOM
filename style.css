@@ -2,22 +2,33 @@
 
 #songs{
     display: flex;
+    gap: 10px;
+    justify-content: flex-end;
    flex-direction: column;
    max-width: 20rem;
    font-size: 13px;
-   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-   width: 50%;
+   font-family: monospace;
    text-align: center;
    padding-bottom: 15px;
-   text-align: center;
+   margin: auto;
+   image-resolution: 10px;
+   
 }
 
 .coverArt{
     align-items: center;
     box-sizing: (10px 10px 10px 10px);
+    box-shadow: brown;
 }
-.title{
+.webTitle{
     font-style: italic;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    font-style: oblique;
+    font-size: 30px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    color: darkblue;
 }
 
 .coverArt{
@@ -34,5 +45,13 @@
     color: blueviolet;
     border-style: double;
     border-image-width: 0.35rem;
+}
+
+#playlists{
+    
+    display: flex;
+    
+   
+
 }
 
