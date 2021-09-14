@@ -62,3 +62,52 @@ const player = {
         { id: 5, name: "Israeli", songs: [4, 5] },
     ],
 }
+function convertDuriation(duration){
+    let seconds=duration
+    let minutes=Math.floor(seconds/60)
+     if(seconds-(minutes*60)<10) return "0"+minutes+":"+"0"+(seconds-(minutes*60))
+     else if(minutes>10){  return minutes+":"+(seconds-(minutes*60))
+    }
+    else return "0"+minutes+":"+(seconds-(minutes*60))
+   }
+
+//    for(let i=0;i<player.songs.length;i++){
+//     player.songs[i].duration=convertDuriation(player.songs[i].duration)
+//    }
+  
+
+   function sumPlaylist(playlist){
+       let sumDuration=0
+       for(let i=0;i<playlist.songs.length;i++){
+           for(let j=0;j<player.songs.length;j++){
+               if (player.songs[j]==playlist.songs[i]){
+                   sumDuration+=player.songs[j].duration
+               }
+         }
+       }
+       return sumDuration
+   }
+
+   function exist(id,array){
+    for (let i=0; i<array.length;i++){
+       if(array[i].id==id) return i;
+    }
+    return -1
+     }
+
+     function songFromArray(id){
+        return player.songs[exist(id,player.songs)].duration
+        }
+   
+        function playlistDuration(playlist) {
+            let sumDuration=0
+            for (let j=0;j<player.playlists.length;j++){
+                if(player.playlists[j].name===playlist.name){
+                    for(let i=0;i<player.playlists[j].songs.length;i++){
+                        sumDuration+=songFromArray(player.playlists[j].songs[i])
+                      }
+                      return sumDuration;
+                }
+            }
+            }
+        

@@ -1,1 +1,14 @@
 /* Your code here */
+li{
+    cursor: pointer;
+list-style: none;
+border:solid thin black;
+/* text-align: center; */
+margin-right: 50%;
+border-left: 30%;
+/* pointer-events: visible; */
+}
+img{
+    height:70px;
+    border:solid thin black;
+}
