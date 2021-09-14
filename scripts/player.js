@@ -62,3 +62,70 @@ const player = {
         { id: 5, name: "Israeli", songs: [4, 5] },
     ],
 }
+function durationConvertor (duration) // convert duration format from seconds to MM:SS format
+{
+  let min="";
+  let sec="";
+  if (typeof(duration) !== "number")
+  {
+    throw "Please Enter a number"
+  }
+  min = Math.floor(duration/60);
+  sec = duration%60;
+  
+  if (min < 10 && sec < 10)  //making sure the time format get out correctly
+  {
+  return("0"+min+":"+"0"+sec)
+  }
+  else if (min < 10 && sec > 10)
+  {
+    return("0"+min+":"+sec)
+  }
+  else if (min > 10 && sec < 10)
+  {
+    return(min+":"+"0"+sec)
+  }
+  else {
+    return(min+":"+sec) 
+  }
+}
+
+function sortedSongs () {
+    player.songs.sort((a, b) => (a.title > b.title) * 2 - 1)
+}
+
+function sortedPlaylists () {
+    player.playlists.sort((a, b) => (a.title > b.title) * 2 - 1)
+}
+
+function printAllSongs()
+{
+    const songPrint = document.getElementById("songs");
+
+    for(let song of player.songs)
+    {
+        const { id: id,
+                title: title,
+                album, artist,
+                duration: duration,
+                coverArt: coverArt} = song;
+        const songElem = createSongElement(id, title, album, artist, duration, coverArt);
+        console.log(id);
+
+        songPrint.appendChild(songElem);
+    }
+}
+function printAllPlaylists()
+{
+    const playlistPrint = document.getElementById("playlists")
+
+    for(let playlist of player.playlists)
+    {
+        const {id: id,
+               name: name,
+               songs: songs} = playlist;
+        const playlistElem = createPlaylistElement(id, name, songs);
+        playlistPrint.appendChild(playlistElem);
+    }
+}
+ 
