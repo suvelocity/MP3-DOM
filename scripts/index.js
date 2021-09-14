@@ -9,11 +9,15 @@ const convertDuration = (duration) => {
   
     return min + ':' + sec
   }
-  const setTimer = () =>{}
+ 
+    const Timer = (id) =>{
+      setTimeout(function(){playSong(id+1) }, 3000);
+    }
   
-function playSong(id) {
+ async function playSong(id) {
   document.getElementById(id).style.backgroundColor = "green";
-setTimeout(function(){document.getElementById(id).style.backgroundColor = "white";  }, 3000);
+  setTimeout(function(){document.getElementById(id).style.backgroundColor = "white"  }, 3000);
+  await Timer(id);
 }
 
 
