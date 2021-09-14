@@ -67,12 +67,9 @@ const player = {
 //generate new id that doesnt exit in player.songs
 function randomID(array){
     let newId=array[0].id
-    console.log(newId)
     for(let i=0;i<array.length;i++){
-     console.log(exist(newId,array))
       if(exist(newId,array)!==-1){
         newId++
-        console.log(newId)
       }
     }
     return newId

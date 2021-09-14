@@ -22,8 +22,9 @@ function removeSong(songId) {
  */
 function addSong({ title, album, artist, duration, coverArt }) {
     // Your code here
+    console.log(title, album, artist, duration, coverArt)
     const  id=randomID(player.songs)
-    let format=duration.split(":")
+    const format=duration.split(":")
     let minutes=parseInt(format.slice(0,1))
     let seconds=parseInt(format.slice(1))
     duration=(minutes*60)+seconds
@@ -36,7 +37,9 @@ function addSong({ title, album, artist, duration, coverArt }) {
       "coverArt":coverArt
     }
     player.songs.push(song) 
-    return player.songs[player.songs.length-1].id
+    alert("songs added")
+    generateSongs()
+    // return player.songs[player.songs.length-1].id
   }
 
 
@@ -57,6 +60,14 @@ function handleSongClickEvent(event) {
  */
 function handleAddSongEvent(event) {
     // Your code here
+    const titleEl=document.querySelector("#inputs > input:nth-child(1)").value
+        const albumEl=document.querySelector("#inputs > input:nth-child(2)").value
+        const artistEl=document.querySelector("#inputs > input:nth-child(3)").value
+        let durationEl=document.querySelector("#inputs > input:nth-child(4)").value
+        console.log(durationEl)
+        const coverArtEl=document.querySelector("#inputs > input:nth-child(5)").value
+        console.log({titleEl,albumEl,artistEl,durationEl,coverArtEl})
+        addSong({title:titleEl,album:albumEl,artist:artistEl,duration:durationEl,coverArt:coverArtEl})
 }
 
 /**
@@ -116,11 +127,13 @@ function createElement(tagName, children = [], classes = [], attributes = {}, ev
 /**
  * Inserts all songs in the player as DOM elements into the songs list.
  */
+let songsExist=0
 function generateSongs() {
     // Your code here
     const x=document.getElementById("songs")
-for(let i=0;i<player.songs.length;i++){
+for(let i=songsExist;i<player.songs.length;i++){
 x.appendChild(createSongElement(player.songs[i]))
+songsExist++
 }
 }
 
@@ -144,16 +157,16 @@ function songList(song){
     const list=[]
     for(let key in song){
          if(key.toString()!=='coverArt' && key.toString()!=='duration'){
-        const li=document.createElement('span');
+        const span=document.createElement('span');
         li.innerText=`${key}: ${song[key]}`;
-        list.push(li)
+        list.push(span)
     }
      else if(key.toString()==="duration"){
-        const li=document.createElement('span');
+        const span=document.createElement('span');
         let duration=convertDuriation(song[key])
         duration.toString
-        li.innerText=`${key}: ${duration}`;
-        list.push(li)
+        span.innerText=`${key}: ${duration}`;
+        list.push(span)
     }
     else{
         // const img=document.createElement('img')
@@ -167,8 +180,4 @@ function songList(song){
     return list
     }
 
-    // function addSong(title, album, artist, duration,coverArt) {
-    //     // if(id==undefined){
-       
-    //     //   else throw "ID is already taken"
-    //     // }
+    
