@@ -72,11 +72,19 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
 
 
 function createPlaylistElement({ id, name, songs }) {
-    const children = [];
-    const classes = [];
-    const attrs = {};
-    return createElement("div", children, classes, attrs);
+    // Playlist's name (<header>)
+    const nameEl = createElement("header", [name], ["title-class"]);
+    //Playlist's amount of songs
+    const noOfSongsEl = createElement("li", ["No. of songs: ", songsCounter(id)], ["item-class"]);
+    //Playlist's duration (<li>)
+    const durationsEl = createElement("li", ["Duration: ",durationConvertor(playlistDuration(id))], ["item-class"]);
+    
+
+    return createElement("div", [nameEl, noOfSongsEl, durationsEl]);
 };
+
+//console.log(createPlaylistElement({id: 5, name: "Israeli"}));
+//console.log(playlistDuration(5));
 
 
 /**
@@ -138,17 +146,7 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
 // You can write more code below this line
 
 //Duration convertor (from seconds to mm:ss)
-function durationConvertor(duration){
-    let minutes = Math.floor(duration / 60);
-    let seconds = duration % 60;
-    if (seconds < 10){
-      seconds = "0" + seconds;
-    }
-    if (minutes < 10){
-      minutes = "0" + minutes;
-    }
-    return minutes + ":" + seconds;
-  }
+
 
 
 //Get existing elements in the html index and place them in variables
@@ -166,7 +164,7 @@ const mainContainer = createElement("div", [mainHeader, intro], ["container"], {
 body.appendChild(mainContainer);
 body.insertBefore(mainContainer, songsContainer);
 
-//-----------Songs container------\\
+//--------Songs container------\\
 
 const songsH2 = createElement("h2", ["Songs"], ["headline"], {});
 const songsHeader = createElement("header", [songsH2], ["header"], {});
@@ -178,7 +176,7 @@ songsContainer.className = "container";
 songsContainer.appendChild(songsHeader);
 songsContainer.appendChild(listOfSongs);
 
-//-----------Playlists container------\\
+//--------Playlists container------\\
 const playlistsH3 = createElement("h3", ["Playlists"], ["headline"], {});
 const playlistsHeader = createElement("header", [playlistsH3], ["header"], {});
 const listOfPlaylists = createElement("ul", [], ["list"], {});
@@ -186,4 +184,60 @@ const listOfPlaylists = createElement("ul", [], ["list"], {});
 playlistsContainer.className = "container";
 playlistsContainer.appendChild(playlistsHeader);
 playlistsContainer.appendChild(listOfPlaylists);
+for(let playlist of player.playlists){
+    listOfPlaylists.appendChild(createPlaylistElement(playlist));
+}
+
+
+//-------Functions------\\
+//Converts the duration format to mm:ss
+function durationConvertor(duration){
+    let minutes = Math.floor(duration / 60);
+    let seconds = duration % 60;
+    if (seconds < 10){
+      seconds = "0" + seconds;
+    }
+    if (minutes < 10){
+      minutes = "0" + minutes;
+    }
+    return minutes + ":" + seconds;
+  };
+
+//Returns the duration of a song
+function getDuration(id){
+    for(let song of player.songs){
+      if(song.id == id){
+        return song.duration;
+      }
+    }
+  };
+
+//Counts the amount of songs in a playlist and returns the counter
+function songsCounter(id){
+    let count = 0;
+    for(let playlist of player.playlists){
+        if(playlist.id == id){
+            for(let i = 0; i < playlist.songs.length; i++){
+                count++;
+            }
+        }
+    }
+    return count;
+};
+
+//Returns the duration of a playlist
+function playlistDuration(id) {
+
+    let durations = 0;
+    for(let playlist of player.playlists){
+        if(playlist.id == id){
+            for(let i = 0; i < playlist.songs.length; i++){
+      durations += getDuration(playlist.songs[i]);
+            }
+        }
+    }
+    return durations;
+  };
+
+  
 
