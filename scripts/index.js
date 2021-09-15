@@ -42,6 +42,9 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     return createElement("div", children, classes, { onclick: `playSong(${id})`, id: "song" + id })
 }
 
+
+
+
 /**
  * Creates a playlist DOM element based on a playlist object.
  */
