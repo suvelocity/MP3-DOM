@@ -5,8 +5,10 @@
  * @param {String} songId - the ID of the song to play
  */
 function playSong(songId) {
-    let song = getElementById(songId);
-    song.style.backgroundColor = "dark grey";
+    for(let song of player){
+        song[id].style.backgroundColor = "dark grey";
+    }
+    
 }
 
 /**
@@ -55,12 +57,13 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     // Song artist (<li>)
     const artistEl = createElement("li", ["By: ", artist], ["item-class"]);
     // Song duration (<li>)
-    const durationEl = createElement("li", ["Duration: ", durationConvertor(duration)], ["duration-class"], {onclick: `console.log('${duration}')`});
+    const durationEl = createElement("li", ["Duration: ", durationConvertor(duration)], ["duration-class"], {onclick: `console.log('${durationConvertor(duration)}')`});
   
     const coverImageArtUrl = coverArt;
     const imgEl = createElement("img", [] ,["image-class"], {src: coverImageArtUrl});
   
     return createElement("div", [titleEl, artistEl, albumEl, durationEl, imgEl]);
+    // return createElement("div", [titleEl, artistEl, albumEl, durationEl, imgEl], {onclick: `console.log('${playSong(id)}`});
   }
 
 /**
@@ -150,123 +153,37 @@ function durationConvertor(duration){
 
 //Get existing elements in the html index and place them in variables
 let body = document.getElementById('body');
-let songsElement = document.getElementById('songs');
-let playlistsElement = document.getElementById("playlists"); 
+let songsContainer = document.getElementById('songs');
+let playlistsContainer = document.getElementById("playlists"); 
 
-//-----------Create essential elements------\\
+//-----------Main container------\\
 
-//---------MAIN--------\\
-//Container element (<div>) for main
-//Create element
-let mainContainer = document.createElement('div');
-
-mainContainer.id = "main-container";
-
-    //Header element (<header>) for main
-    let mainHeader = document.createElement('header');
-    mainHeader.id = "main-header";
-
-        //Headline element (<h1>) for main
-        let mainH1 = document.createElement('h1');
-        mainH1.id = "main-headline";
-
-    //Intro element (<p>) for main
-    let intro = document.createElement('p');
-    intro.className = "paragraph";
-    intro.id = "intro";    
-
-
-//---------SONGS--------\\
-//Container element (<div>) for songs
-songsElement.className = "container";
-
-    //Header element (<header>) for songs
-    let songsHeader = document.createElement('header');
-    songsHeader.className = "sub-header";
-    songsHeader.id = "songs-header";
-    
-        //Headline element (<h2>) for songs
-        let songsH2 = document.createElement('h2');
-        songsH2.className = "sub-headline";
-        songsH2.id = "songs-headline";
-        
-    //List element (<ul>) for songs
-    let listOfSongs = document.createElement('ul');
-    listOfSongs.className = "list";
-    listOfSongs.id = "songs-list";
-    console.log(listOfSongs)
-
-        //Item for each song
-        
-
-//-------PLAYLISTS-------\\
-//Container element (<div>) for playlists
-playlistsElement.className = "container";
-
-    //Header element (<header>) for playlists
-    let playlistsHeader = document.createElement('header');
-    playlistsHeader.className = "sub-header";
-    playlistsHeader.id = "playlists-header";
-    
-        //Headline element (<h3>) for playlists
-        let playlistsH3 = document.createElement('h3');
-        playlistsH3.className = "sub-headline";
-        playlistsH3.id = "playlists-headline";
-
-    //List element (<ul>) for playlists
-    let listOfPlaylists = document.createElement('ul');
-    listOfPlaylists.className = "list";
-    listOfPlaylists.id = "playlists-list";
-
-        //Item for each playlist
-        
-
-//-----------Appendment and placement of elements------\\
-//---------MAIN--------\\
+const intro = createElement("p", ["This MP3 player was created to light up your mood, do not hesitate to use it :)"], ["paragraph"], {});
+const mainH1 = createElement("h1", ["Aviv's MP3 Player"], ["headline"], {});
+const mainHeader = createElement("header", [mainH1], ["header"], {});
+const mainContainer = createElement("div", [mainHeader, intro], ["container"], {});
+//console.log(mainContainer);
 body.appendChild(mainContainer);
-body.insertBefore(mainContainer, songsElement);
-    mainContainer.appendChild(mainHeader);
-        mainHeader.appendChild(mainH1);
+body.insertBefore(mainContainer, songsContainer);
 
-    mainContainer.appendChild(intro);
-    mainContainer.insertBefore(mainHeader, intro);
-    mainHeader.insertBefore(mainH1, mainHeader.lastChild);
+//-----------Songs container------\\
 
-//---------SONGS--------\\
-songsElement.appendChild(songsHeader);
-    songsHeader.appendChild(songsH2);
-
-songsElement.appendChild(listOfSongs);
+const songsH2 = createElement("h2", ["Songs"], ["headline"], {});
+const songsHeader = createElement("header", [songsH2], ["header"], {});
+const listOfSongs = createElement("ul", [], ["list"], {});
 for(let song of player.songs){
     listOfSongs.appendChild(createSongElement(song));
 }
-    //listOfSongs.appendChild(newSong);
-    //listOfSongs.insertBefore(newSong, listOfSongs.lastChild);
+songsContainer.className = "container";
+songsContainer.appendChild(songsHeader);
+songsContainer.appendChild(listOfSongs);
 
-//-------PLAYLISTS-------\\
+//-----------Playlists container------\\
+const playlistsH3 = createElement("h3", ["Playlists"], ["headline"], {});
+const playlistsHeader = createElement("header", [playlistsH3], ["header"], {});
+const listOfPlaylists = createElement("ul", [], ["list"], {});
 
-playlistsElement.appendChild(playlistsHeader);
-    playlistsHeader.appendChild(playlistsH3);
-
-playlistsElement.appendChild(listOfPlaylists);
-
-//-----------Content of elements------\\
-//---------MAIN--------\\
-//Main headline
-mainH1.innerHTML = "Aviv's MP3 Player";
-mainH1.style.color = "black";
-
-//Intro paragraph
-intro.innerHTML = "This MP3 player was created to light up your mood, do not hesitate to use it :)"
-
-//---------SONGS--------\\
-//Songs headline
-songsH2.innerHTML = "Songs";
-
-
-
-
-//-------PLAYLISTS-------\\
-//playlists headline
-playlistsH3.innerHTML = "Playlists";
+playlistsContainer.className = "container";
+playlistsContainer.appendChild(playlistsHeader);
+playlistsContainer.appendChild(listOfPlaylists);
 
