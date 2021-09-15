@@ -7,20 +7,24 @@ body {
 h1 {
     text-align: center;
 }
-ul {
-  list-style-type: none;  
-  margin-right: 2%;
+
+#songs {
+  display: flex;
+  grid-template-columns: 100px 50px 100px;
+  grid-template-rows: 80px auto 80px; 
+  column-gap: 100px;
+  row-gap: 15px;
+  flex-wrap: wrap;
+  margin: auto;
+  margin-left: 250px;
 }
 .songs {
-  font-size: larger;
+  border: 1px solid black;
+  box-shadow: 10px 10px grey;
 }
 .playlists {
     font-size: larger;
 }
-.selected {
-     width: 40%;
-    background-color: lawngreen;
-    margin: auto;
-}
+
  /* .id {
   visibility: hidden; */
