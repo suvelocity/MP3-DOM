@@ -57,10 +57,20 @@ function playSong(songId) {
  * @param {Number} songId - the ID of the song to remove
  */
 function removeSong(songId) {
-    let songIndex = getPlaylistAndSongIndex(0,songId)[1];
-    player.songs.splice(songIndex,1);
-
+    let index = 0;
+    let i = 0;
+    player.songs.forEach(song => {
+        if(song.id == songId)   
+            index = i;
+        i++;
+    });
+    player.songs.splice(index,1);
     
+    while (document.getElementById("songs").firstChild) {
+        document.getElementById("songs").removeChild(document.getElementById("songs").lastChild);
+      }
+    
+    generateSongs();
 }
 
 /**
@@ -92,7 +102,13 @@ function addSong({ title, album, artist, duration, coverArt }) {
  * @param {MouseEvent} event - the click event
  */
 function handleSongClickEvent(event) {
-    // Your code here
+    if(event.target.id.includes('play')){
+        playSong(event.target.id[0]);
+    }
+    if(event.target.id.includes('remove')){
+        removeSong(event.target.id[0]);
+    }
+    
 }
 
 /**
@@ -131,18 +147,20 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     },{
         content:"https://upload.wikimedia.org/wikipedia/commons/f/fe/Android_Emoji_25b6.svg",
         type:'button',
-        event:'play'
+        event:'play',
+        id:id
     },{
         content:"https://upload.wikimedia.org/wikipedia/commons/4/4c/OOjs_UI_icon_trash_apex.svg",
         type:'button',
-        event:'remove'
+        event:'remove',
+        id:id
     },{
         content:coverArt,
         type:'img'
     }]
     const classes = ['card', 'song'];
     const attrs = {};
-    const eventListeners = {play: `playSong(${id})`, remove: `removeSong(${id})`};
+    const eventListeners = {click: handleSongClickEvent};
     return createElement("div", children, classes, attrs, eventListeners)
 }
 
@@ -195,16 +213,12 @@ function createElement(tagName, children = [], classes = [], attributes = {}, ev
             t.style.background=`url(${child.content}) no-repeat`;   
             t.style.width = '25px';
             t.style.height = '25px';
-            t.style.border = 'none';
-            t.style.align = 'center';
-            if(child.event == 'play'){
-                console.log(eventListeners[0]);
-                t.setAttribute('onclick', eventListeners['play']);
-            }
-            if(child.event == 'remove'){
-                console.log(eventListeners[0]);
-                t.setAttribute('onclick', eventListeners['remove']);
-            }
+            
+            t.id = child.id;
+            t.id += child.event;
+
+            t,addEventListener('click', eventListeners['click']);
+            
         }else{
             t.textContent = child.content;
         }

@@ -54,6 +54,7 @@ button{
    text-transform: uppercase;
    letter-spacing: 0.1em;
    margin: 5px 30px;
+   border: none;
 }
 img{
     display: block;
