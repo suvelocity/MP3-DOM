@@ -1,20 +1,3 @@
-
-
-//Duration convertor (from seconds to mm:ss)
-function durationConvertor(duration){
-    let minutes = Math.floor(duration / 60);
-    let seconds = duration % 60;
-    if (seconds < 10){
-      seconds = "0" + seconds;
-    }
-    if (minutes < 10){
-      minutes = "0" + minutes;
-    }
-    return minutes + ":" + seconds;
-  }
-
-
-
 /**
  * Plays a song from the player.
  * Playing a song means changing the visual indication of the currently playing song.
@@ -30,38 +13,55 @@ function playSong(songId) {
  * Creates a song DOM element based on a song object.
  */
 
-            
-
+/*          First try
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     
-    //-------Song elements-------\\
-    const songTitle = document.createElement("header");
-    songTitle.innerHTML = title;
-    songTitle.className = "song-title";
+    -------Song elements-------\\
+     const songTitle = document.createElement("header");
+     songTitle.innerHTML = title;
+     songTitle.className = "song-title";
     
-    const songAlbum = document.createElement("li");
-    songAlbum.innerHTML = album;
-    songAlbum.className = "song-item";
+     const songAlbum = document.createElement("li");
+     songAlbum.innerHTML = album;
+     songAlbum.className = "song-item";
 
-    const songArtist = document.createElement("li");
-    songArtist.innerHTML = artist;
-    songArtist.className = "song-item"; 
+     const songArtist = document.createElement("li");
+     songArtist.innerHTML = artist;
+     songArtist.className = "song-item"; 
 
-    const songDuration = document.createElement("li");
-    songDuration.innerHTML = durationConvertor(duration);
-    songDuration.className = "song-duration";
+     const songDuration = document.createElement("li");
+     songDuration.innerHTML = durationConvertor(duration);
+     songDuration.className = "song-duration";
 
-    const songCover = document.createElement("img");
-    songCover.innerHTML = coverArt;
-    songCover.className = "song-cover";
+     const songCover = document.createElement("img");
+     songCover.innerHTML = coverArt;
+     songCover.className = "song-cover";
 
 
-    const children = [songTitle, songAlbum, songArtist, songDuration, songCover];
-    const classes = ["song-class"];
-    const attrs = { onclick: `playSong(${id})` }
+     const children = [songTitle, songAlbum, songArtist, songDuration, songCover];
+     const classes = ["song-class"];
+     const attrs = { onclick: `playSong(${id})` }
 
-    return createElement("div", children, classes, attrs)
+     return createElement("div", children, classes, attrs)
 };
+*/
+
+//          Second try
+function createSongElement({ id, title, album, artist, duration, coverArt }) {
+    // Song title (<header>)
+    const titleEl = createElement("header", [title], ["title-class"]);
+    // Song album (<li>)
+    const albumEl = createElement("li", ["From: ", album], ["item-class"]);
+    // Song artist (<li>)
+    const artistEl = createElement("li", ["By: ", artist], ["item-class"]);
+    // Song duration (<li>)
+    const durationEl = createElement("li", ["Duration: ", durationConvertor(duration)], ["duration-class"], {onclick: `console.log('${duration}')`});
+  
+    const coverImageArtUrl = coverArt;
+    const imgEl = createElement("img", [] ,["image-class"], {src: coverImageArtUrl});
+  
+    return createElement("div", [titleEl, artistEl, albumEl, durationEl, imgEl]);
+  }
 
 /**
  * Creates a playlist DOM element based on a playlist object.
@@ -89,30 +89,64 @@ function createPlaylistElement({ id, name, songs }) {
  * @param {Object} attributes - the attributes for the new element
  */
 
-
+/*            First try
 function createElement(tagName, children = [], classes = [], attributes = {}) {
-    let element = document.createElement(tagName);
-    for(let i = 0; i < children.length; i++){
-        element.appendChild(children[i]);
-    }
-    for(let i = 0; i < classes.length; i++){
-        element.className = classes[i];
-    }
+     let element = document.createElement(tagName);
+     for(let child of children){
+         element.appendChild(child);
+     }
+     for(let clas of classes){
+         element.className = clas;
+     }
 
-    //coudln't figure this out
-    /*
-    for(let attri of attributes){
-    element.setAttribute(attri);
-    }
-    */
-
-    return element;
+     //coudln't figure this out
+    
+     for(let attri in attributes){
+     element.setAttribute(attri, attributes[attri]);
+     }
+     return element;
 };
+*/
+
+//            Second try
+function createElement(tagName, children = [], classes = [], attributes = {}) {
+    //Create element
+    const el = document.createElement(tagName);
+
+    // Children
+    for(const child of children) {
+      el.append(child);
+    }
+  
+    // Classes
+    for(const cls of classes) {
+      el.classList.add(cls);
+    }
+  
+    // Attributes
+    for (const attr in attributes) {
+      el.setAttribute(attr, attributes[attr]);
+    }
+  
+    return el;
+  }
 
 
 // You can write more code below this line
 
-//console.log(player);
+//Duration convertor (from seconds to mm:ss)
+function durationConvertor(duration){
+    let minutes = Math.floor(duration / 60);
+    let seconds = duration % 60;
+    if (seconds < 10){
+      seconds = "0" + seconds;
+    }
+    if (minutes < 10){
+      minutes = "0" + minutes;
+    }
+    return minutes + ":" + seconds;
+  }
+
 
 //Get existing elements in the html index and place them in variables
 let body = document.getElementById('body');

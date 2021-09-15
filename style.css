@@ -1,13 +1,4 @@
-/* Your code here */
-
-
-
-.paragraph{
-
-}
-
-
-
+/* ------Main------ */
 #main-container{
     background-color: #39F2CC;
     color: rgb(0, 0, 0);
@@ -26,6 +17,16 @@
 #main-headline{
 
 }
+
+.paragraph{
+
+}
+
+
+
+
+
+
 
 #intro{
 
@@ -77,17 +78,17 @@
   color: white;
 }
 
-.song-item{
+.item-class{
     color: gray;
     
 }
 
-.song-title{
+.title-class{
     color: slategray;
     font-size: 1.5em;
 }
 
-.song-duration{
+.duration-class{
 color: #5d8680;
 font-style: italic;
 }
