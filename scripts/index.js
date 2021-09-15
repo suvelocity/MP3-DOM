@@ -5,11 +5,11 @@
  * @param {String} songId - the ID of the song to play
  */
 function playSong(songId) {
-    for(let song of player){
-        song[id].style.backgroundColor = "dark grey";
+    let songEl = document.getElementById("song"+songId);
+    songEl.style.backgroundColor = "yellow";
+    console.log("Now playing :", '\n' + songEl.innerText)
     }
     
-}
 
 /**
  * Creates a song DOM element based on a song object.
@@ -62,8 +62,8 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const coverImageArtUrl = coverArt;
     const imgEl = createElement("img", [] ,["image-class"], {src: coverImageArtUrl});
   
-    return createElement("div", [titleEl, artistEl, albumEl, durationEl, imgEl]);
-    // return createElement("div", [titleEl, artistEl, albumEl, durationEl, imgEl], {onclick: `console.log('${playSong(id)}`});
+    //return createElement("div", [titleEl, artistEl, albumEl, durationEl, imgEl], ["song-class"]);
+    return createElement("div", [titleEl, artistEl, albumEl, durationEl, imgEl], ["song-class"], {onclick: `playSong(${id})`});
   }
 
 /**
@@ -80,7 +80,7 @@ function createPlaylistElement({ id, name, songs }) {
     const durationsEl = createElement("li", ["Duration: ",durationConvertor(playlistDuration(id))], ["item-class"]);
     
 
-    return createElement("div", [nameEl, noOfSongsEl, durationsEl]);
+    return createElement("div", [nameEl, noOfSongsEl, durationsEl], ["playlist-class"]);
 };
 
 //console.log(createPlaylistElement({id: 5, name: "Israeli"}));
@@ -160,7 +160,6 @@ const intro = createElement("p", ["This MP3 player was created to light up your 
 const mainH1 = createElement("h1", ["Aviv's MP3 Player"], ["headline"], {});
 const mainHeader = createElement("header", [mainH1], ["header"], {});
 const mainContainer = createElement("div", [mainHeader, intro], ["container"], {});
-//console.log(mainContainer);
 body.appendChild(mainContainer);
 body.insertBefore(mainContainer, songsContainer);
 
@@ -170,7 +169,9 @@ const songsH2 = createElement("h2", ["Songs"], ["headline"], {});
 const songsHeader = createElement("header", [songsH2], ["header"], {});
 const listOfSongs = createElement("ul", [], ["list"], {});
 for(let song of player.songs){
-    listOfSongs.appendChild(createSongElement(song));
+    let songEl = createSongElement(song);
+    attachId(songEl, "song", song.id);
+    listOfSongs.appendChild(songEl);
 }
 songsContainer.className = "container";
 songsContainer.appendChild(songsHeader);
@@ -185,7 +186,9 @@ playlistsContainer.className = "container";
 playlistsContainer.appendChild(playlistsHeader);
 playlistsContainer.appendChild(listOfPlaylists);
 for(let playlist of player.playlists){
-    listOfPlaylists.appendChild(createPlaylistElement(playlist));
+    let playlistEl = createPlaylistElement(playlist);
+    attachId(playlistEl, "playlist", playlist.id)
+    listOfPlaylists.appendChild(playlistEl);
 }
 
 
@@ -239,5 +242,11 @@ function playlistDuration(id) {
     return durations;
   };
 
+//ID attacher 
+function attachId(element, string, id){
+    element.id = string + id;
+}
   
 
+// let test = document.getElementById("song2");
+// test.style.backgroundColor = "yellow";
