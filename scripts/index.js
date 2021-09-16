@@ -87,38 +87,38 @@ function addSongHandler(){
     let text;
     let td, td1;
 
-    let head = document.createElement("h1");
+    let head = createElement("h1");
     head.textContent = "Add Song"
     
-    text = document.createElement("text");
+    text = createElement("text");
     text.textContent = "Song's name"
     td = createElement("td",[text])
     let title = createElement("input",[],[],{"type":"text", "name":"name", "placeholder":"Name", "required":"required"});
     td1 = createElement("td",[title])
     children.push(createElement("tr", [td,td1],[],{}))
 
-    text = document.createElement("text");
+    text = createElement("text");
     text.textContent = "Song's album"
     td = createElement("td",[text])
     let album = createElement("input",[],[],{"type":"text", "name":"album", "placeholder":"album", "required":"required"});
     td1 = createElement("td",[album])
     children.push(createElement("tr", [td,td1],[],{}))
 
-    text = document.createElement("text");
+    text = createElement("text");
     text.textContent = "Artist"
     td = createElement("td",[text])
     let Artist = createElement("input",[],[],{"type":"text", "name":"Artist", "placeholder":"Artist", "required":"required"});
     td1 = createElement("td",[Artist])
     children.push(createElement("tr", [td,td1],[],{}))
 
-    text = document.createElement("text");
+    text = createElement("text");
     text.textContent = "Duration"
     td = createElement("td",[text])
     let Duration = createElement("input",[],[],{"type":"text", "name":"Duration", "placeholder":"Duration", "required":"required"});
     td1 = createElement("td",[Duration])
     children.push(createElement("tr", [td,td1],[],{}))
 
-    text = document.createElement("text");
+    text = createElement("text");
     text.textContent = "ID (optional)"
     td = createElement("td",[text])
     let id = createElement("input", [],[],{"type":"text", "name":"id", "placeholder":"ID"})
@@ -127,7 +127,7 @@ function addSongHandler(){
     
 
      // create a submit button
-    let s = createElement("input",[],[],{"type":"submit", "value":"Add"/*, "onClick":"formSubmit()"*/})
+    let s = createElement("input",[],[],{"type":"submit", "value":"Add", "onclick":"formSubmit"})
     td = createElement("tr",[s])
     children.push(td);
 
@@ -135,7 +135,7 @@ function addSongHandler(){
     //form.setAttribute("action", "submit.php");
     let tr = createElement("tr",children)
     let table = createElement("table",[tr])
-    let form = createElement("form",[head, table],["main-content"],{"onsubmit":"formSubmit()"})
+    let form = createElement("form",[head, table],["main-content"])
     // Create a form synamically
     form.setAttribute("method", "post");
     // let d = createElement("div",[form],["main-content"])
