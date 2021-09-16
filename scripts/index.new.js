@@ -116,36 +116,37 @@ function handleAddSongEvent(event) {
     return el;
   }
 
+
+// Making the add-song-button actually do something
+document.getElementById("add-button").addEventListener("click", handleAddSongEvent)
+
 /**
  * Inserts all songs in the player as DOM elements into the songs list.
  */
-function generateSongs() {
-    // Your code here
+ function generateSongs(playerObj, songsList) {
+  for(let song of playerObj.songs){
+    let songEl = createSongElement(song);
+    attachId(songEl, "song", song.id);
+    songsList.appendChild(songEl);
+  }
 }
 
 /**
  * Inserts all playlists in the player as DOM elements into the playlists list.
  */
-function generatePlaylists() {
-    // Your code here
+ function generatePlaylists(playerObj, playlistsList) {
+  for(let playlist of player.playlists){
+    let playlistEl = createPlaylistElement(playlist);
+    attachId(playlistEl, "playlist", playlist.id)
+    playlistsList.appendChild(playlistEl);
+}
 }
 
-// Creating the page structure
-generateSongs()
-generatePlaylists()
 
-// Making the add-song-button actually do something
-document.getElementById("add-button").addEventListener("click", handleAddSongEvent)
+//-----------Creatin page structure---------\\
 
+//-----------Main container---------\\
 const body = document.getElementById('body');
-const songsContainer = document.getElementById('songs');
-const playlistsContainer = document.getElementById("playlists"); 
-const songSection = document.getElementById("add-section");
-songSection.className = "container";
-
-
-//-----------Main container------\\
-
 const intro = createElement("p", ["This MP3 player was created to light up your mood, do not hesitate to use it :)"], ["paragraph"], {});
 const mainH1 = createElement("h1", ["Aviv's MP3 Player"], ["headline"], {});
 const mainHeader = createElement("header", [mainH1], ["header"], {});
@@ -154,21 +155,25 @@ mainContainer.id = "main-container";
 body.appendChild(mainContainer);
 body.insertBefore(mainContainer, body.firstElementChild);
 
-//--------Songs container------\\
+//---------Add a new song------\\
+const songSection = document.getElementById("add-section");
+songSection.className = "container";
 
+//--------Songs container------\\
+const songsContainer = document.getElementById('songs');
 const songsH2 = createElement("h2", ["Songs"], ["headline"], {});
 const songsHeader = createElement("header", [songsH2], ["header"], {});
 const listOfSongs = createElement("ul", [], ["list"], {});
-for(let song of player.songs){
-    let songEl = createSongElement(song);
-    attachId(songEl, "song", song.id);
-    listOfSongs.appendChild(songEl);
-}
+
 songsContainer.className = "container";
 songsContainer.appendChild(songsHeader);
 songsContainer.appendChild(listOfSongs);
 
+generateSongs(player, listOfSongs);
+
+
 //--------Playlists container------\\
+const playlistsContainer = document.getElementById("playlists"); 
 const playlistsH3 = createElement("h3", ["Playlists"], ["headline"], {});
 const playlistsHeader = createElement("header", [playlistsH3], ["header"], {});
 const listOfPlaylists = createElement("ul", [], ["list"], {});
@@ -176,14 +181,14 @@ const listOfPlaylists = createElement("ul", [], ["list"], {});
 playlistsContainer.className = "container";
 playlistsContainer.appendChild(playlistsHeader);
 playlistsContainer.appendChild(listOfPlaylists);
-for(let playlist of player.playlists){
-    let playlistEl = createPlaylistElement(playlist);
-    attachId(playlistEl, "playlist", playlist.id)
-    listOfPlaylists.appendChild(playlistEl);
-}
 
 
-//-------Functions------\\
+generatePlaylists(player, listOfPlaylists)
+
+
+
+//-------------Functions----------------\\
+
 //Converts the duration format to mm:ss
 function durationConvertor(duration){
     let minutes = Math.floor(duration / 60);

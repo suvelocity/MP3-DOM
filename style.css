@@ -39,9 +39,9 @@
 }
 
 .song-class, .playlist-class{
-  margin-right: 4%;;
+  margin-right: 4%;
   padding: 0%;
-  border:20px white;
+  border: 3px black solid;
   font-family: 'Oswald', sans-serif; 
   font-size: 1em;
   font-weight: bold;
@@ -62,4 +62,9 @@
 .duration-class{
 color: #5d8680;
 font-style: italic;
+}
+
+.image-class{
+  height: 10em;
+  width: 10em;
 }
