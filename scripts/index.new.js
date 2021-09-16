@@ -18,9 +18,17 @@
  * @param {Number} songId - the ID of the song to remove
  */
 function removeSong(songId) {
-  if(!idCheck(id)) throw new Error("Invalid ID");
-  player.songs.splice(IndexOfSong(id), 1);
-  DeleteInPlayLists(id);
+  //ID checker
+  if(!idCheck(songId)) throw new Error("Invalid ID");
+  //Delete from player
+  player.songs.splice(IndexOfSong(songId), 1);
+  DeleteInPlayLists(songId);
+  //Remove element from DOM
+  elementId = "song"+songId; 
+  let songEl = document.getElementById(elementId);
+  songEl.remove();
+  console.log(player);
+  console.log(listOfSongs);
 }
 
 
@@ -209,6 +217,7 @@ generatePlaylists(player, listOfPlaylists)
 
 
 addSong("Vzxzza", "Gzxzxzxfolk", "zxzxikr", "03:20", "./images/cover_art/songleikr_vinda.jpg")
+
 //-------------Functions----------------\\
 
 //Converts the duration format to mm:ss
