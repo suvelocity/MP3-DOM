@@ -5,9 +5,11 @@
  * @param {Number} songId - the ID of the song to play
  */
  function playSong(songId) {
-    let songEl = document.getElementById("song"+songId);
-    songEl.style.backgroundColor = "yellow";
-    console.log("Now playing :", '\n' + songEl.innerText)
+   let id = songId.id.slice(4);
+    id = parseInt(id, 10);
+   console.log(id);
+    songId.style.backgroundColor = "yellow";
+    console.log("Now playing :" + songId.innerText);
     }
 
 /**
@@ -16,14 +18,34 @@
  * @param {Number} songId - the ID of the song to remove
  */
 function removeSong(songId) {
-    // Your code here
+  if(!idCheck(id)) throw new Error("Invalid ID");
+  player.songs.splice(IndexOfSong(id), 1);
+  DeleteInPlayLists(id);
 }
+
 
 /**
  * Adds a song to the player, and updates the DOM to match.
  */
-function addSong({ title, album, artist, duration, coverArt }) {
-    // Your code here
+function addSong(title, album, artist, duration, coverArt, id = randomId()) {
+  duration = reverseDurationConvertor(duration);
+  //Random ID generator
+  while(idCheck(id)){
+    id = randomId();
+  }
+  //Add to player
+  player.songs.push({
+    id: id,
+    title: title,
+    album: album,
+    artist: artist,
+    duration: duration
+  });
+  //Create new DOM element and appen as child to listOfSongs, log the action
+  let newSongEl = createSongElement({ id, title, album, artist, duration, coverArt });
+  attachId(newSongEl, "song", id);
+  listOfSongs.appendChild(newSongEl);
+  console.log("New song was added! " + title + " ID: " + id);
 }
 
 /**
@@ -62,7 +84,7 @@ function handleAddSongEvent(event) {
     const imgEl = createElement("img", [] ,["image-class"], {src: coverImageArtUrl});
   
     //return createElement("div", [titleEl, artistEl, albumEl, durationEl, imgEl], ["song-class"]);
-    return createElement("div", [titleEl, artistEl, albumEl, durationEl, imgEl], ["song-class"], {onclick: `playSong(${id})`});
+    return createElement("div", [titleEl, artistEl, albumEl, durationEl, imgEl], ["song-class"], {onclick: `playSong(${"song"+id})`});
   };
 
 /**
@@ -186,7 +208,7 @@ playlistsContainer.appendChild(listOfPlaylists);
 generatePlaylists(player, listOfPlaylists)
 
 
-
+addSong("Vzxzza", "Gzxzxzxfolk", "zxzxikr", "03:20", "./images/cover_art/songleikr_vinda.jpg")
 //-------------Functions----------------\\
 
 //Converts the duration format to mm:ss
@@ -201,6 +223,16 @@ function durationConvertor(duration){
     }
     return minutes + ":" + seconds;
   };
+
+//Duration reverse convertor (from mm:ss to seconds)
+  
+function reverseDurationConvertor(duration){
+  duration = duration.split(":");
+  let minutes = parseInt(duration[0]) * 60;
+  let seconds = parseInt(duration[1]);
+  return minutes + seconds;
+}
+
 
 //Returns the duration of a song
 function getDuration(id){
@@ -242,3 +274,47 @@ function playlistDuration(id) {
 function attachId(element, string, id){
     element.id = string + id;
 }
+
+//Returns true if id exists and false if not
+function idCheck(id){
+  for(let song of player.songs){
+      if(song.id == id){
+        return true;
+      }
+  }
+  return false;
+}
+
+//Returns an index of a song in songs by id
+function IndexOfSong(id) {
+  for(let song of player.songs){
+   if(song.id == id){ 
+     return player.songs.indexOf(song);
+     }
+   }
+ }
+
+ //Deleting the specific song from playlists
+function DeleteInPlayLists(id) {
+  for(let playlistSongs of player.playlists){
+    for(let i = 0; i < playlistSongs.songs.length; i++){
+      if(playlistSongs.songs[i] == id){
+        playlistSongs.songs.splice(i, 1);
+      }
+    }
+  }
+ };
+
+ /*
+function removeSong(id) {
+  if(!idCheck(id)) throw new Error("Invalid ID");
+  player.songs.splice(IndexOfSong(id), 1);
+  DeleteInPlayLists(id);
+}
+*/
+
+//Random ID generator between 1-100
+function randomId(){
+  return Math.floor(Math.random() * 101);
+}
+
