@@ -68,3 +68,7 @@ font-style: italic;
   height: 10em;
   width: 10em;
 }
+
+.btn{
+  float: right;
+}
