@@ -1,63 +1,8 @@
-function convertDuration(duration) {
-    //parameters - duration (type string('mm:ss') / number(seconds))
-    //return string('mm:ss') if number was given
-    //return number(seconds) if string was given
-    if(typeof(duration) === 'number'){
-        let min  = Math.floor(duration / 60);
-        let sec = duration % 60;
-        if (min < 10) {
-        min = "0" + String(min);
-        }
-        if (sec < 10) {
-        sec = "0" + String(sec);
-        }
-        return min + ':' + sec;
-    }
-    else{//if its a string
-        return parseInt(duration.slice(3)) + parseInt(duration.slice(0,2)) * 60;
-    }
-}
-
-function generateID(arr, id){
-    //parameters - arr (type array(of objects))
-    //             id (type number)(optional)
-    //if id is given - checks if it aviable id (if its not already used)
-    //if id isnt given - generate new id
-    //returns the id
-  
-    let ids = [];//an array that includes all the ids of the objects in arr
-    for(let cell of arr){
-      ids.push(cell.id);
-    }
-  
-    if(!id){//if id is undifined (optional!) => creates new one
-      let i = 1;
-      while(ids.includes(i)){
-        i++;
-      }
-      id = i;
-    }
-    else{//if id has been given, checks if it already used.
-      if(ids.includes(id)){
-        throw(id + " id already exist!");
-      }
-    }
-    return id;
-  }
-
-function getEl(arr, id){
-    //parameters - arr (type array(of objects))
-    //             id (type number)
-    //returns the object in the array that has the wanted id.
-    for(let el of arr){
-      if(el.id === id){
-        return el;
-      }
-    }
-    throw("couldn't find element where id=" + id);
-  }
-
+/**
+ * removes all the elements from main content block
+ */
 function newWindow(){
+    
     let el = document.getElementById('main-content');
     while(el.firstChild){
         el.removeChild(el.firstChild);
@@ -67,19 +12,15 @@ function newWindow(){
     el.appendChild(createElement("div",[],[],{'id':'playlists', 'class':'main-content'}))
 }
 
+/**
+ * called when a remove button has been clicked.
+ * removes the song, removes it from the playlists(if exists).
+ * if the song is currently playing, stops it.
+ * 
+ * @param {number} id - the id of clicked song
+ */
 function removeSongHandler(id){
-    //newWindow();
-    let song2delete = getEl(player.songs,id);
-    const index = player.songs.indexOf(song2delete);
-    player.songs.splice(index,1);
-
-    for(const pl of player.playlists){
-        let songs = pl.songs;
-        const i = songs.indexOf(id);
-        if(i > -1){
-            songs.splice(i,1);
-        }
-    }
+    removeSong(id);
 
     //if the song is currently playing:
     const playNowDiv = document.getElementById("playNow").children[1];
@@ -92,6 +33,10 @@ function removeSongHandler(id){
     songsHandler();
 }
 
+/**
+ * called when 'add song' clicked.
+ * opens a form to add a song.
+ */
 function addSongHandler(){
     newWindow();
     let children = []
@@ -102,7 +47,7 @@ function addSongHandler(){
     let head = createElement("h1");
     head.textContent = "Add Song"
 
-
+    //the loop generates the form inside a table by the keys.
     const keys = ["name", "album", "artist", "duration", "image"]
     for(const key of keys){
         text = createElement("text");
@@ -113,6 +58,7 @@ function addSongHandler(){
         children.push(createElement("tr", [td,td1],[],{}))
     }
 
+    //generates the id as an optional input in the form
     text = createElement("text");
     text.textContent = "ID (optional)"
     td = createElement("td",[text])
@@ -120,25 +66,23 @@ function addSongHandler(){
     td1 = createElement("td",[id])
     children.push(createElement("tr", [td,td1],[],{}))
     
-
-     // create a submit button
+    // create a submit button
     let s = createElement("input",[],[],{"type":"submit", "value":"Add", "onclick":"formSubmit()"})
-    /*playSong(${song.id})*/
     s.textContent = "Add"
     td = createElement("tr",[s])
     children.push(td);
 
-    
-    //form.setAttribute("action", "submit.php");
-    //let tr = createElement("tr",children)
-    let table = createElement("table",[tr])
+    let table = createElement("table",children)
     let form = createElement("form",[head, table],["main-content"])
-    // Create a form synamically
+    // Create a form dynamically
     form.setAttribute("method", "post");
-    // let d = createElement("div",[form],["main-content"])
     document.getElementById("main-content").appendChild(form)
 }
 
+/**
+ * called when add-song form is submited.
+ * checks some of the values and cretes new song.
+ */
 function formSubmit(){
     const name = document.getElementById("name").value;
     const album = document.getElementById("album").value;
@@ -147,11 +91,14 @@ function formSubmit(){
     const img = document.getElementById("image").value;
     const id = document.getElementById("id").value;
 
-    if(!name || !album || !artist || !duration)
+    if(!name || !album || !artist || !duration){
+        addSongHandler();
         return;
+    }
 
     if(duration.length != 5){
         alert("Unvalide Duration!")
+        addSongHandler();
         return;
     }
     if((duration[0] < '0' || duration[0] > '9') || 
@@ -160,6 +107,7 @@ function formSubmit(){
     (duration[4] < '0' || duration[4] > '9') ||
     duration[2] != ":"){
         alert("Unvalide Duration!")
+        addSongHandler();
         return;
     }
 
@@ -168,25 +116,11 @@ function formSubmit(){
     songsHandler();
 }
 
-function addSong(title, album, artist, duration = "00:00", id, coverArt) {
-    //parameters - title (type string)
-    //             album (type string)
-    //             artist (type string)
-    //             duration (type string)(format 'mm:ss')
-    //             id(type number)(optional)
-    //creates new song, add it to songs array.
-    //return his id
-    id = generateID(player.songs, id);
-    duration = convertDuration(duration);
-    //TODO: find a better way to generate the object
-    let newSong={id, title, album, artist, duration, coverArt}
-    player.songs.push(newSong);
-    return id;
-  }
-
-function songsHandler(){
-//deletes everything and shows songs 
-    newWindow()
+/**
+ * @returns {array} songsElems - array of html elements that represents all the songs
+ */
+function getSongsElems(){
+    let songsElems = [];
     for(const song of player.songs){
         const playButt = createElement("button",[],[],{onclick: `playSong(${song.id})`, "value":"Play"})
         playButt.textContent = "Play";
@@ -195,16 +129,44 @@ function songsHandler(){
         removeButt.textContent= "Remove";
 
         const songDiv = createSongElement(song)
+
+        songsElems.push(songDiv);
+    }
+    return songsElems;
+}
+
+/**
+ * called when 'songs' button (nav-bar) clicked
+ * resets the main content and shows the songs 
+ */
+function songsHandler(){
+    newWindow();
+    let songsElems = getSongsElems();
+    // console.log(songsElems)
+    for(const songEl of songsElems){
+        // console.log(songEl.id)
+        const id = parseInt(songEl.id.slice(4, songEl.id.length))
+        // console.log(songEl.id + " - " + id + " - " + (songEl.id.length));
+        const playButt = createElement("button",[],[],{onclick: `playSong(${id})`, "value":"Play"})
+        playButt.textContent = "Play";
+
+        const removeButt = createElement("button",[],[],{onclick: `removeSongHandler(${id})`, "value":"Remove"})
+        removeButt.textContent= "Remove";
+
         let br = createElement("br");
-        songDiv.appendChild(br);
-        songDiv.appendChild(playButt);
+        songEl.appendChild(br);
+        songEl.appendChild(playButt);
         br = createElement("br");
-        songDiv.appendChild(br);
-        songDiv.appendChild(removeButt);
-        document.getElementById("songs").appendChild(songDiv)
+        songEl.appendChild(br);
+        songEl.appendChild(removeButt);
+        document.getElementById("songs").appendChild(songEl)
     }
 }
 
+/**
+ * called when 'playlists' button (nav-bar) clicked
+ * resets the main content and shows the playLists 
+ */
 function playlistsHandler(){
     newWindow()
     for(const playlist of player.playlists){
@@ -212,6 +174,14 @@ function playlistsHandler(){
     }
 }
 
+function addSongToPlaylist(){
+    newWindow();
+
+}
+
+/**
+ * clears the playing-now div (at the bottom of the nav-bar)
+ */
 function clearPlayingNow(){
     let currDir = document.getElementById("playNow")
     while(currDir.firstChild){
@@ -225,8 +195,7 @@ function clearPlayingNow(){
 
 /**
  * Plays a song from the player.
- * Playing a song means changing the visual indication of the currently playing song.
- *
+ * Playing a song means showing the song in the 'playing now' section (at the bottom of the nav-bar)
  * @param {String} songId - the ID of the song to play
  */
 function playSong(songId) {
@@ -246,18 +215,20 @@ function playSong(songId) {
         currDir.style.background = "rgb(" + red +"," + green + ",0)"
     }
 
-    // const stopButt = createElement("button",[],[],{"onclick":document.getElementById("playNow").removeChild(playNowDiv)})
-    // song = createSongElement(song)
-
     currDir.appendChild(createSongElement(song))
 
+    const br = createElement("br")
+    currDir.childNodes[1].appendChild(br);
+
     const stopButt = createElement("button",[],[],{onclick:"clearPlayingNow()"});
-    stopButt.textContent = "Stop";
-    currDir.appendChild(stopButt);
+    stopButt.textContent = "Stop Playing";
+    currDir.childNodes[1].appendChild(stopButt);
 }
 
 /**
  * Creates a song DOM element based on a song object.
+ * @param {object} song - gets a song
+ * @returns {HTMLElement} div - includes all the song's details
  */
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const children = []
@@ -277,17 +248,15 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
         img.src = coverArt;
         children.push(img)
     }
-     
 
-    //createElement('div',children,classes,attrs)
-    //document.getElementById("songs").appendChild(createElement("div", children, classes, attrs));
     const el = createElement("div", children, classes, attrs)
-    //console.log(el.attributes)
     return el
 }
 
 /**
  * Creates a playlist DOM element based on a playlist object.
+ * @param {object} playlist
+ * @returns {HTMLElement} div - a div that includes playlist's details and song
  */
 function createPlaylistElement({ id, name, songs }) {
     const children = []
@@ -305,7 +274,6 @@ function createPlaylistElement({ id, name, songs }) {
         children.push(createSongElement(getEl(player.songs,songs[i-1])));
     }
 
-    //console.log(children);
     return createElement("div", children, classes, attrs)
 }
 
@@ -320,6 +288,8 @@ function createPlaylistElement({ id, name, songs }) {
  *                           Each child can be a DOM element, or a string (if you just want a text element).
  * @param {Array} classes - the class list of the new element
  * @param {Object} attributes - the attributes for the new element
+ * 
+ * @returns {HTMLElement} newEl - the element that has been created
  */
 function createElement(tagName, children = [], classes = [], attributes = {}) {
     let newEl = document.createElement(tagName);
@@ -336,4 +306,6 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
 }
 
 // You can write more code below this line
+player.songs.sort((s1,s2) => s1.title.localeCompare(s2.title));
+player.playlists.sort((pl1,pl2) => pl1.name.localeCompare(pl2.name));
 songsHandler()
