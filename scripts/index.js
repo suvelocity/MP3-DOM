@@ -103,7 +103,7 @@ function addSongHandler(){
     head.textContent = "Add Song"
 
 
-    const keys = ["name", "album", "artist", "duration"]
+    const keys = ["name", "album", "artist", "duration", "image"]
     for(const key of keys){
         text = createElement("text");
         text.textContent = "Song's " + key;
@@ -130,7 +130,7 @@ function addSongHandler(){
 
     
     //form.setAttribute("action", "submit.php");
-    let tr = createElement("tr",children)
+    //let tr = createElement("tr",children)
     let table = createElement("table",[tr])
     let form = createElement("form",[head, table],["main-content"])
     // Create a form synamically
@@ -144,6 +144,7 @@ function formSubmit(){
     const album = document.getElementById("album").value;
     const artist = document.getElementById("artist").value;
     const duration = document.getElementById("duration").value;
+    const img = document.getElementById("image").value;
     const id = document.getElementById("id").value;
 
     if(!name || !album || !artist || !duration)
@@ -162,12 +163,12 @@ function formSubmit(){
         return;
     }
 
-    addSong(name, album, artist, duration, id);
+    addSong(name, album, artist, duration, id, img);
 
     songsHandler();
 }
 
-function addSong(title, album, artist, duration = "00:00", id) {
+function addSong(title, album, artist, duration = "00:00", id, coverArt) {
     //parameters - title (type string)
     //             album (type string)
     //             artist (type string)
@@ -178,7 +179,7 @@ function addSong(title, album, artist, duration = "00:00", id) {
     id = generateID(player.songs, id);
     duration = convertDuration(duration);
     //TODO: find a better way to generate the object
-    let newSong={id, title, album, artist, duration}
+    let newSong={id, title, album, artist, duration, coverArt}
     player.songs.push(newSong);
     return id;
   }
@@ -211,14 +212,7 @@ function playlistsHandler(){
     }
 }
 
-/**
- * Plays a song from the player.
- * Playing a song means changing the visual indication of the currently playing song.
- *
- * @param {String} songId - the ID of the song to play
- */
-function playSong(songId) {
-    let song = getEl(player.songs, songId);
+function clearPlayingNow(){
     let currDir = document.getElementById("playNow")
     while(currDir.firstChild){
         currDir.removeChild(currDir.firstChild);
@@ -227,7 +221,19 @@ function playSong(songId) {
     const plyNow = createElement("header");
     plyNow.textContent = "Playing Now";
     currDir.appendChild(plyNow);
+}
 
+/**
+ * Plays a song from the player.
+ * Playing a song means changing the visual indication of the currently playing song.
+ *
+ * @param {String} songId - the ID of the song to play
+ */
+function playSong(songId) {
+    clearPlayingNow()
+    let song = getEl(player.songs, songId);
+    let currDir = document.getElementById("playNow")
+    
     if(song.duration <= 120){
         currDir.style.background = "rgb(0,255,0)"
     }
@@ -244,6 +250,10 @@ function playSong(songId) {
     // song = createSongElement(song)
 
     currDir.appendChild(createSongElement(song))
+
+    const stopButt = createElement("button",[],[],{onclick:"clearPlayingNow()"});
+    stopButt.textContent = "Stop";
+    currDir.appendChild(stopButt);
 }
 
 /**
