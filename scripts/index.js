@@ -149,7 +149,6 @@ function formSubmit(){
     if(!name || !album || !artist || !duration)
         return;
 
-    const indexToCheck = [0,1,3,4]
     if(duration.length != 5){
         alert("Unvalide Duration!")
         return;
@@ -195,7 +194,11 @@ function songsHandler(){
         removeButt.textContent= "Remove";
 
         const songDiv = createSongElement(song)
+        let br = createElement("br");
+        songDiv.appendChild(br);
         songDiv.appendChild(playButt);
+        br = createElement("br");
+        songDiv.appendChild(br);
         songDiv.appendChild(removeButt);
         document.getElementById("songs").appendChild(songDiv)
     }
@@ -215,7 +218,7 @@ function playlistsHandler(){
  * @param {String} songId - the ID of the song to play
  */
 function playSong(songId) {
-    const song = getEl(player.songs, songId);
+    let song = getEl(player.songs, songId);
     let currDir = document.getElementById("playNow")
     while(currDir.firstChild){
         currDir.removeChild(currDir.firstChild);
@@ -236,6 +239,10 @@ function playSong(songId) {
         const red = 256-green;
         currDir.style.background = "rgb(" + red +"," + green + ",0)"
     }
+
+    // const stopButt = createElement("button",[],[],{"onclick":document.getElementById("playNow").removeChild(playNowDiv)})
+    // song = createSongElement(song)
+
     currDir.appendChild(createSongElement(song))
 }
 
@@ -284,7 +291,7 @@ function createPlaylistElement({ id, name, songs }) {
     const info = createElement("p");
     info.textContent = "songs -";
     children.push(info)
-    for(let i = 1; i <= songs.length; i++){//pushes every song as an element
+    for(let i = 1; i <= songs.length; i++){//pushes all the song in a playlist as an element
         children.push(createSongElement(getEl(player.songs,songs[i-1])));
     }
 
