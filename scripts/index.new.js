@@ -26,18 +26,10 @@
  */
 //function removeSong(songId) {//
     function removeSong(id) {
-        let needToDelete = player.songs.indexOf(getSongUsingId(id));
-        player.songs.splice(needToDelete, 1);
-        for (let i = 0; i < player.playlists.length; i++) {
-          for (let j = 0; j < player.playlists[i].songs.length; j++) {
-            if (player.playlists[i].songs.indexOf(id) >= 0) {
-              player.playlists[i].songs.splice(j, 1);
-              return player.playlists[i].songs;
-            }
-          }
-        }
-        return player.songs;
-      }
+        song= document.getElementById("song"+id);
+        song.remove()
+        
+    }
 
 
 /**
@@ -89,9 +81,11 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
         createElement("span", [", album: ", album], ["album"]),
         createElement("span", [", artist: ", artist], ["artist"]),
         createElement("span", [", ", mmss(duration)], ["duration"]),
-        createElement("button",["▶️"], ["play-button"], {onclick: `playSong(${id})` } )
+        createElement("button",["▶️"], ["play-button"], {onclick: `playSong(${id})` } ),
+        createElement("button",["❌"], ["remove-button"], {onclick: `removeSong(${id})`} )
 
     ]
+    let s= document.createElement("div").appendChild[children]
     const classes = []
     
 
