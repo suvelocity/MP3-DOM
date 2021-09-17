@@ -67,67 +67,64 @@ function newWindow(){
     el.appendChild(createElement("div",[],[],{'id':'playlists', 'class':'main-content'}))
 }
 
-function removeSongHandler(){
-    newWindow();
+function removeSongHandler(id){
+    //newWindow();
+    let song2delete = getEl(player.songs,id);
+    const index = player.songs.indexOf(song2delete);
+    player.songs.splice(index,1);
 
-    let rad
-    let songEl
-    let form = createElement("form",[],['main-content'],{})
-    for(let song of player.songs){
-        songEl = createSongElement(song);
-        rad = createElement("input",[songEl],[],{'type':'checkbox'})
-        form.appendChild(rad);
+    for(const pl of player.playlists){
+        let songs = pl.songs;
+        const i = songs.indexOf(id);
+        if(i > -1){
+            songs.splice(i,1);
+        }
     }
-    document.getElementById("main-content").appendChild(form);
+
+    //if the song is currently playing:
+    const playNowDiv = document.getElementById("playNow").children[1];
+    if(playNowDiv){
+        if(playNowDiv.id === "song" + id){
+            document.getElementById("playNow").removeChild(playNowDiv);
+        }
+    }
+
+    songsHandler();
 }
 
 function addSongHandler(){
     newWindow();
     let children = []
     let text;
+    let keyInput;
     let td, td1;
 
     let head = createElement("h1");
     head.textContent = "Add Song"
-    
-    text = createElement("text");
-    text.textContent = "Song's name"
-    td = createElement("td",[text])
-    let title = createElement("input",[],[],{"type":"text", "name":"name", "placeholder":"Name", "required":"required"});
-    td1 = createElement("td",[title])
-    children.push(createElement("tr", [td,td1],[],{}))
 
-    text = createElement("text");
-    text.textContent = "Song's album"
-    td = createElement("td",[text])
-    let album = createElement("input",[],[],{"type":"text", "name":"album", "placeholder":"album", "required":"required"});
-    td1 = createElement("td",[album])
-    children.push(createElement("tr", [td,td1],[],{}))
 
-    text = createElement("text");
-    text.textContent = "Artist"
-    td = createElement("td",[text])
-    let Artist = createElement("input",[],[],{"type":"text", "name":"Artist", "placeholder":"Artist", "required":"required"});
-    td1 = createElement("td",[Artist])
-    children.push(createElement("tr", [td,td1],[],{}))
-
-    text = createElement("text");
-    text.textContent = "Duration"
-    td = createElement("td",[text])
-    let Duration = createElement("input",[],[],{"type":"text", "name":"Duration", "placeholder":"Duration", "required":"required"});
-    td1 = createElement("td",[Duration])
-    children.push(createElement("tr", [td,td1],[],{}))
+    const keys = ["name", "album", "artist", "duration"]
+    for(const key of keys){
+        text = createElement("text");
+        text.textContent = "Song's " + key;
+        td = createElement("td",[text]);
+        keyInput = createElement("input",[],[],{"id":key, "type":"text", "name":key, "placeholder":key, "required":"required"});
+        td1 = createElement("td",[keyInput])
+        children.push(createElement("tr", [td,td1],[],{}))
+    }
 
     text = createElement("text");
     text.textContent = "ID (optional)"
     td = createElement("td",[text])
-    let id = createElement("input", [],[],{"type":"text", "name":"id", "placeholder":"ID"})
+    let id = createElement("input", [],[],{"type":"text", "id":"id", "placeholder":"ID"})
     td1 = createElement("td",[id])
     children.push(createElement("tr", [td,td1],[],{}))
     
 
      // create a submit button
-    let s = createElement("input",[],[],{"type":"submit", "value":"Add", "onclick":"formSubmit"})
+    let s = createElement("input",[],[],{"type":"submit", "value":"Add", "onclick":"formSubmit()"})
+    /*playSong(${song.id})*/
+    s.textContent = "Add"
     td = createElement("tr",[s])
     children.push(td);
 
@@ -143,7 +140,32 @@ function addSongHandler(){
 }
 
 function formSubmit(){
-    console.log("WORK!!!!");
+    const name = document.getElementById("name").value;
+    const album = document.getElementById("album").value;
+    const artist = document.getElementById("artist").value;
+    const duration = document.getElementById("duration").value;
+    const id = document.getElementById("id").value;
+
+    if(!name || !album || !artist || !duration)
+        return;
+
+    const indexToCheck = [0,1,3,4]
+    if(duration.length != 5){
+        alert("Unvalide Duration!")
+        return;
+    }
+    if((duration[0] < '0' || duration[0] > '9') || 
+    (duration[1] < '0' || duration[1] > '9') || 
+    (duration[3] < '0' || duration[3] >= '6') || 
+    (duration[4] < '0' || duration[4] > '9') ||
+    duration[2] != ":"){
+        alert("Unvalide Duration!")
+        return;
+    }
+
+    addSong(name, album, artist, duration, id);
+
+    songsHandler();
 }
 
 function addSong(title, album, artist, duration = "00:00", id) {
@@ -157,23 +179,25 @@ function addSong(title, album, artist, duration = "00:00", id) {
     id = generateID(player.songs, id);
     duration = convertDuration(duration);
     //TODO: find a better way to generate the object
-    let newSong={
-      id: id,
-      title: title,
-      album: album,
-      artist: artist,
-      duration: duration,
-    }
+    let newSong={id, title, album, artist, duration}
     player.songs.push(newSong);
     return id;
   }
 
-//song on click.
-//deletes everything and shows songs 
 function songsHandler(){
+//deletes everything and shows songs 
     newWindow()
     for(const song of player.songs){
-        document.getElementById("songs").appendChild(createSongElement(song))
+        const playButt = createElement("button",[],[],{onclick: `playSong(${song.id})`, "value":"Play"})
+        playButt.textContent = "Play";
+
+        const removeButt = createElement("button",[],[],{onclick: `removeSongHandler(${song.id})`, "value":"Remove"})
+        removeButt.textContent= "Remove";
+
+        const songDiv = createSongElement(song)
+        songDiv.appendChild(playButt);
+        songDiv.appendChild(removeButt);
+        document.getElementById("songs").appendChild(songDiv)
     }
 }
 
@@ -221,7 +245,7 @@ function playSong(songId) {
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const children = []
     const classes = ["song"]
-    const attrs = { onclick: `playSong(${id})` }
+    const attrs = {"id":"song" + id}
 
     const topic = createElement("h1");
     topic.textContent = "song #" + id + "\n";
@@ -231,9 +255,12 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     info.textContent = "name: " + title + "\nalbum: " + album + "\nartist: " + artist + "\nduration: " + convertDuration(duration);
     children.push(info)
 
-    const img = createElement("img");
-    img.src = coverArt;
-    children.push(img)
+    if(coverArt){
+        const img = createElement("img");
+        img.src = coverArt;
+        children.push(img)
+    }
+     
 
     //createElement('div',children,classes,attrs)
     //document.getElementById("songs").appendChild(createElement("div", children, classes, attrs));
@@ -292,8 +319,4 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
 }
 
 // You can write more code below this line
-for(const song of player.songs){
-    let el = createSongElement(song)
-    document.getElementById("songs").appendChild(el);
-    //console.log(el.attributes);
-}
+songsHandler()
