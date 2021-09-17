@@ -18,6 +18,7 @@
  }
  
 
+
  
 /**
  * Removes a song from the player, and updates the DOM to match.
@@ -47,11 +48,12 @@ function addSong({ title, album, artist, duration, coverArt }) {
  */
 function handleSongClickEvent(event) {
         let target= event.target.closest('button')
-        if(target && songs.contains(target) && target.className==("play-button"))  playSong(target.id)
-        if(target && songs.contains(target) && target.className==("remove-button"))  removeSong(target.id)
+        if(target && songs.contains(target) && target.className==("play-button"))  playSong(Number(target.id))
+        if(target && songs.contains(target) && target.className==("remove-button"))  removeSong(Number(target.id))
 //&& target== document.querySelector(".play-button"))
 }
-songs.addEventListener('click', handleSongClickEvent)
+let x= document.getElementById("songs")
+x.addEventListener('click', handleSongClickEvent)
 /**
  * Handles a click event on the button that adds songs.
  *
