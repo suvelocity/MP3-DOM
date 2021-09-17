@@ -65,10 +65,31 @@ function addSong(title, album, artist, duration, coverArt, id = randomId()) {
  *
  * @param {MouseEvent} event - the click event
  */
-function handleSongClickEvent(e) {
-    if(e.target = playBtn){
-      console.log(1);
-    }
+ function handleSongClickEvent(e) {
+      const target = e.target;
+      let buttonClass = target.classList[1];
+      let parentId;
+      if(buttonClass === "btn-play"){
+        parentId = getParentId(target);
+        playSong(parentId);
+      }else if(buttonClass === "btn-remove"){
+        parentId = getParentId(target);
+        removeSong(parentId);
+      }    
+ }
+
+//returns the ID of the song from the song element's ID
+
+function songIdReturn(songId){
+  let id = songId.slice(4);
+  id = parseInt(id, 10);
+  return(id);
+}
+
+function getParentId(target){
+  let parentId = target.parentElement.id;
+  parentId = songIdReturn(parentId);
+  return(parentId);
 }
 
 /**
@@ -102,11 +123,11 @@ function handleAddSongEvent(e) {
   const coverImageArtUrl = coverArt;
   const imgEl = createElement("img", [] ,["image-class"], {src: coverImageArtUrl});
   //Play button
-  const playBtn = createElement("button", ["PLAY"], ["btn", "btn-play"], {action: "click", func: handleSongClickEvent});
+  const playBtn = createElement("button", ["PLAY"], ["btn", "btn-play"],{});
   //Delete button
   const removeBtn = createElement("button", ["X"], ["btn", "btn-remove"], {});
   //return createElement("div", [titleEl, artistEl, albumEl, durationEl, imgEl], ["song-class"]);
-  return createElement("div", [titleEl, artistEl, albumEl, durationEl, imgEl, playBtn, removeBtn], ["song-class"], {onclick: `playSong(${id})`});
+  return createElement("div", [titleEl, artistEl, albumEl, durationEl, imgEl, playBtn, removeBtn], ["song-class"], {click: `playSong(${id})`});
 };
 
 /**
@@ -160,9 +181,10 @@ function createPlaylistElement({ id, name, songs }) {
     }
 
     //Evenetlisteners ???
-    for(const eventListener in eventListeners){
-      el.addEventListener(action, func);
+    for(const [key, value] of Object.entries(eventListeners)){
+      el.addEventListener(`${key}`, `${value}`);
     }
+    
     return el;
   }
 
@@ -250,6 +272,8 @@ const listOfSongs = createElement("ul", [], ["list"], {});
 songsContainer.className = "container";
 songsContainer.appendChild(songsHeader);
 songsContainer.appendChild(listOfSongs);
+//add event listener
+songsContainer.addEventListener("click", handleSongClickEvent);
 
 generateSongs(player, listOfSongs);
 
@@ -372,5 +396,14 @@ function randomId(){
   return Math.floor(Math.random() * 101);
 }
 
-//addSong("Vzxzzasdssd", "Gzsdsadxzxzxfolk", "zsdadadxzxikr", "03:20", "./images/cover_art/songleikr_vinda.jpg")
-//removeSong(3);
+//Just for fun =]
+
+body.addEventListener("mousemove", changeBackgroundColor);
+
+
+function changeBackgroundColor(e){
+  mainContainer.style.backgroundColor = "rgb("+e.offsetY+", "+e.offsetX+", 20)";
+  songs.style.backgroundColor = "rgb("+e.offsetX+", "+e.offsetY+", 40)";
+  playlists.style.backgroundColor = "rgb("+e.offsetX+", "+e.offsetY+", 40)";
+  songSection.style.backgroundColor = "rgb("+e.offsetX+", "+e.offsetY+", 40)";
+}
