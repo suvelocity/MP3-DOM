@@ -46,9 +46,12 @@ function addSong({ title, album, artist, duration, coverArt }) {
  * @param {MouseEvent} event - the click event
  */
 function handleSongClickEvent(event) {
-    // Your code here
+        let target= event.target.closest('button')
+        if(target && songs.contains(target) && target.className==("play-button"))  playSong(target.id)
+        if(target && songs.contains(target) && target.className==("remove-button"))  removeSong(target.id)
+//&& target== document.querySelector(".play-button"))
 }
-
+songs.addEventListener('click', handleSongClickEvent)
 /**
  * Handles a click event on the button that adds songs.
  *
@@ -81,8 +84,9 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
         createElement("span", [", album: ", album], ["album"]),
         createElement("span", [", artist: ", artist], ["artist"]),
         createElement("span", [", ", mmss(duration)], ["duration"]),
-        createElement("button",["▶️"], ["play-button"], {onclick: `playSong(${id})` } ),
-        createElement("button",["❌"], ["remove-button"], {onclick: `removeSong(${id})`} )
+        createElement("button",["▶️"], ["play-button"],  {id} ),
+        createElement("button",["❌"], ["remove-button"], {id})
+        //{onclick: `removeSong(${id})`}, id )
 
     ]
     let s= document.createElement("div").appendChild[children]
@@ -153,14 +157,18 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
  * Inserts all songs in the player as DOM elements into the songs list.
  */
 function generateSongs() {
-    // Your code here
+  player.songs.forEach((song) => {
+    document.querySelector("#songs").append(createSongElement(song));
+});
 }
 
 /**
  * Inserts all playlists in the player as DOM elements into the playlists list.
  */
 function generatePlaylists() {
-    // Your code here
+   player.playlists.forEach((playlist) => {
+    document.querySelector("#playlists").append(createPlaylistElement(playlist));
+});
 }
 
 // Creating the page structure
@@ -174,13 +182,9 @@ document.getElementById("add-button").addEventListener("click", handleAddSongEve
 
 
 
-player.songs.forEach((song) => {
-    document.querySelector("#songs").append(createSongElement(song));
-});
 
-player.playlists.forEach((playlist) => {
-    document.querySelector("#playlists").append(createPlaylistElement(playlist));
-});
+
+
 
 
 
