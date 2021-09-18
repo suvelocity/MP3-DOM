@@ -2,8 +2,9 @@
 *{
     box-sizing: border top;
 }
-#songs{
+#songs {
     display: flex;
+    order: 5;
     gap: 10px;
     justify-content: flex-end;
    flex-direction: column;
@@ -17,12 +18,12 @@
    
 }
 
-.coverArt{
+/* .coverArt{
     align-items: center;
     box-sizing: (10px 10px 10px 10px);
-    box-shadow: brown;
+    box-shadow: brown; 
 
-}
+ } */
 .webTitle{
     font-style: italic;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -52,10 +53,14 @@
     
 }
 
-#playlists{
+#playlists div, h2{
     
     display: absolute;
     margin: auto;
+    border: solid;
+    width: 50%;
+    text-align: center;
+    padding-bottom: 20px;
     
     
    
