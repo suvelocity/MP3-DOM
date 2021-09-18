@@ -212,12 +212,12 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     let TDuration = duration;
     let numRed, numGreen, rootNum = 255,precentage, minDuration, calculate = true;
     TDuration = TDuration - 120;
-    if(TDuration < 0){
+    if(duration < 120){
         numGreen = rootNum;
-        numred = 0;
+        numRed = 0;
         calculate = false;
     }
-    if(TDuration > 300){
+    if(duration > 420){
         numRed = rootNum;
         numGreen = 0;
         calculate = false;
@@ -227,6 +227,7 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
         numRed = rootNum * precentage;
         numGreen = rootNum *(1-precentage);
     }    
+    
     const attrs = {style:`background-color:rgb(${(numRed)},${numGreen},0)`};
     const eventListeners = {click: handleSongClickEvent};
     return createElement("div", children, classes, attrs, eventListeners)
@@ -307,6 +308,7 @@ function createElement(tagName, children = [], classes = [], attributes = {}, ev
     });
     
 }
+// a function that gets a playlist's id and returns the playlist total duration.
 function playlistDuration(id) {
     let arr = getPlaylistAndSongIndex(id, 1);
     let index = arr[0];
@@ -332,6 +334,7 @@ function calculateDuration(duration){
         ssDuration = "0" + ssDuration;
     return mmDuration+":"+ssDuration;
 }
+//a function that gets a playlist id and a song id and return their indexes
 function getPlaylistAndSongIndex(playlistID, songID){
     let indexOfSong = -1;
     let indexOfPlaylist = -1;
@@ -352,6 +355,7 @@ function getPlaylistAndSongIndex(playlistID, songID){
     }
     return [indexOfPlaylist,indexOfSong];
 }
+//genrate a new unique id
 function genrateSongID(){
     id = 1;
     player.songs.forEach(song => {
