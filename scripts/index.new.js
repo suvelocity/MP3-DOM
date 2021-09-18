@@ -4,14 +4,28 @@
  *
  * @param {Number} songId - the ID of the song to play
  */
+
+
  function playSong(songId) {
-    //let id = songId.id.slice(4);
-    //id = parseInt(id, 10);
-    //console.log(id);
+   //Converting the id to the song ID and to the element itself
     elementId = "song"+songId;
     songEl = document.getElementById(elementId);
-    songEl.style.backgroundColor = "yellow";
+    //changing the backgroundColor to blue
+    blueBackgroundColor(songEl);
+    let duration = getDuration(songId) * 1000;
+    //Playing the song for the duration of that song
+    setTimeout(function(){stopBlueColor(songEl)}, duration);
     console.log("Now playing :" + songEl.innerText);
+    }
+
+    //Changes the background color 
+    function blueBackgroundColor(elem){
+      elem.style.backgroundColor = "blue";
+     }
+
+     //Stop the color change (returns to noraml)
+    function stopBlueColor(elem){
+      elem.style.backgroundColor = "whitesmoke";
     }
 
 /**
