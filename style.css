@@ -1,1 +1,111 @@
-/* Your code here */
+/* ------Main section------ */
+#main-container{
+  background-color: lightgray;
+}
+.container{
+    box-shadow: 2px 0 4px rgba(0,0,0,0.5);
+    border-radius: 2px;
+    border: 1px black;
+    border-style: solid;
+    text-align: center;
+    font-size: 1.25em;
+   
+}
+
+#header{
+    font-family: 'Orbitron', sans-serif;
+    color: slategray(0, 0, 0);
+    font-size: 2em;
+    text-align: center;
+    border: 1px black;
+    border-style: solid;
+    margin: 0%;
+    padding: 0%;
+    justify-content: center;
+    justify-content: stretch;
+}
+
+#headline{
+  font-size: 2em;
+}
+
+.paragraph{
+  font-family: "Comic Sans MS";
+
+} 
+
+/* ------Add song section------ */
+
+#add-section{
+display: flex;
+display: flex;
+flex-flow: column wrap;
+justify-content: center;
+background-color: whitesmoke;
+}
+#add-button{
+  margin-top: 1%;
+  margin-bottom: 1%;
+  margin-left: 4%;
+  margin-right: 4%;
+}
+/* ------Songs && Playlists sections------ */
+#songs, #playlists{
+  background-color: lightgray;
+  padding-right: 4%;
+}
+
+.list{
+  list-style-type: none;
+}
+
+
+.song-class, .playlist-class{
+  background-color: whitesmoke;
+  margin: 5%;
+  padding-right: 4%;
+  padding-top: 3%;
+  padding-bottom: 3%;
+  border: 3px black solid;
+  font-family: 'Oswald', sans-serif; 
+  font-size: 1em;
+  font-weight: bold;
+  text-align:center !important;
+  color: white;
+  
+}
+
+.item-class{
+    color: gray;
+    
+}
+
+.title-class{
+    color: slategray;
+    font-size: 1.5em;
+}
+
+.duration-class{
+color: #5d8680;
+font-style: italic;
+}
+
+.image-class{
+  height: 10em;
+  width: 10em;
+  margin-left: 17%;
+}
+
+.btn{
+  float: right;
+  font-size: 1em;
+}
+
+.btn-play{
+  background-color: green;
+  margin-left: 2%;
+}
+
+.btn-remove{
+  background-color: red;
+}
