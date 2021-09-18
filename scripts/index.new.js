@@ -15,6 +15,7 @@ function playSong(songId) {
         if(song.id == songId)
             songPlayed = song;
     });
+
     const children = [{
         content:"PLAYING",
         type:'h1'
@@ -47,8 +48,33 @@ function playSong(songId) {
         r.appendChild(t);
     });
     r.classList.add("card");
+    r.addEventListener('click', function (){
+        while (document.getElementById("main").firstChild) {
+            document.getElementById("main").removeChild(document.getElementById("main").lastChild);
+        }
+        let heading = document.createElement('h1');
+        heading.textContent = 'MP3';
+        
+        document.getElementById("main").appendChild(heading);
+
+    });
     document.getElementById("main").appendChild(r);
     console.log(songPlayed);
+    
+    window.setTimeout(function ()  {
+        let index, i = 0
+        player.songs.forEach(song => {
+            if(song.id == songId)
+                index = i;
+            i++;
+        });
+        if(index != player.songs.length -1)
+            playSong(player.songs[index + 1].id);
+        else
+            playSong(player.songs[0].id);
+    
+    }, songPlayed.duration * 1000);
+
 }
 
 /**
@@ -65,12 +91,33 @@ function removeSong(songId) {
         i++;
     });
     player.songs.splice(index,1);
-    
+    i = 0;
+    player.playlists.forEach(playlist => {
+        i = 0;
+        playlist.songs.forEach(song => {
+            if(song == songId)
+                playlist.songs.splice(i, 1);
+            i++;
+        });
+        
+    });
     while (document.getElementById("songs").firstChild) {
         document.getElementById("songs").removeChild(document.getElementById("songs").lastChild);
-      }
+    }
+    
+    while (document.getElementById("playlists").firstChild) {
+        document.getElementById("playlists").removeChild(document.getElementById("playlists").lastChild);
+    }
+    while (document.getElementById("main").firstChild) {
+        document.getElementById("main").removeChild(document.getElementById("main").lastChild);
+    }
+    let heading = document.createElement('h1');
+    heading.textContent = 'MP3';
+    
+    document.getElementById("main").appendChild(heading);
     
     generateSongs();
+    generatePlaylists();
 }
 
 /**
@@ -102,7 +149,9 @@ function addSong({ title, album, artist, duration, coverArt }) {
  * @param {MouseEvent} event - the click event
  */
 function handleSongClickEvent(event) {
+    element = event.target;
     if(event.target.id.includes('play')){
+        
         playSong(event.target.id[0]);
     }
     if(event.target.id.includes('remove')){
@@ -158,8 +207,27 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
         content:coverArt,
         type:'img'
     }]
-    const classes = ['card', 'song'];
-    const attrs = {};
+
+    const classes = ['card', 'song']; 
+    let TDuration = duration;
+    let numRed, numGreen, rootNum = 255,precentage, minDuration, calculate = true;
+    TDuration = TDuration - 120;
+    if(TDuration < 0){
+        numGreen = rootNum;
+        numred = 0;
+        calculate = false;
+    }
+    if(TDuration > 300){
+        numRed = rootNum;
+        numGreen = 0;
+        calculate = false;
+    }
+    if(calculate){
+        precentage = TDuration / 300;
+        numRed = rootNum * precentage;
+        numGreen = rootNum *(1-precentage);
+    }    
+    const attrs = {style:`background-color:rgb(${(numRed)},${numGreen},0)`};
     const eventListeners = {click: handleSongClickEvent};
     return createElement("div", children, classes, attrs, eventListeners)
 }
@@ -217,7 +285,7 @@ function createElement(tagName, children = [], classes = [], attributes = {}, ev
             t.id = child.id;
             t.id += child.event;
 
-            t,addEventListener('click', eventListeners['click']);
+            t.addEventListener('click', eventListeners['click']);
             
         }else{
             t.textContent = child.content;

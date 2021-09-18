@@ -30,7 +30,19 @@ h1 { color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 110px; f
 
 #main{
     background-color: greenyellow;
-}
+    
+   background-image: linear-gradient(to right, red 40%,  blue 60%);
+     
+   background-size: 300% 100%;
+    transition: background-position .5s;
+    background-position: 0;
+    
+    border: none;
+    padding: 1em;
+} 
+#main:hover{
+    background-position: 100%;
+ }
 .card {
    position: relative;
    background: grey;
