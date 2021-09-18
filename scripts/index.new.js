@@ -74,7 +74,6 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const eventListeners = {}
     const classes = ["songs"]
     const attrs = { id }
-    player.songs.sort(compareTitle)
     return createElement("div", children, classes, attrs, eventListeners)
 }
 
