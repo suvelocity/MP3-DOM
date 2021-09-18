@@ -58,6 +58,7 @@ function playSong(songId) {
         document.getElementById("main").appendChild(heading);
 
     });
+    
     document.getElementById("main").appendChild(r);
     console.log(songPlayed);
     
