@@ -4,40 +4,64 @@
  *
  * @param {Number} songId - the ID of the song to play
  */
- let previousSong;
- function playSong(songId) {
-     try{
-       previousSong.classList.remove("now-playing")  
-     } finally{
-         const currentSong = document.getElementById("song" + songId);
-     currentSong.classList.add("now-playing");
-     let endSong = setTimeout(() => currentSong.classList.remove("now-playing"), getSongUsingId(songId).duration * 1000);
-     previousSong= currentSong;
-     }
-     
- }
- 
+let previousSong;
+function playSong(songId) { //if there is a song which already played- stop it
+    try {
+        previousSong.classList.remove("now-playing")
+    } finally {
+        const currentSong = document.getElementById("song" + songId);
+        currentSong.classList.add("now-playing");
+        let endSong = setTimeout(() => currentSong.classList.remove("now-playing"), getSongUsingId(songId).duration * 1000);
+        previousSong = currentSong;
+    }
+
+}
+//generates a new id for the added song
+let newSongId = 7;
+function generateSongId() {
+    newSongId += 1;
+    return newSongId;
+}
 
 
- 
+function checkDurationInput(duration) {   // checks digits(maximum is 59:59/minimum is 00:00),:,length.
+    if (0 <= parseInt(duration[0]) && parseInt(duration[0]) < 6 && 0 <= parseInt(duration[1]) && parseInt(duration[1]) <= 9
+        && duration[2] === ":" && 0 <= parseInt(duration[3]) && parseInt(duration[3]) < 6 && 0 <= parseInt(duration[4])
+        && parseInt(duration[4]) <= 9 && duration.length === 5) {
+        return true
+    } else throw 'Duration is not in the correct format...This is the format-"mm:ss" (for example 03:13)'
+}
+
+
 /**
  * Removes a song from the player, and updates the DOM to match.
  *
  * @param {Number} songId - the ID of the song to remove
  */
 //function removeSong(songId) {//
-    function removeSong(id) {
-        song= document.getElementById("song"+id);
-        song.remove()
-        
-    }
+function removeSong(id) {
+    song = document.getElementById("song" + id);
+    song.remove()
+
+}
 
 
 /**
  * Adds a song to the player, and updates the DOM to match.
  */
+let songEl = document.querySelector("#songs")
 function addSong({ title, album, artist, duration, coverArt }) {
-    // Your code here
+    checkDurationInput(duration)
+    newId = generateSongId();
+    player.songs.push({
+        id: newId,
+        title: title,
+        album: album,
+        artist: artist,
+        duration: mmssToSec(duration),
+        coverArt: coverArt
+    })
+    songEl.append(createSongElement(player.songs[player.songs.length - 1]));
 }
 
 /**
@@ -47,35 +71,38 @@ function addSong({ title, album, artist, duration, coverArt }) {
  * @param {MouseEvent} event - the click event
  */
 function handleSongClickEvent(event) {
-        let target= event.target.closest('button')
-        if(target && songs.contains(target) && target.className==("play-button"))  playSong(Number(target.id))
-        if(target && songs.contains(target) && target.className==("remove-button"))  removeSong(Number(target.id))
-//&& target== document.querySelector(".play-button"))
+    let target = event.target.closest('button')
+    if (target && songs.contains(target) && target.className == ("play-button")) playSong(Number(target.id))
+    if (target && songs.contains(target) && target.className == ("remove-button")) removeSong(Number(target.id))
+    
 }
-let x= document.getElementById("songs")
-x.addEventListener('click', handleSongClickEvent)
+let songs = document.getElementById("songs")
+songs.addEventListener('click', handleSongClickEvent)
 /**
  * Handles a click event on the button that adds songs.
  *
  * @param {MouseEvent} event - the click event
  */
-function handleAddSongEvent(event) {
-    // Your code here
+function handleAddSongEvent(event) {           // gets the inputs value and deletes it after song added
+    let title = document.getElementById("title").value
+        , album = document.getElementById("album").value
+        , artist = document.getElementById("artist").value
+        , duration = document.getElementById("duration").value
+        , coverArt = document.getElementById("cover-art").value
+    addSong({ title, album, artist, duration, coverArt })
+    document.getElementById("title").value = null;
+    document.getElementById("album").value = null;
+    document.getElementById("artist").value = null;
+    document.getElementById("duration").value = null;
+    document.getElementById("cover-art").value = null;
 }
+
 
 /**
  * Creates a song DOM element based on a song object.
  */
 
-/*
-function createSongElement({ id, title, album, artist, duration, coverArt }) {
-    const children = []
-    const classes = []
-    const attrs = {}
-    const eventListeners = {}
-    return createElement("div", children, classes, attrs, eventListeners)
-}
-*/
+
 function createSongElement({ id, title, album, artist, duration, coverArt }) {
     const children = [
         createElement("img", [], ["coverArt"], {
@@ -86,30 +113,22 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
         createElement("span", [", album: ", album], ["album"]),
         createElement("span", [", artist: ", artist], ["artist"]),
         createElement("span", [", ", mmss(duration)], ["duration"]),
-        createElement("button",["▶️"], ["play-button"],  {id} ),
-        createElement("button",["❌"], ["remove-button"], {id})
-        //{onclick: `removeSong(${id})`}, id )
+        createElement("button", ["▶️"], ["play-button"], { id }),
+        createElement("button", ["❌"], ["remove-button"], { id })
+        
 
     ]
-    let s= document.createElement("div").appendChild[children]
+    let s = document.createElement("div").appendChild[children]
     const classes = []
-    
 
-    return createElement("div", children, classes, {  id: "song" + id })
+
+    return createElement("div", children, classes, { id: "song" + id })
 }
 
 /**
  * Creates a playlist DOM element based on a playlist object.
  */
-/*
-function createPlaylistElement({ id, name, songs }) {
-    const children = []
-    const classes = []
-    const attrs = {}
-    const eventListeners = {}
-    return createElement("div", children, classes, attrs, eventListeners)
-}
-*/
+
 function createPlaylistElement({ id, name, songs }) {
     let numOfSongs = songs.length
     const children = [
@@ -135,11 +154,7 @@ function createPlaylistElement({ id, name, songs }) {
  * @param {Object} attributes - the attributes for the new element
  * @param {Object} eventListeners - the event listeners on the element
  */
-/*
-function createElement(tagName, children = [], classes = [], attributes = {}, eventListeners = {}) {
-    // Your code here
-}
-*/
+
 function createElement(tagName, children = [], classes = [], attributes = {}) {
     let elementName = document.createElement(tagName);
     //children//
@@ -159,18 +174,18 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
  * Inserts all songs in the player as DOM elements into the songs list.
  */
 function generateSongs() {
-  player.songs.forEach((song) => {
-    document.querySelector("#songs").append(createSongElement(song));
-});
+    player.songs.forEach((song) => {
+        document.querySelector("#songs").append(createSongElement(song));
+    });
 }
 
 /**
  * Inserts all playlists in the player as DOM elements into the playlists list.
  */
 function generatePlaylists() {
-   player.playlists.forEach((playlist) => {
-    document.querySelector("#playlists").append(createPlaylistElement(playlist));
-});
+    player.playlists.forEach((playlist) => {
+        document.querySelector("#playlists").append(createPlaylistElement(playlist));
+    });
 }
 
 // Creating the page structure
@@ -200,6 +215,13 @@ function getSongUsingId(id) {
             return currentSong;
         }
     }
+}
+function mmssToSec(duration) {
+    let arr = duration.split(":");
+    let minutes = parseInt(arr[0]);
+    let seconds = parseInt(arr[1]);
+    let sum = minutes * 60 + seconds;
+    return sum;
 }
 
 
@@ -239,9 +261,9 @@ function playlistDuration(id) {
 }
 
 
-function addAndRemove(id){
-    let allSongs= documet.querySelector("#songs");
-    let song= getSongUsingId(id);
-    allSongs.addEventListener("click", )
+function addAndRemove(id) {
+    let allSongs = documet.querySelector("#songs");
+    let song = getSongUsingId(id);
+    allSongs.addEventListener("click",)
 
 }

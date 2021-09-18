@@ -1,5 +1,7 @@
 
-
+*{
+    box-sizing: border top;
+}
 #songs{
     display: flex;
     gap: 10px;
@@ -19,6 +21,7 @@
     align-items: center;
     box-sizing: (10px 10px 10px 10px);
     box-shadow: brown;
+
 }
 .webTitle{
     font-style: italic;
@@ -44,12 +47,16 @@
 .now-playing{
     color: blueviolet;
     border-style: double;
+    border-width: 5px;
     border-image-width: 0.35rem;
+    
 }
 
 #playlists{
     
-    display: flex;
+    display: absolute;
+    margin: auto;
+    
     
    
 
