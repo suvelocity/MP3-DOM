@@ -32,9 +32,11 @@ h1 {
 }
 #add-section {
   background: whitesmoke;
-    border: 1px solid;
-    box-shadow: 10px 10px grey;
-    margin-bottom: 60px;
+  border: 1px solid;
+  box-shadow: 10px 10px grey;
+  width: 497px;
+  margin: auto;
+  margin-bottom: 30px;
 }
 #add-button {
   width: 100px;
@@ -49,7 +51,7 @@ h1 {
 }
 .remove { 
   float: left;
-    margin-top: -163.5%;
+    margin-top: -168.5%;
 }
 img{
   width: 100%;
