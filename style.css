@@ -21,10 +21,39 @@ h1 {
 .songs {
   border: 1px solid black;
   box-shadow: 10px 10px grey;
+  width: 301px;
 }
-.playlists {
-    font-size: larger;
+.playlist {
+  border: 1px solid black;
+  width: 380px;
+  height: 100px;
+  margin: auto;
+  display: inline-table;
 }
-
+#add-section {
+  background: whitesmoke;
+    border: 1px solid;
+    box-shadow: 10px 10px grey;
+    margin-bottom: 60px;
+}
+#add-button {
+  width: 100px;
+    height: 50px;
+    font-family: fangsong;
+}
+#playlists{
+  padding: 100px;
+}
+.playlist > p {
+ 
+}
+.remove { 
+  float: left;
+    margin-top: -163.5%;
+}
+img{
+  width: 100%;
+    height: 61%;
+}
  /* .id {
   visibility: hidden; */

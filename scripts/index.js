@@ -9,55 +9,91 @@ const convertDuration = (duration) => {
   
   return `${minutes}:${seconds}`;
   }
-
-  let timerInterval = null;
-
-  document.getElementsByClassName("duration").innerHTML = `...`;
- 
-  
-  // function startTimer() {
-  //   timerInterval = setInterval(() => {
-  //     timePassed = timePassed += 1;
-  //     timeLeft = TIME_LIMIT - timePassed;
-  //     document.getElementById("short-duration").innerHTML = formatTime(timeLeft);
-  //   }, 1000);
-  // }
-    
-  
- 
-
     let runLoop;
-    
-
      function playSong(id,newDuration) {
-      timerInterval = setInterval(() => {
-        timePassed = timePassed += 1;
-        timeLeft = TIME_LIMIT - timePassed;
-        document.getElementById("short-duration").innerHTML = formatTime(timeLeft);
-      }, 1000)
-      const TIME_LIMIT = newDuration;
-      let timePassed = 0;
-      let timeLeft = TIME_LIMIT;
-      if(id === 8){          //need to be set as length of all ids
+      if(id === player.songs.length+1){
         id = 1;
-      }
-    
-      document.getElementById(id).style.backgroundColor = "green"; 
-      if(document.getElementById(id).style.backgroundColor = "green"){
-        document.getElementsByClassName('duration').style.color = "red";
-      }
-      runLoop = setTimeout(function(){document.getElementById(id).style.backgroundColor = "white" }, 3000); 
-
-      
+        }
+      document.getElementById(id).style.backgroundColor = "#af934c"; 
+      runLoop = setTimeout(function(){document.getElementById(id).style.backgroundColor = "white" }, 3000);  ///needs to set as duration song
       let time = setTimeout(function(){playSong(id+1) }, 3000);
-     
-
-    
-        ///needs to set as duration song
-       
        }
-   
 
+/**
+ * Removes a song from the player, and updates the DOM to match.
+ *
+ * @param {Number} songId - the ID of the song to remove
+ */
+ function removeSong(songId) {
+  // console.log(songId.path[1].id);
+  // const foundSongId = player.songs.findIndex(
+  //   (currSong) => currSong.id === songId.path[1].id);
+
+  //    // // Delete the song from the song list
+     
+  //    player.songs[songId.path[1].id].remove();
+  let index = player.songs.indexOf(songId.path[1].id.id);
+     console.log(player.songs[songId.path[1].id]);
+     let numberOfElementToRemove = 1;
+     if (index === -1) { player.songs.splice(index,numberOfElementToRemove)} 
+     console.log(player.songs)
+  } 
+ 
+  
+
+/**
+* Adds a song to the player, and updates the DOM to match.
+*/
+
+
+  document.getElementById("add-button").addEventListener("click", function(){
+  let ele = {};
+  let id = player.songs.length + 1;
+  ele.id = id;
+  let title = document.querySelectorAll('input[name = title]')[0].value;
+  ele.title = title;
+  let album = document.querySelectorAll('input[name = album]')[0].value;
+  ele.album = album;
+    let artist = document.querySelectorAll('input[name = artist]')[0].value;
+  ele.artist = artist;
+   let duration = document.querySelectorAll('input[name = duration]')[0].value;
+  ele.duration = duration;
+     let coverArt = document.querySelectorAll('input[name = cover-art]')[0].value;
+  ele.coverArt = coverArt;
+
+
+  addSong({ id, title ,album,artist,duration,coverArt});
+  
+  console.log(player.songs);
+  
+});
+function addSong({id, title, album, artist, duration, coverArt }) {
+  let allSongs = player.songs;
+  allSongs.push({ id, title ,album,artist,duration,coverArt});
+  printaSong(id,title,album,artist,duration,coverArt);
+ 
+ 
+}
+
+
+/**
+* Acts on a click event on an element inside the songs list.
+* Should handle clicks on play buttons and remove buttons of songs.
+*
+* @param {MouseEvent} event - the click event
+*/
+function handleSongClickEvent(event) {
+  
+}
+
+/**
+* Handles a click event on the button that adds songs.
+*
+* @param {MouseEvent} event - the click event
+*/
+function handleAddSongEvent(event) {
+  // Your code here
+}
 //  gives platlist duration 
 function playlistDuration(id) {
     const foundPlaylist = player.playlists.find(currPlaylist => currPlaylist.id === id);
@@ -71,16 +107,19 @@ function createSongElement({ id,artist,duration, coverArt }) {
   const  colored = (duration) => {
     return duration < 600 ? 'color:green':'color:red';
   } 
-    const classes = [];
+    // const classes = [];
     const getId = createElement('p',[id]);
     const artistEl = createElement("p", [artist]);
     let newDuration = convertDuration(duration)
-    const durationEl = createElement("p", [ newDuration] ,["duration", "short-duration"],{style:colored(duration)}, {onclick: `console.log('${duration}')`});
+    const durationEl = createElement("p", [ newDuration] ,["duration", "short-duration"],{style:colored(duration)}, {});
     const coverImageArtUrl = coverArt;
     const imgEl = createElement("img", [] ,["album-art"], {src: coverImageArtUrl});
     const attrs = { onclick: `playSong(${id})`,id,class:`songs`}
-    classes.push("songs");
-    return createElement("div",[getId,"Artist: ", artistEl, "Duration: ", durationEl, imgEl],[],attrs);
+    
+    const playButton = createElement('button',["❌"],['remove']);
+    playButton.addEventListener("click",removeSong),id;
+    // classes.push("songs");
+    return createElement("div",[getId,"Artist: ", artistEl, "Duration: ", durationEl, imgEl,playButton],[],attrs,[]);
   }
 
 
@@ -89,19 +128,18 @@ function createPlaylistElement({id,name, songs = []} ) {
     const classes = [];
     const attrs = {};
     const idEl = createElement("span", ["" + id] ,["id"]);
-    const playListName = createElement("h1",[name]);
+    const playListName = createElement("p",[name]);
     const PLsongs = createElement("p",[songs]);
-    const durationEl = createElement("span", ["" + convertDuration(playlistDuration(id))] ,["duration", "short-duration"]);
+    const durationEl = createElement("p", ["" + convertDuration(playlistDuration(id))] ,["duration", "short-duration"]);
     classes.push("playlist")
-    children.push(idEl,"Play list Name: ",playListName,"Songs: ", PLsongs," Duration: ", durationEl);
+    children.push(idEl,"Play list Name: ",playListName, 'songs: ',PLsongs," time: ", durationEl);
     
-    return createElement( "div",children, classes, attrs,id);
+    return createElement( "div",children, classes, attrs,);
     
 
 }
 
-
-function createElement(tagName, children = [], classes = [], attributes = {}) {
+function createElement(tagName, children = [], classes = [], attributes = {},) {
     const el = document.createElement(tagName);
 
     // Children
@@ -118,7 +156,7 @@ function createElement(tagName, children = [], classes = [], attributes = {}) {
     for (const attr in attributes) {
       el.setAttribute(attr, attributes[attr]);
     }
-  
+
     return el;
   }
 // sorting songs
@@ -136,9 +174,11 @@ const printAllSongs = (id) => {
     for(let song of player.songs){
         const { title, album, artist,duration = duration,id,coverArt} = song;
         const songElemnt = createSongElement({id, title, album, artist, duration, coverArt});
-        songPrint.appendChild(songElemnt);
+          songPrint.appendChild(songElemnt);
+        }
+        
     }
-}
+
 // printing all plalysts 
 const printAllPlaylists = () => {
     const playlistPrint = document.getElementById("playlists");
@@ -149,7 +189,16 @@ const printAllPlaylists = () => {
         playlistPrint.append(playlistElem);
     }
 }
+
+const printaSong = (id,title,album,artist,duration,coverArt) =>{
+  const songPrint = document.getElementById("songs");
+let song = '';
+  const songElemnt = createSongElement({id, title, album, artist, duration, coverArt});
+  console.log(song)
+  songPrint.appendChild(songElemnt)
+}
 // calling functions 
 sortBySong();
 printAllSongs();
 printAllPlaylists();
+document.getElementById("add-button").addEventListener("click", handleAddSongEvent);
