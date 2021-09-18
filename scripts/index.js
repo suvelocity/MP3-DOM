@@ -1,7 +1,15 @@
 /**
+ * @todo 
+ * *  add song to playlist
+ * *  add a new plalist
+ * *  remove a song from playlist
+ * *  remove a playlist
+ */
+
+/**
  * removes all the elements from main content block
  */
-function newWindow(){
+function resetWindow(){
     
     let el = document.getElementById('main-content');
     while(el.firstChild){
@@ -29,7 +37,7 @@ function removeSongHandler(id){
             document.getElementById("playNow").removeChild(playNowDiv);
         }
     }
-
+    
     songsHandler();
 }
 
@@ -38,7 +46,7 @@ function removeSongHandler(id){
  * opens a form to add a song.
  */
 function addSongHandler(){
-    newWindow();
+    resetWindow();
     let children = []
     let text;
     let keyInput;
@@ -67,8 +75,9 @@ function addSongHandler(){
     children.push(createElement("tr", [td,td1],[],{}))
     
     // create a submit button
-    let s = createElement("input",[],[],{"type":"submit", "value":"Add", "onclick":"formSubmit()"})
+    let s = createElement("input",[],[],{"type":"submit", "value":"Add"})
     s.textContent = "Add"
+    s.addEventListener("click",eventLesitener)
     td = createElement("tr",[s])
     children.push(td);
 
@@ -117,17 +126,39 @@ function formSubmit(){
 }
 
 /**
+ * Creates a song DOM element based on a song object.
+ * @param {object} song - gets a song
+ * @returns {HTMLElement} div - includes all the song's details
+ */
+ function createSongElement({ id, title, album, artist, duration, coverArt }) {
+    const children = []
+    const classes = ["song"]
+    const attrs = {"id":"song" + id}
+
+    const topic = createElement("h1");
+    topic.textContent = "song #" + id + "\n";
+    children.push(topic)
+
+    const info = createElement("p");
+    info.textContent = "name: " + title + "\nalbum: " + album + "\nartist: " + artist + "\nduration: " + convertDuration(duration);
+    children.push(info)
+
+    if(coverArt){
+        const img = createElement("img");
+        img.src = coverArt;
+        children.push(img)
+    }
+
+    const el = createElement("div", children, classes, attrs)
+    return el
+}
+
+/**
  * @returns {array} songsElems - array of html elements that represents all the songs
  */
 function getSongsElems(){
     let songsElems = [];
     for(const song of player.songs){
-        const playButt = createElement("button",[],[],{onclick: `playSong(${song.id})`, "value":"Play"})
-        playButt.textContent = "Play";
-
-        const removeButt = createElement("button",[],[],{onclick: `removeSongHandler(${song.id})`, "value":"Remove"})
-        removeButt.textContent= "Remove";
-
         const songDiv = createSongElement(song)
 
         songsElems.push(songDiv);
@@ -140,18 +171,17 @@ function getSongsElems(){
  * resets the main content and shows the songs 
  */
 function songsHandler(){
-    newWindow();
+    resetWindow();
     let songsElems = getSongsElems();
-    // console.log(songsElems)
     for(const songEl of songsElems){
-        // console.log(songEl.id)
-        const id = parseInt(songEl.id.slice(4, songEl.id.length))
-        // console.log(songEl.id + " - " + id + " - " + (songEl.id.length));
-        const playButt = createElement("button",[],[],{onclick: `playSong(${id})`, "value":"Play"})
+        const id = parseInt(songEl.id.slice(4, songEl.id.length));
+        const playButt = createElement("button",[],[],{"value":"Play"});
         playButt.textContent = "Play";
+        playButt.addEventListener("click",eventLesitener)
 
-        const removeButt = createElement("button",[],[],{onclick: `removeSongHandler(${id})`, "value":"Remove"})
+        const removeButt = createElement("button",[],[],{"value":"Remove"});
         removeButt.textContent= "Remove";
+        removeButt.addEventListener("click",eventLesitener);
 
         let br = createElement("br");
         songEl.appendChild(br);
@@ -163,20 +193,47 @@ function songsHandler(){
     }
 }
 
+function eventLesitener(event){
+    const callerVal = event.target.value;
+    let id = event.target.parentElement.id;
+    id = parseInt(id.slice(4,id.length));
+    if(callerVal === "Play"){
+        playSong(id);
+    }
+    else if(callerVal === "Remove"){
+        removeSongHandler(id);
+    }
+    else if(callerVal === "Add"){
+        formSubmit();
+    }
+    else if(callerVal === "Stop"){
+        clearPlayingNow();
+    }
+}
+
 /**
  * called when 'playlists' button (nav-bar) clicked
  * resets the main content and shows the playLists 
  */
 function playlistsHandler(){
-    newWindow()
+    resetWindow()
     for(const playlist of player.playlists){
         document.getElementById("playlists").appendChild(createPlaylistElement(playlist))
     }
 }
 
 function addSongToPlaylist(){
-    newWindow();
+    resetWindow();
 
+    
+
+    let checkbox, id;
+    let songsElems = getSongsElems();
+    for(let songElem of songsElems){
+        id = songElem.id.slice(4, songElem.id.length)
+        checkbox = createElement("input", [songElem], [], {"id":"cb" + id, "type":"checkbox", "name":"cb" + id})
+        console.log(checkbox);
+    }
 }
 
 /**
@@ -220,37 +277,10 @@ function playSong(songId) {
     const br = createElement("br")
     currDir.childNodes[1].appendChild(br);
 
-    const stopButt = createElement("button",[],[],{onclick:"clearPlayingNow()"});
+    const stopButt = createElement("button",[],[],{"value":"Stop"});
+    stopButt.addEventListener("click",eventLesitener)
     stopButt.textContent = "Stop Playing";
     currDir.childNodes[1].appendChild(stopButt);
-}
-
-/**
- * Creates a song DOM element based on a song object.
- * @param {object} song - gets a song
- * @returns {HTMLElement} div - includes all the song's details
- */
-function createSongElement({ id, title, album, artist, duration, coverArt }) {
-    const children = []
-    const classes = ["song"]
-    const attrs = {"id":"song" + id}
-
-    const topic = createElement("h1");
-    topic.textContent = "song #" + id + "\n";
-    children.push(topic)
-
-    const info = createElement("p");
-    info.textContent = "name: " + title + "\nalbum: " + album + "\nartist: " + artist + "\nduration: " + convertDuration(duration);
-    children.push(info)
-
-    if(coverArt){
-        const img = createElement("img");
-        img.src = coverArt;
-        children.push(img)
-    }
-
-    const el = createElement("div", children, classes, attrs)
-    return el
 }
 
 /**

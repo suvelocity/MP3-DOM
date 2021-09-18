@@ -13,6 +13,6 @@ The site supports-
  - Show all the songs.
  - Show all the playlists.
  - Add a new song.
- - remov a song.
+ - remove a song.
  - play a song (with a color ficher).
 

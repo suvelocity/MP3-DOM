@@ -164,10 +164,25 @@ function removeSong(id) {
   
     //searches and deletes the id of the song from all the playlists
     for(const pl of player.playlists){
-      let songs = pl.songs;
-      const i = songs.indexOf(id);
-      if(i > -1){
-        songs.splice(i,1);
-      }
+        let songs = pl.songs;
+        const i = songs.indexOf(id);
+        if(i > -1){
+            songs.splice(i,1);
+        }
+        if(songs.length === 0){
+            removePlaylist(pl.id);
+        }
     }
+}
+
+/**
+ * removes a playlist by an id
+ * @param {number} id 
+ */
+function removePlaylist(id) {
+    //parameters - id(type number)
+    //removes the playlist with the wanted id
+    let pl = getEl(player.playlists, id);
+    const index = player.playlists.indexOf(pl);
+    player.playlists.splice(index,1);
   }
