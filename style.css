@@ -1,1 +1,78 @@
-/* Your code here */
+
+*{
+    box-sizing: border top;
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-lkhOnIpwZANuilCPdV47Ggp76BHi2aVlPg&usqp=CAU);
+
+    
+}
+#songs {
+    display: flex;
+    order: 5;
+    gap: 10px;
+    justify-content: flex-end;
+   flex-direction: column;
+   max-width: 20rem;
+   font-size: 13px;
+   font-family: monospace;
+   text-align: center;
+   padding-bottom: 15px;
+   margin: auto;
+   image-resolution: 10px;
+   
+}
+
+ .coverArt{
+    align-items: center;
+    box-sizing: (10px 10px 10px 10px);
+    box-shadow: brown; 
+
+ } 
+.webTitle{
+    font-style: italic;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    text-align: center;
+    font-style: oblique;
+    font-size: 30px;
+    padding-bottom: 20px;
+    padding-top: 20px;
+    color: darkblue;
+}
+
+.coverArt{
+    padding-bottom: 3px;
+    display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  align-content: center;
+  padding-top: 20px;
+}
+
+.now-playing{
+    color: blueviolet;
+    border-style: double;
+    border-width: 5px;
+    border-image-width: 0.35rem;
+    
+}
+
+#playlists div, #playlists h2{
+    
+    display: absolute;
+    margin: auto;
+    border: solid;
+    width: 50%;
+    text-align: center;
+    padding-bottom: 20px;
+} 
+#add-section input{
+    display: flex;
+    height: 20px;
+    justify-content: space-evenly;
+    
+    margin: 10px;
+}
+   
+
+
+
