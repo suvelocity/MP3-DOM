@@ -1,9 +1,10 @@
 /* Your code here */
 body{
-    background-color: chartreuse;
+    background-color: whitesmoke;
+    text-align: center;
 }
 .songs{
-    background-color: blueviolet;
+    background-color: gray;
     border: 5px, solid, coral;
     display: inline-block;
     
@@ -11,5 +12,11 @@ body{
 .playlist{
     background-color: crimson;
     border: 5px, solid;
-    display: inline-block;
+   
+}
+.songs img{
+    height: 50px;
+}
+.cover-art{
+    height: 50px;
 }
