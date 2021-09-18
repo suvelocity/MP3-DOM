@@ -1,1 +1,81 @@
 /* Your code here */
+@import url('https://fonts.googleapis.com/css?family=Roboto');
+
+
+* {
+   margin: 0;
+   padding: 0;
+   font-family: Arial, Helvetica, sans-serif;
+   list-style-type: none;
+   text-decoration: none;
+   -webkit-box-sizing: border-box;
+   -moz-box-sizing: border-box;
+   -o-box-sizing: border-box;
+   box-sizing: border-box;
+}
+
+img {
+   max-width: 100%;
+}
+
+html, body {
+   height: 100%;
+}
+
+body {
+   background: grey no-repeat center;
+}
+h1 { color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 110px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center; }
+
+
+#main{
+    background-color: greenyellow;
+    
+   background-image: linear-gradient(to right, red 40%,  blue 60%);
+     
+   background-size: 300% 100%;
+    transition: background-position .5s;
+    background-position: 0;
+    
+    border: none;
+    padding: 1em;
+} 
+#main:hover{
+    background-position: 100%;
+ }
+.card {
+   position: relative;
+   background: grey;
+   max-width: 500px;
+   margin: 20px auto;
+   box-shadow: 0px 0px 30px 2px #000;
+   align-content: center;
+}
+p{
+    color: black;
+    text-align: left;
+    font-weight: normal;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 5px 30px;
+}
+button{
+   color: black;
+   text-align: left;
+   font-weight: normal;
+   text-transform: uppercase;
+   letter-spacing: 0.1em;
+   margin: 5px 30px;
+   border: none;
+}
+img{
+    display: block;
+    background:red;
+    color: white;
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+    padding: 10px;
+    transition: 250ms;
+}
