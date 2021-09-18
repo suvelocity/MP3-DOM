@@ -1,6 +1,9 @@
 
 *{
     box-sizing: border top;
+    background-image: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-lkhOnIpwZANuilCPdV47Ggp76BHi2aVlPg&usqp=CAU);
+
+    
 }
 #songs {
     display: flex;
@@ -8,6 +11,7 @@
     gap: 10px;
     justify-content: flex-end;
    flex-direction: column;
+   top: -50px;
    max-width: 20rem;
    font-size: 13px;
    font-family: monospace;
@@ -18,12 +22,12 @@
    
 }
 
-/* .coverArt{
+ .coverArt{
     align-items: center;
     box-sizing: (10px 10px 10px 10px);
     box-shadow: brown; 
 
- } */
+ } 
 .webTitle{
     font-style: italic;
     font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
@@ -53,7 +57,7 @@
     
 }
 
-#playlists div, h2{
+#playlists div, #playlists h2{
     
     display: absolute;
     margin: auto;
@@ -61,9 +65,15 @@
     width: 50%;
     text-align: center;
     padding-bottom: 20px;
+} 
+#add-section input{
+    display: flex;
+    height: 20px;
+    justify-content: space-evenly;
     
-    
+    margin: 10px;
+}
    
 
-}
+
 
