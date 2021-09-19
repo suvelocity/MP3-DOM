@@ -118,3 +118,28 @@ function addSong({ title, album, artist, duration, coverArt }) {
   let addingSong = document.getElementById('songs');
   addingSong.append(songElement);
 }
+function handleSongClickEvent(event) {
+  // Your code here
+  let newSongObj = {
+      'title': document.getElementsByName('title')[0].value,
+      'album': document.getElementsByName('album')[0].value,
+      'artist': document.getElementsByName('artist')[0].value,
+      'duration': document.getElementsByName('duration')[0].value,
+      'coverArt:': document.getElementsByName('cover-art')[0].value
+  }
+  console.log(newSongObj);
+  addSong(newSongObj);
+}
+
+let addButton = document.getElementById('add-button');
+addButton.addEventListener('click', handleSongClickEvent);
+
+let songSlist = document.getElementById('songs');
+songSlist.addEventListener('click', (e) => {
+    if (e.target.className === 'play-button') {
+        console.log(e.target.parentElement);
+        playSong(e.target.parentElement.id)
+    } else if (e.target.className === 'remove-button') {
+        removeSong(e.target.parentElement.id);
+    }
+});
