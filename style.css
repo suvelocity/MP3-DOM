@@ -1,1 +1,58 @@
-/* Your code here */
+body{
+    font-family: sans-serif;
+    background: repeating-linear-gradient(45deg, #3f87a6, #ebf8e1 15%, #f69d3c 20%);
+}
+h1{
+    color: rgba(5, 56, 25, 0.637);
+    text-decoration: underline;
+    text-align: center;
+    font-size: 100px;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    
+}
+.songShell{
+border: 7px solid rgb(224, 19, 104);
+border-width: 3px;
+border-color: darkgoldenrod;
+align-items: center;
+margin-right: 100px;
+margin-left: 300px;
+margin-top: 100px;
+margin-bottom: 50px;
+}
+.playlistShell {
+    border: 10px double rgb(95, 84, 158);
+    border-radius: 10%;
+    
+} 
+.songShell img{
+    border-radius: 20%;
+    display: block;
+    margin-left: auto;
+  margin-right:80px;
+  padding-top: 30px;
+  padding-right: 100px;
+  padding-bottom: 40px;
+  
+}
+.playlistShell h3{
+    color: blue;
+  font-family: verdana;
+  font-size: 100%;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+div{
+    color:darkviolet;
+    font-size: 20px;
+}
+h2{
+    font-size: 60px;
+    font-family: monospace;
+}
+h3{
+    font-size: 40px;
+}
+h4{
+    font-size: 30px;
+    font-family: cursive;
+}
