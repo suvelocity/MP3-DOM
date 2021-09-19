@@ -11,6 +11,9 @@
       notChosen.style.backgroundColor = "rgba(0, 0, 0, 0)";
   }
   document.getElementById(songId).style.backgroundColor ="hsla(50, 33%, 25%, .75)";
+  if(songId < 7){
+    setTimeout(()=>{playSong(Number(songId) + 1);},getSongObjectById(songId).duration * 1000);
+}
 }
 
 /**
