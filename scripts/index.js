@@ -126,3 +126,8 @@ function playlistDuration(id) {
 function getPlaylist(id) {
     return player.playlists.find(a => a.id === id)
 }
+function makeID(arr) {
+    for (let i = 1; i <= arr.length; i++)
+        if (arr.every(a => a.id !== i))
+            return i
+}
