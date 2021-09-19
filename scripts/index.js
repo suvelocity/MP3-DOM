@@ -16,7 +16,15 @@
     setTimeout(function() { playSong(Number(songId) + 1); }, getSongObjectById(songId).duration * 1000);
 }
 }
-
+let songSlist = document.getElementById('songs');
+songSlist.addEventListener('click', (e) => {
+    if (e.target.className === 'play-button') {
+        console.log(e.target.parentElement);
+        playSong(e.target.parentElement.id)
+    } else if (e.target.className === 'remove-button') {
+        removeSong(e.target.parentElement.id);
+    }
+});
 /**
 * Creates a song DOM element based on a song object.
 */
@@ -144,15 +152,7 @@ function handleAddSongEvent(event) {
 }
 
 
-let songSlist = document.getElementById('songs');
-songSlist.addEventListener('click', (e) => {
-    if (e.target.className === 'play-button') {
-        console.log(e.target.parentElement);
-        playSong(e.target.parentElement.id)
-    } else if (e.target.className === 'remove-button') {
-        removeSong(e.target.parentElement.id);
-    }
-});
+
 document.getElementById("add-button").addEventListener("click", handleAddSongEvent)
  
  
