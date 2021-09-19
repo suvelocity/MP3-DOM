@@ -1,11 +1,4 @@
 body {
-    /* 
-    display: flex;
-    flex-direction: row; 
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap-reverse;
-    display:flex;justify-content:center;align-items:center; */
     font-family: system-ui;
     font-weight: bold;
     background: linear-gradient(to right, red, yellow, green);
