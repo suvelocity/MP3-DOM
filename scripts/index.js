@@ -12,19 +12,9 @@
   }
   document.getElementById(songId).style.backgroundColor ="hsla(50, 33%, 25%, .75)";
   console.log(songId);
-    if (songId < 7) {
-        window.setTimeout(function() { playSong(Number(songId) + 1); }, getSongObjectById(songId).duration * 1000);
-    }
+    
 }
-let songSlist = document.getElementById('songs');
-songSlist.addEventListener('click', (e) => {
-    if (e.target.className === 'play-button') {
-        console.log(e.target.parentElement);
-        playSong(e.target.parentElement.id)
-    } else if (e.target.className === 'remove-button') {
-        removeSong(e.target.parentElement.id);
-    }
-});
+
 /**
 * Creates a song DOM element based on a song object.
 */
@@ -34,8 +24,10 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
       let songArtist = createElement('h4',["Artist: " + artist]);
       let songDuration = createElement('h4',[secondsToMinutesConvertor(duration)]);
       let songCoverArt  = createElement('img',[],[],{src: coverArt})
-      let songElement = createElement('div',[SongTitle, songAlbum, songArtist, songDuration, songCoverArt],['songShell'],{id: id});
-      console.log(songElement);
+      let playButton = createElement('button', children = ["🔊"], classes = ["play-button"], attributes = { type: 'button', id: `playButton${id}` });
+      let removeButton = createElement('button', children = ["✖"], classes = ["remove-button"], attributes = { type: 'button' });
+      let songElement = createElement('div',[SongTitle, songAlbum, songArtist, songDuration, songCoverArt, playButton, removeButton],['songShell'],{id: id});
+      //console.log(songElement);
       songElement.setAttribute('onclick', `playSong(${id})`)
       return songElement;
   }
@@ -51,6 +43,7 @@ function createPlaylistElement({ id, name, songs }) {
   let playlistSongs = createElement('h3',["Amount of songs: " + songs.length]);
   let playlistFulllDuration = createElement('h3',["Duration - " + playlistDuration(id)]);
   let  playlistElem = createElement('div',[playlistName, playlistSongs, playlistFulllDuration],['playlistShell']);
+  const eventListeners = {};
   return playlistElem;
 }
 for(let playlist of player.playlists){
