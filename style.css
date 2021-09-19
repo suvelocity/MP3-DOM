@@ -1,1 +1,22 @@
 /* Your code here */
+body{
+    background-color: whitesmoke;
+    text-align: center;
+}
+.songs{
+    background-color: gray;
+    border: 5px, solid, coral;
+    display: inline-block;
+    
+}
+.playlist{
+    background-color: crimson;
+    border: 5px, solid;
+   
+}
+.songs img{
+    height: 50px;
+}
+.cover-art{
+    height: 50px;
+}
