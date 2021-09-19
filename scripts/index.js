@@ -13,18 +13,10 @@
   document.getElementById(songId).style.backgroundColor ="hsla(50, 33%, 25%, .75)";
   console.log(songId);
   if (songId < 7) {
-    setTimeout(function() { playSong(Number(songId) + 1); }, getSongObjectById(songId).duration * 1000);
+    setTimeout(()=> { playSong(Number(songId) + 1); }, getSongObjectById(songId).duration * 1000);
 }
 }
-let songSlist = document.getElementById('songs');
-songSlist.addEventListener('click', (e) => {
-    if (e.target.className === 'play-button') {
-        console.log(e.target.parentElement);
-        playSong(e.target.parentElement.id)
-    } else if (e.target.className === 'remove-button') {
-        removeSong(e.target.parentElement.id);
-    }
-});
+
 /**
 * Creates a song DOM element based on a song object.
 */
@@ -37,9 +29,9 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
       let playButton = createElement('button',["🔊"],["play-button"],{ type: 'button' });
       let removeButton = createElement('button',["✖"],["remove-button"],{ type: 'button' });
       let songElement = createElement('div',[SongTitle, songAlbum, songArtist, songDuration, songCoverArt,playButton,removeButton],['songShell'],{id: id});
-     // console.log(songElement);
+      console.log(songElement);
       const eventListeners = {};
-    // songElement.setAttribute('onclick', `playSong(${id})`)
+     
       return songElement;
   }
 for(let song of player.songs){
@@ -72,8 +64,9 @@ for(let playlist of player.playlists){
 *                           Each child can be a DOM element, or a string (if you just want a text element).
 * @param {Array} classes - the class list of the new element
 * @param {Object} attributes - the attributes for the new element
+* @param {Object} eventListeners - the event listeners on the element
 */
-function createElement(tagName, children = [], classes = [], attributes = {}) {
+function createElement(tagName, children = [], classes = [], attributes = {},eventListeners = {}) {
 let newEl = document.createElement(tagName);
 for(let child of children){
   if (typeof(child) === "string") {
@@ -89,11 +82,9 @@ for(let attr in attributes){
 }
 return newEl
 }
-//createSongElement('h2', [player.songs[0].title], "songTitles");
 document.getElementById("add-button").addEventListener("click", handleAddSongEvent);
 
 function removeSong(songId) {
-
   let removedSong = document.getElementById(songId);
   removedSong.style = 'display: none';
   for (let playlist of player.playlists) {
@@ -109,16 +100,15 @@ function removeSong(songId) {
       console.log(playlist);
       playlist.style = 'display: none';
   }
-  //generates the playlists list
   for (let playlist of player.playlists) {
       let playlistDiv = document.getElementById('playlists');
       playlistDiv.append(createPlaylistElement(playlist));
       playlistDiv.style = "display: block";
   }
 
+
 }
 function addSong({ title, album, artist, duration, coverArt }) {
-  // Your code here
   let SongTitle = createElement('h2',[title],['songTitles']);
       let songAlbum = createElement('h3',["Album: " + album]);
       let songArtist = createElement('h4',["Artist: " + artist]);
@@ -131,8 +121,13 @@ function addSong({ title, album, artist, duration, coverArt }) {
   let addingSong = document.getElementById('songs');
   addingSong.append(songElement);
 }
+/**
+ * Acts on a click event on an element inside the songs list.
+ * Should handle clicks on play buttons and remove buttons of songs.
+ *
+ * @param {MouseEvent} event - the click event
+ */
 function handleSongClickEvent(event) {
-  // Your code here
   let newSongObj = {
       'title': document.getElementsByName('title')[0].value,
       'album': document.getElementsByName('album')[0].value,
@@ -147,19 +142,21 @@ function handleSongClickEvent(event) {
 let addButton = document.getElementById('add-button');
 addButton.addEventListener('click', handleSongClickEvent);
 
+/**
+ * Handles a click event on the button that adds songs.
+ *
+ * @param {MouseEvent} event - the click event
+ */
 function handleAddSongEvent(event) {
-  // Your code here
 }
+let songSlist = document.getElementById('songs');
+songSlist.addEventListener('click', (event) => {
+    if (event.target.className === 'play-button') {
+        console.log(event.target.parentElement);
+        playSong(event.target.parentElement.id)
+    } else if (event.target.className === 'remove-button') {
+        removeSong(event.target.parentElement.id);
+    }
+});
 
-
-
-document.getElementById("add-button").addEventListener("click", handleAddSongEvent)
  
- 
-//song duration color functionlity
-let songDuration = document.querySelectorAll(".songShell span");
-let SongDurationArray = Array.from(songDuration);
-for (let i = 0; i < SongDurationArray.length; i++) {
-    let redAmount = player.songs[i].duration;
-    SongDurationArray[i].style.color = `rgb( ${(redAmount * 0.8533) - 120} , ${420 - (redAmount * 0.8533)} ,0)`;
-}
