@@ -12,7 +12,9 @@
   }
   document.getElementById(songId).style.backgroundColor ="hsla(50, 33%, 25%, .75)";
   console.log(songId);
-    
+  if (songId < 7) {
+    setTimeout(function() { playSong(Number(songId) + 1); }, getSongObjectById(songId).duration * 1000);
+}
 }
 
 /**
@@ -24,11 +26,12 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
       let songArtist = createElement('h4',["Artist: " + artist]);
       let songDuration = createElement('h4',[secondsToMinutesConvertor(duration)]);
       let songCoverArt  = createElement('img',[],[],{src: coverArt})
-      let playButton = createElement('button', children = ["🔊"], classes = ["play-button"], attributes = { type: 'button', id: `playButton${id}` });
-      let removeButton = createElement('button', children = ["✖"], classes = ["remove-button"], attributes = { type: 'button' });
-      let songElement = createElement('div',[SongTitle, songAlbum, songArtist, songDuration, songCoverArt, playButton, removeButton],['songShell'],{id: id});
-      //console.log(songElement);
-      songElement.setAttribute('onclick', `playSong(${id})`)
+      let playButton = createElement('button',["🔊"],["play-button"],{ type: 'button' });
+      let removeButton = createElement('button',["✖"],["remove-button"],{ type: 'button' });
+      let songElement = createElement('div',[SongTitle, songAlbum, songArtist, songDuration, songCoverArt,playButton,removeButton],['songShell'],{id: id});
+     // console.log(songElement);
+      const eventListeners = {}
+    // songElement.setAttribute('onclick', `playSong(${id})`)
       return songElement;
   }
 for(let song of player.songs){
@@ -43,7 +46,6 @@ function createPlaylistElement({ id, name, songs }) {
   let playlistSongs = createElement('h3',["Amount of songs: " + songs.length]);
   let playlistFulllDuration = createElement('h3',["Duration - " + playlistDuration(id)]);
   let  playlistElem = createElement('div',[playlistName, playlistSongs, playlistFulllDuration],['playlistShell']);
-  const eventListeners = {};
   return playlistElem;
 }
 for(let playlist of player.playlists){
@@ -77,3 +79,42 @@ return newEl
 }
 createSongElement('h2', [player.songs[0].title], "songTitles");
 
+function removeSong(songId) {
+  // Your code here
+  let removedSong = document.getElementById(songId);
+  removedSong.style = 'display: none';
+  for (let playlist of player.playlists) {
+      for (let i = 0; i <= playlist.songs.length; i++) {
+          if (playlist.songs[i] == songId) {
+              playlist.songs.splice(i, 1);
+              console.log(playlist.songs);
+          }
+      }
+  }
+  let removePlaylists = Array.from(document.querySelectorAll('.playlistShell'));
+  for (let playlist of removePlaylists) {
+      console.log(playlist);
+      playlist.style = 'display: none';
+  }
+  //generates the playlists list
+  for (let playlist of player.playlists) {
+      let playlistDiv = document.getElementById('playlists');
+      playlistDiv.append(createPlaylistElement(playlist));
+      playlistDiv.style = "display: block";
+  }
+
+}
+function addSong({ title, album, artist, duration, coverArt }) {
+  // Your code here
+  let SongTitle = createElement('h1',[title],['songTitles'],{});
+  let songAlbum = createElement('h2',["album: " + album],);
+  let songArtist = createElement('h2',["by: " + artist]);
+  let songDuration = createElement('span',[duration],);
+  let songCoverArt = createElement('img',[],[],{ src: coverArt })
+  let playButton = createElement('button',["🔊"],["play-button"],{ type: 'button' });
+  let removeButton = createElement('button',["✖"],["remove-button"],{ type: 'button' });
+  let songElement = createElement('div',[SongTitle, songAlbum, songArtist, songDuration, songCoverArt, playButton, removeButton],['songShell'], { id: `${generateId()}` });
+  const eventListeners = {}
+  let addingSong = document.getElementById('songs');
+  addingSong.append(songElement);
+}
