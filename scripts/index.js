@@ -45,7 +45,7 @@ const playsongnextSong = (id) =>{
     clearTimeout(runLoop);
     plrun = false;
     } 
-  if (id === player.songs.length) {
+  if (id === player.songs.length+1) {
     id = 1;
   }
   if(plrun === false){
