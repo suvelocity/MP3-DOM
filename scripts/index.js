@@ -11,11 +11,20 @@
       notChosen.style.backgroundColor = "rgba(0, 0, 0, 0)";
   }
   document.getElementById(songId).style.backgroundColor ="hsla(50, 33%, 25%, .75)";
-  if(songId < 7){
-    setTimeout(()=>{playSong(Number(songId) + 1);},getSongObjectById(songId).duration * 1000);
+  console.log(songId);
+    if (songId < 7) {
+        window.setTimeout(function() { playSong(Number(songId) + 1); }, getSongObjectById(songId).duration * 1000);
+    }
 }
-}
-
+let songSlist = document.getElementById('songs');
+songSlist.addEventListener('click', (e) => {
+    if (e.target.className === 'play-button') {
+        console.log(e.target.parentElement);
+        playSong(e.target.parentElement.id)
+    } else if (e.target.className === 'remove-button') {
+        removeSong(e.target.parentElement.id);
+    }
+});
 /**
 * Creates a song DOM element based on a song object.
 */
