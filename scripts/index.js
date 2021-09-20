@@ -10,43 +10,14 @@ const convertDuration = (duration) => {
 let runLoop;
 // is playSong is runing ? 
 plrun = false;
-
+const getIdForPlaysong = (id) =>{
+  return playSong(Math.abs(id.path[1].id))
+}
 function playSong(id) {
   // make all song background white 
   for (song of player.songs){
     document.getElementById(song.id).style.backgroundColor = "white";
   }
-
-  if(plrun){
-    document.getElementById(id.path[1].id).style.backgroundColor = "white";
-    clearTimeout(runLoop);
-    plrun = false;
-    } 
-  if (id === player.songs.length) {
-    id.path[1].id = 1;
-  }
-  if(plrun === false){
-    let changeButton = document.getElementsByClassName("play");
-   console.log(changeButton);
-      changeButton.innerHTML = "⏸";
-    
-    document.getElementById(id.path[1].id).style.backgroundColor = "#af934c";
-    
-    plrun = true;
-    // after 3 sec or duration of song turn off song 
-  runLoop = setTimeout(() => {
-    plrun = false;
-    document.getElementById(id.path[1].id).style.backgroundColor = "white";
-    playsongnextSong(Math.abs(id.path[1].id )+ 1);
-    
-  }, 3000); //duration of song here
-  changeButton.innerHTML = "▶"; 
-  }
-}
-    
-
-const playsongnextSong = (id) =>{
-  
   if(plrun){
     document.getElementById(id).style.backgroundColor = "white";
     clearTimeout(runLoop);
@@ -57,22 +28,22 @@ const playsongnextSong = (id) =>{
   }
   if(plrun === false){
     let changeButton = document.getElementsByClassName("play");
+   console.log(changeButton);
+      changeButton.innerHTML = "⏸";
     
     document.getElementById(id).style.backgroundColor = "#af934c";
+    
     plrun = true;
     // after 3 sec or duration of song turn off song 
   runLoop = setTimeout(() => {
-    changeButton[0].innerHTML = "⏸";
     plrun = false;
     document.getElementById(id).style.backgroundColor = "white";
-    playsongnextSong( id + 1);
+    playSong(id+ 1);
     
   }, 3000); //duration of song here
-  changeButton[0].innerHTML = "▶"; 
+  changeButton.innerHTML = "▶"; 
   }
-
 }
-
 /**
  * Removes a song from the player, and updates the DOM to match.
  *
@@ -178,7 +149,7 @@ function createSongElement({
   }
   // const classes = [];
   const getId = createElement('p', [id]);
-  const titleSong = createElement('span',[title]);
+  const titleSong = createElement('p',[title]);
   const artistEl = createElement("p", [artist]);
   let newDuration = convertDuration(duration)
   const durationEl = createElement("p", [newDuration], ["duration", "short-duration"], {
@@ -195,11 +166,11 @@ function createSongElement({
   };
 
   const playButton = createElement('button', ["▶"],['play']);
-  playButton.addEventListener("click", playSong);
+  playButton.addEventListener("click", getIdForPlaysong);
   const removeButton = createElement('button', ["❌"], ['remove']);
   removeButton.addEventListener("click", removeSong);
   // classes.push("songs");
-  return createElement("div", [getId,'Title: ',titleSong, "Artist: ", artistEl, "Duration: ", durationEl, imgEl,removeButton,  playButton], [], attrs, []);
+  return createElement("div", [getId, "Title: ",titleSong , "Artist: ", artistEl, "Duration: ", durationEl, imgEl,removeButton,  playButton], [], attrs, []);
 }
 
 
