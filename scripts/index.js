@@ -12,8 +12,10 @@ let runLoop;
 plrun = false;
 
 function playSong(id) {
-  
-  console.log(id.path[1].id);
+  for (song of player.songs){
+    document.getElementById(song.id).style.backgroundColor = "white";
+  }
+  console.log(id);
   if(plrun){
     document.getElementById(id.path[1].id).style.backgroundColor = "white";
     clearTimeout(runLoop);
@@ -23,9 +25,12 @@ function playSong(id) {
     id.path[1].id = 1;
   }
   if(plrun === false){
-    let changeButton = document.getElementsByClassName("play")[0];
+    let changeButton = document.getElementsByClassName("play");
+   
+      changeButton.innerHTML = "⏸";
+    
     document.getElementById(id.path[1].id).style.backgroundColor = "#af934c";
-    changeButton.innerHTML = "⏸";
+    
     plrun = true;
     // after 3 sec or duration of song turn off song 
   runLoop = setTimeout(() => {
@@ -34,10 +39,11 @@ function playSong(id) {
     playsongnextSong(Math.abs(id.path[1].id )+ 1);
     
   }, 3000); //duration of song here
-  changeButton[0].innerHTML = "▶"; 
+  changeButton.innerHTML = "▶"; 
   }
-   ///needs to set as duration song  
 }
+    
+
 const playsongnextSong = (id) =>{
   console.log(id);
   if(plrun){
@@ -97,8 +103,6 @@ document.getElementById("add-button").addEventListener("click", function () {
   duration = document.querySelectorAll('input[name = duration]')[0].value;
   let coverArt = document.querySelectorAll('input[name = cover-art]')[0].value;
   ele.coverArt = coverArt;
-
-
   addSong({
     id,
     title,
@@ -133,11 +137,7 @@ function addSong({
     coverArt
   });
   printaSong(id, title, album, artist, duration, coverArt);
-
-
 }
-
-
 /**
  * Acts on a click event on an element inside the songs list.
  * Should handle clicks on play buttons and remove buttons of songs.
@@ -167,6 +167,7 @@ function playlistDuration(id) {
 
 function createSongElement({
   id,
+  title,
   artist,
   duration,
   coverArt
@@ -176,6 +177,7 @@ function createSongElement({
   }
   // const classes = [];
   const getId = createElement('p', [id]);
+  const titleSong = createElement('span',[title]);
   const artistEl = createElement("p", [artist]);
   let newDuration = convertDuration(duration)
   const durationEl = createElement("p", [newDuration], ["duration", "short-duration"], {
@@ -193,12 +195,10 @@ function createSongElement({
 
   const playButton = createElement('button', ["▶"],['play']);
   playButton.addEventListener("click", playSong);
-  
-
   const removeButton = createElement('button', ["❌"], ['remove']);
   removeButton.addEventListener("click", removeSong);
   // classes.push("songs");
-  return createElement("div", [getId, "Artist: ", artistEl, "Duration: ", durationEl, imgEl,removeButton,  playButton], [], attrs, []);
+  return createElement("div", [getId,'Title: ',titleSong, "Artist: ", artistEl, "Duration: ", durationEl, imgEl,removeButton,  playButton], [], attrs, []);
 }
 
 

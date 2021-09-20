@@ -6,6 +6,8 @@ body {
 }
 h1 {
     text-align: center;
+    font-family: fantasy;
+
 }
 
 #songs {
@@ -16,12 +18,13 @@ h1 {
   row-gap: 15px;
   flex-wrap: wrap;
   margin: auto;
-  margin-left: 250px;
+  margin-left: 10%;
 }
 .songs {
   border: 1px solid black;
   box-shadow: 10px 10px grey;
-  width: 301px;
+  width: 272px;
+  padding: 48px;
 }
 .playlist {
   border: 1px solid black;
@@ -51,7 +54,8 @@ h1 {
 }
 .remove { 
   float: left;
-    margin-top: -168.5%;
+    margin-top: -197.5%;
+    margin-left: -34px;
 }
 img{
   width: 100%;
