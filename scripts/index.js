@@ -12,10 +12,11 @@ let runLoop;
 plrun = false;
 
 function playSong(id) {
+  // make all song background white 
   for (song of player.songs){
     document.getElementById(song.id).style.backgroundColor = "white";
   }
-  console.log(id);
+
   if(plrun){
     document.getElementById(id.path[1].id).style.backgroundColor = "white";
     clearTimeout(runLoop);
@@ -26,7 +27,7 @@ function playSong(id) {
   }
   if(plrun === false){
     let changeButton = document.getElementsByClassName("play");
-   
+   console.log(changeButton);
       changeButton.innerHTML = "⏸";
     
     document.getElementById(id.path[1].id).style.backgroundColor = "#af934c";
@@ -45,7 +46,7 @@ function playSong(id) {
     
 
 const playsongnextSong = (id) =>{
-  console.log(id);
+  
   if(plrun){
     document.getElementById(id).style.backgroundColor = "white";
     clearTimeout(runLoop);

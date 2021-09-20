@@ -53,9 +53,12 @@ h1 {
  
 }
 .remove { 
-  float: left;
-    margin-top: -197.5%;
-    margin-left: -34px;
+  display: inline-block;
+    border: 1px solid black;
+    position: relative;
+    float: left;
+    margin-left: -50px;
+    margin-top: -237px;
 }
 img{
   width: 100%;
