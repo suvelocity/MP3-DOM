@@ -28,10 +28,9 @@ function createSongElement({ id, title, album, artist, duration, coverArt }) {
       let songCoverArt  = createElement('img',[],[],{src: coverArt})
       let playButton = createElement('button',["🔊"],["play-button"],{ type: 'button' });
       let removeButton = createElement('button',["✖"],["remove-button"],{ type: 'button' });
-      let songElement = createElement('div',[SongTitle, songAlbum, songArtist, songDuration, songCoverArt,playButton,removeButton],['songShell'],{id: id});
-      console.log(songElement);
+      let songElement = createElement('div',[SongTitle, songAlbum, songArtist, songDuration, songCoverArt,playButton,removeButton],['songShell'],{id:id});
       const eventListeners = {};
-     
+      console.log(songElement);
       return songElement;
   }
 for(let song of player.songs){
@@ -46,7 +45,7 @@ function createPlaylistElement({ id, name, songs }) {
   let playlistSongs = createElement('h3',["Amount of songs: " + songs.length]);
   let playlistFulllDuration = createElement('h3',["Duration - " + playlistDuration(id)]);
   let  playlistElem = createElement('div',[playlistName, playlistSongs, playlistFulllDuration],['playlistShell']);
-  const eventListeners = {}
+  const eventListeners = {};
   return playlistElem;
 }
 for(let playlist of player.playlists){
@@ -109,16 +108,16 @@ function removeSong(songId) {
 
 }
 function addSong({ title, album, artist, duration, coverArt }) {
-  let SongTitle = createElement('h2',[title],['songTitles']);
-      let songAlbum = createElement('h3',["Album: " + album]);
-      let songArtist = createElement('h4',["Artist: " + artist]);
-      let songDuration = createElement('h4',[secondsToMinutesConvertor(duration)]);
-      let songCoverArt  = createElement('img',[],[],{src: coverArt})
-      let playButton = createElement('button',["🔊"],["play-button"],{ type: 'button' });
-      let removeButton = createElement('button',["✖"],["remove-button"],{ type: 'button' });
-      let songElement = createElement('div',[SongTitle, songAlbum, songArtist, songDuration, songCoverArt,playButton,removeButton],['songShell'],{id: id});
-  const eventListeners = {};
+  let SongTitle = createElement('h2',[title],['songTitles'],[],{});
+  let songAlbum = createElement('h3',["Album: " + album],[],{});
+  let songArtist = createElement('h4',["Artist: " + artist]);
+  let songDuration = createElement('h4',[secondsToMinutesConvertor(duration)]);
+  let songCoverArt  = createElement('img',[],[],{src: coverArt})
+  let playButton = createElement('button',["🔊"],["play-button"],{ type: 'button' });
+  let removeButton = createElement('button',["✖"],["remove-button"],{ type: 'button' });
+  let songElement = createElement('div',[SongTitle, songAlbum, songArtist, songDuration, songCoverArt,playButton,removeButton],['songShell']);
   let addingSong = document.getElementById('songs');
+  const eventListeners = {};
   addingSong.append(songElement);
 }
 /**
